@@ -5,7 +5,81 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import httpx
 import pytest
 
-from app.providers.subsource import SubsourceProvider, SubSourceService
+from app.providers.subsource import SubsourceProvider, SubSourceService, _coerce_file_list
+
+
+@pytest.fixture(autouse=True)
+def _adapt_legacy_get_mocks_to_bounded_json(monkeypatch):
+    """Keep provider behavior tests' historical fake GET responses usable.
+
+    Bounded streaming behavior itself is covered by Stage 2 HTTP-helper tests;
+    this adapter maps existing endpoint response fixtures to bounded JSON calls.
+    """
+    from app.utils import http_limits
+
+    async def fake_bounded_json(client, method, url, **kwargs):
+        requester = getattr(client, method.lower())
+        call_kwargs = {
+            "params": kwargs.get("params"),
+            "headers": kwargs.get("headers"),
+            "timeout": kwargs.get("timeout"),
+        }
+        if kwargs.get("json_body") is not None:
+            call_kwargs["json"] = kwargs["json_body"]
+        response = await requester(url, **call_kwargs)
+        status = response.status_code
+        if status not in kwargs.get("accepted_statuses", (200,)):
+            return status, None
+        return status, response.json()
+
+    def fake_dns(host, port, **kwargs):
+        return [(2, 1, 6, "", ("93.184.216.34", port or 443))]
+
+    monkeypatch.setattr(http_limits, "bounded_fetch_json", fake_bounded_json)
+    monkeypatch.setattr(http_limits.socket, "getaddrinfo", fake_dns)
+
+
+@pytest.mark.asyncio
+async def test_subsource_resolve_movie_id_selects_requested_season():
+    mock_client = AsyncMock(spec=httpx.AsyncClient)
+    response = MagicMock(spec=httpx.Response)
+    response.status_code = 200
+    response.json.return_value = {
+        "data": [
+            {"movieId": 101, "season": 1},
+            {"movieId": 108, "seasonNumber": 8},
+        ]
+    }
+    mock_client.get.return_value = response
+
+    movie_id = await SubSourceService("transient-key").resolve_movie_id(
+        mock_client, "tt0773262", season=8
+    )
+    assert movie_id == 108
+
+
+@pytest.mark.asyncio
+async def test_subsource_resolve_movie_id_fails_closed_for_missing_requested_season():
+    mock_client = AsyncMock(spec=httpx.AsyncClient)
+    response = MagicMock(spec=httpx.Response)
+    response.status_code = 200
+    response.json.return_value = {
+        "data": [{"movieId": 101, "season": 1}, {"movieId": 102, "season": 2}]
+    }
+    mock_client.get.return_value = response
+
+    movie_id = await SubSourceService("transient-key").resolve_movie_id(
+        mock_client, "tt0773262", season=8
+    )
+    assert movie_id is None
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [(["file.ass", "file.srt"], ["file.ass", "file.srt"]), ("file.vtt", ["file.vtt"]), (3, []), (None, [])],
+)
+def test_subsource_files_field_coercion(value, expected):
+    assert _coerce_file_list(value) == expected
 
 
 @pytest.mark.asyncio

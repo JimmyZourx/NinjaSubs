@@ -72,6 +72,8 @@ class SubdlProvider(BaseSubtitleProvider):
         }
 
         all_subtitles_raw: list[dict] = []
+        from app.utils.http_limits import bounded_fetch_json
+
         seen_urls = set()
         page = 1
         max_pages = 5
@@ -82,31 +84,33 @@ class SubdlProvider(BaseSubtitleProvider):
                 page_params["page"] = page
 
             try:
-                resp = await self.client.get(
+                status, response_data = await bounded_fetch_json(
+                    self.client,
+                    "GET",
                     self.BASE_URL,
                     params=page_params,
                     headers=headers,
                     timeout=settings.UPSTREAM_TIMEOUT,
+                    allowed_hosts={"api.subdl.com"},
                 )
-
-                if resp.status_code in (401, 403):
+                if status in (401, 403):
                     logger.warning(
-                        f"Subdl API authentication failed (HTTP {resp.status_code}). "
-                        f"Please verify your SUBDL_API_KEY: {resp.text[:200]}"
+                        f"Subdl API authentication failed (HTTP {status}). "
+                        "Please verify your SUBDL_API_KEY."
                     )
                     break
 
-                if resp.status_code == 429:
+                if status == 429:
                     logger.warning("Subdl API rate limit reached (HTTP 429).")
                     break
 
-                if resp.status_code != 200:
+                if status != 200 or not isinstance(response_data, dict):
                     logger.warning(
-                        f"Subdl API returned HTTP {resp.status_code} for IMDb {imdb_id}: {resp.text[:200]}"
+                        f"Subdl API returned an unusable response (HTTP {status}) for IMDb {imdb_id}"
                     )
                     break
 
-                data = resp.json()
+                data = response_data
                 if not data.get("status") and not data.get("subtitles"):
                     logger.debug(f"Subdl returned no subtitles for {imdb_id} on page {page}")
                     break
@@ -150,8 +154,11 @@ class SubdlProvider(BaseSubtitleProvider):
             except httpx.TimeoutException:
                 logger.warning(f"Subdl search request timed out for {imdb_id} on page {page}")
                 break
-            except Exception as e:
-                logger.warning(f"Error querying Subdl page {page} for {imdb_id}: {e}")
+            except Exception as exc:
+                logger.warning(
+                    "Error querying Subdl page %s for %s: %s",
+                    page, imdb_id, type(exc).__name__,
+                )
                 break
 
         # Fallback to season pack if episode-specific query returned 0 items
@@ -162,19 +169,21 @@ class SubdlProvider(BaseSubtitleProvider):
             fallback_params = dict(params)
             fallback_params.pop("episode_number", None)
             try:
-                resp = await self.client.get(
+                status, fallback_data = await bounded_fetch_json(
+                    self.client,
+                    "GET",
                     self.BASE_URL,
                     params=fallback_params,
                     headers=headers,
                     timeout=settings.UPSTREAM_TIMEOUT,
+                    allowed_hosts={"api.subdl.com"},
                 )
-                if resp.status_code == 200:
-                    data = resp.json()
-                    for item in data.get("subtitles") or []:
+                if status == 200 and isinstance(fallback_data, dict):
+                    for item in fallback_data.get("subtitles") or []:
                         if isinstance(item, dict):
                             all_subtitles_raw.append(item)
             except Exception as fb_err:
-                logger.debug(f"Subdl season pack fallback error: {fb_err}")
+                logger.debug("Subdl season pack fallback error: %s", type(fb_err).__name__)
 
         total_fetched = len(all_subtitles_raw)
         logger.info(f"[SubDL Response] Total items received from API: {total_fetched}")
@@ -274,6 +283,7 @@ class SubdlProvider(BaseSubtitleProvider):
                 headers=headers,
                 params=params,
                 timeout=settings.UPSTREAM_TIMEOUT,
+                allowed_hosts={"api.subdl.com", "dl.subdl.com", "subdl.com"},
             )
             if status in (401, 403):
                 logger.warning(

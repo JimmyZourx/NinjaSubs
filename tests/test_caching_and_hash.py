@@ -34,6 +34,26 @@ from app.utils.config_parser import encode_user_config
 def client():
     return TestClient(app)
 
+
+@pytest.fixture(autouse=True)
+def _adapt_legacy_api_response_mocks(monkeypatch):
+    """Bridge existing client.get mocks while bounded JSON transport is tested separately."""
+    from app.utils import http_limits
+
+    async def fake_bounded_json(client, method, url, **kwargs):
+        response = await getattr(client, method.lower())(
+            url,
+            params=kwargs.get("params"),
+            headers=kwargs.get("headers"),
+            timeout=kwargs.get("timeout"),
+        )
+        status = response.status_code
+        if status not in kwargs.get("accepted_statuses", (200,)):
+            return status, None
+        return status, response.json()
+
+    monkeypatch.setattr(http_limits, "bounded_fetch_json", fake_bounded_json)
+
 @pytest.fixture(autouse=True)
 def reset_admin_token():
     original = getattr(settings, "NINJASUBS_ADMIN_TOKEN", "")

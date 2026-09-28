@@ -11,20 +11,20 @@ import httpx
 from app.config import settings
 from app.models import SubtitleRelease
 from app.providers.base import BaseSubtitleProvider
+from app.services.sync.matching import _season_number
 from app.utils.language import get_subsource_lang_name, normalize_to_iso639_2
 from app.utils.uploader import extract_uploader
 
 logger = logging.getLogger("uvicorn.error")
 
 
-def _mask_key(val: str) -> str:
-    """Mask sensitive API key strings for logs."""
-    if not val:
-        return "<empty>"
-    v = str(val).strip()
-    if len(v) <= 8:
-        return "***"
-    return f"{v[:4]}...{v[-4:]}"
+def _coerce_file_list(value: Any) -> list[str]:
+    """Normalize provider file metadata which may be a count, scalar, or list."""
+    if isinstance(value, (list, tuple, set)):
+        return [str(item) for item in value]
+    if isinstance(value, str):
+        return [value]
+    return []
 
 
 def _matches_series_episode(item: dict[str, Any], season: int, episode: int, raw_name: str) -> bool:
@@ -80,6 +80,19 @@ def _matches_series_episode(item: dict[str, Any], season: int, episode: int, raw
     has_specific_indicator = False
     for r_name in candidates:
         r_lower = r_name.lower()
+
+        detected_season = _season_number(r_name)
+        if detected_season is not None:
+            has_specific_indicator = True
+            if detected_season != target_s:
+                return False
+
+        season_episode = re.search(r"(?:^|[^0-9])(\d{1,2})x(\d{1,3})(?:[^0-9]|$)", r_lower)
+        if season_episode:
+            has_specific_indicator = True
+            if int(season_episode.group(1)) == target_s and int(season_episode.group(2)) == target_e:
+                return True
+            continue
 
         # a) Standard SxxExx / SeXX.EpXX
         m_se = re.search(
@@ -171,70 +184,81 @@ class SubSourceService:
         imdb_id: str,
         title: str | None = None,
         year: int | None = None,
+        season: int | None = None,
     ) -> int | None:
         """
         Step 1: Resolve internal SubSource movieId using IMDb ID or text title search.
-        Tries candidate query parameters on /movies/search.
+        When the catalog returns season records, select the requested season and
+        fail closed if that season is absent.
         """
         endpoint = f"{self.BASE_URL}/movies/search"
 
-        def _extract_id(data: Any) -> int | None:
+        def _collect_entries(data: Any) -> list[dict[str, Any]]:
+            entries: list[dict[str, Any]] = []
             if isinstance(data, dict):
-                for id_key in ("movieId", "movie_id", "id", "_id"):
-                    if data.get(id_key) is not None:
-                        try:
-                            return int(data[id_key])
-                        except (ValueError, TypeError):
-                            pass
+                if any(data.get(key) is not None for key in ("movieId", "movie_id", "id", "_id")):
+                    entries.append(data)
                 for nested_key in ("data", "movies", "results"):
                     if nested_key in data:
-                        found = _extract_id(data[nested_key])
-                        if found is not None:
-                            return found
+                        entries.extend(_collect_entries(data[nested_key]))
             elif isinstance(data, list):
                 for item in data:
-                    found = _extract_id(item)
-                    if found is not None:
-                        return found
+                    entries.extend(_collect_entries(item))
+            return entries
+
+        def _entry_id(entry: dict[str, Any]) -> int | None:
+            for key in ("movieId", "movie_id", "id", "_id"):
+                if entry.get(key) is not None:
+                    try:
+                        return int(entry[key])
+                    except (ValueError, TypeError):
+                        continue
             return None
+
+        def _entry_season(entry: dict[str, Any]) -> int | None:
+            for key in ("season", "seasonNumber", "season_number"):
+                if entry.get(key) is not None:
+                    try:
+                        return int(entry[key])
+                    except (ValueError, TypeError):
+                        continue
+            return None
+
+        def _select_id(data: Any) -> int | None:
+            entries = [entry for entry in _collect_entries(data) if _entry_id(entry) is not None]
+            if season is not None:
+                matches = [entry for entry in entries if _entry_season(entry) == season]
+                if matches:
+                    return _entry_id(matches[0])
+                if any(_entry_season(entry) is not None for entry in entries):
+                    return None
+            return _entry_id(entries[0]) if entries else None
+
+        from app.utils.http_limits import bounded_fetch_json
 
         # 1. Primary lookup: direct IMDb ID query
         imdb_params = {"searchType": "imdb", "imdb": imdb_id}
         try:
-            logger.info(
-                f"[SubSource Movie Search] Outbound URL: {endpoint} | Params: {imdb_params}"
-            )
-            resp = await client.get(
+            status, data = await bounded_fetch_json(
+                client,
+                "GET",
                 endpoint,
-                headers=self.headers,
                 params=imdb_params,
+                headers=self.headers,
                 timeout=settings.UPSTREAM_TIMEOUT,
+                allowed_hosts={"api.subsource.net"},
             )
-            raw_snippet = resp.text[:500] if resp.text else "<empty>"
-            logger.info(
-                f"[SubSource Movie Search Response] Status: {resp.status_code} | Body[:500]: {raw_snippet}"
-            )
-
-            if resp.status_code == 200:
-                try:
-                    data = resp.json()
-                    mid = _extract_id(data)
-                    if mid:
-                        logger.info(
-                            f"[SubSource Movie Search] Successfully resolved movieId={mid} for '{imdb_id}'"
-                        )
-                        return mid
-                except Exception as json_err:
-                    logger.warning(
-                        f"[SubSource Movie Search] Failed to decode JSON response: {json_err}"
-                    )
-            elif resp.status_code in (401, 403):
+            if status == 200:
+                mid = _select_id(data)
+                if mid:
+                    return mid
+            elif status in (401, 403):
                 logger.warning(
-                    f"[SubSource Movie Search] Authentication failed (HTTP {resp.status_code}). Check SUBSOURCE_API_KEY."
+                    f"[SubSource Movie Search] Authentication failed (HTTP {status})."
                 )
                 return None
-        except Exception as e:
-            logger.warning(f"[SubSource Movie Search] IMDb lookup error: {e}")
+        except Exception as exc:
+            logger.warning("[SubSource Movie Search] IMDb lookup failed: %s", type(exc).__name__)
 
         # 2. Fallback lookup: text search if title is provided
         if title:
@@ -242,40 +266,28 @@ class SubSourceService:
             if year:
                 text_params["year"] = year
             try:
-                logger.info(
-                    f"[SubSource Movie Search Fallback] Outbound URL: {endpoint} | Params: {text_params}"
-                )
-                resp = await client.get(
+                status, data = await bounded_fetch_json(
+                    client,
+                    "GET",
                     endpoint,
-                    headers=self.headers,
                     params=text_params,
+                    headers=self.headers,
                     timeout=settings.UPSTREAM_TIMEOUT,
+                    allowed_hosts={"api.subsource.net"},
                 )
-                raw_snippet = resp.text[:500] if resp.text else "<empty>"
-                logger.info(
-                    f"[SubSource Movie Search Fallback Response] Status: {resp.status_code} | Body[:500]: {raw_snippet}"
-                )
-
-                if resp.status_code == 200:
-                    try:
-                        data = resp.json()
-                        mid = _extract_id(data)
-                        if mid:
-                            logger.info(
-                                f"[SubSource Movie Search] Successfully resolved movieId={mid} via text fallback for '{title}'"
-                            )
-                            return mid
-                    except Exception as json_err:
-                        logger.warning(
-                            f"[SubSource Movie Search Fallback] Failed to decode JSON response: {json_err}"
-                        )
-                elif resp.status_code in (401, 403):
+                if status == 200:
+                    mid = _select_id(data)
+                    if mid:
+                        return mid
+                elif status in (401, 403):
                     logger.warning(
-                        f"[SubSource Movie Search] Authentication failed (HTTP {resp.status_code}). Check SUBSOURCE_API_KEY."
+                        f"[SubSource Movie Search] Authentication failed (HTTP {status})."
                     )
                     return None
-            except Exception as e:
-                logger.warning(f"[SubSource Movie Search Fallback] Text fallback error: {e}")
+            except Exception as exc:
+                logger.warning(
+                    "[SubSource Movie Search Fallback] Lookup failed: %s", type(exc).__name__
+                )
 
         logger.warning(
             f"[SubSource Movie Search] Could not resolve movieId for IMDb ID '{imdb_id}'"
@@ -298,21 +310,13 @@ class SubSourceService:
     ) -> list:
         try:
             subtitles_endpoint = f"{self.BASE_URL}/subtitles"
-            sanitized_headers = {
-                k: (
-                    f"Bearer {_mask_key(self.api_key)}"
-                    if k.lower() == "authorization"
-                    else (_mask_key(v) if k.lower() == "x-api-key" else v)
-                )
-                for k, v in self.headers.items()
-            }
-            logger.info(
-                f"[SubSource Request] Outbound URL: {subtitles_endpoint} | Sanitized Headers: {sanitized_headers}"
-            )
+            logger.info("[SubSource Request] Searching authenticated reference metadata")
+
+            from app.utils.http_limits import bounded_fetch_json
 
             # Step 1: Resolve internal SubSource movieId using IMDb ID
             movie_id = await self.resolve_movie_id(
-                client=client, imdb_id=imdb_id, title=title, year=year
+                client=client, imdb_id=imdb_id, title=title, year=year, season=season
             )
 
             async def _fetch_pages(base_params: dict[str, Any]) -> list[Any]:
@@ -326,27 +330,23 @@ class SubSourceService:
                     p["page"] = page
 
                     try:
-                        resp = await client.get(
+                        status, data = await bounded_fetch_json(
+                            client,
+                            "GET",
                             subtitles_endpoint,
                             params=p,
                             headers=self.headers,
                             timeout=settings.UPSTREAM_TIMEOUT,
-                        )
-                        logger.info(f"[SubSource Request Page {page}] URL: {resp.request.url}")
-                        logger.info(
-                            f"[SubSource Response Page {page}] Status Code: {resp.status_code}"
+                            allowed_hosts={"api.subsource.net"},
                         )
 
-                        if resp.status_code != 200:
+                        if status != 200:
                             logger.warning(
-                                f"[SubSource] HTTP {resp.status_code} on page {page} for {imdb_id}: {resp.text[:300]}"
+                                f"[SubSource] HTTP {status} on page {page} for {imdb_id}"
                             )
                             break
-
-                        try:
-                            data = resp.json()
-                        except Exception:
-                            data = json.loads(resp.text)
+                        if not isinstance(data, (dict, list)):
+                            break
 
                         batch: list[Any] = []
                         if isinstance(data, list):
@@ -405,7 +405,8 @@ class SubSourceService:
 
                     except Exception as page_err:
                         logger.warning(
-                            f"[SubSource] Pagination fetch error on page {page}: {page_err}"
+                            "[SubSource] Pagination fetch failed on page %s: %s",
+                            page, type(page_err).__name__,
                         )
                         break
 
@@ -518,14 +519,15 @@ class SubSourceService:
                             or item.get("downloadUrl")
                             or f"/subtitles/{sub_id}/download",
                             "hearing_impaired": is_hi,
-                            "files": item.get("files") or [],
+                            "files": _coerce_file_list(item.get("files")),
                             "uploader": uploader,
                         }
                     )
                     passed += 1
                 except Exception as parse_err:
                     logger.error(
-                        f"[SubSource Item Parse Error] Error parsing item #{idx}: {parse_err} | Item: {item}"
+                        "[SubSource Item Parse Error] Item #%s failed to parse: %s",
+                        idx, type(parse_err).__name__,
                     )
                     continue
 
@@ -539,7 +541,7 @@ class SubSourceService:
             return matched_subs
 
         except Exception as e:
-            logger.error(f"[SubSource Fetch Error] {str(e)}", exc_info=True)
+            logger.error("[SubSource Fetch Error] %s", type(e).__name__)
             return []
 
 
@@ -550,6 +552,8 @@ class SubsourceProvider(BaseSubtitleProvider):
     BASE_URL = "https://api.subsource.net/api/v1"
     API_SUBTITLES_PATH = "/subtitles"
     API_DOWNLOAD_PATH = "/subtitles/{subtitle_id}/download"
+    API_HOSTS = frozenset({"api.subsource.net"})
+    DOWNLOAD_HOSTS = frozenset({"api.subsource.net", "subsource.net", "cloudfront.net", "amazonaws.com"})
 
     def _get_headers(self, api_key: str | None = None) -> dict[str, str]:
         headers = {
@@ -662,7 +666,7 @@ class SubsourceProvider(BaseSubtitleProvider):
                     raw_release = raw_release[:-4]
 
                 # Determine subtitle format (.ass, .ssa, .vtt, .srt)
-                files_list = item.get("files") or []
+                files_list = _coerce_file_list(item.get("files"))
                 raw_lower = raw_release.lower()
                 if raw_lower.endswith(".ass") or any(
                     str(f).lower().endswith(".ass") for f in files_list
@@ -721,7 +725,12 @@ class SubsourceProvider(BaseSubtitleProvider):
         Handles both direct binary streams and JSON redirects with downloadUrl.
         Performs exactly ONE streaming request for the API call.
         """
-        from app.utils.http_limits import bounded_download_bytes, safe_headers_for_cdn
+        from app.utils.http_limits import (
+            MAX_HTML_RESPONSE_BYTES,
+            bounded_download_bytes,
+            is_allowed_provider_url,
+            safe_headers_for_cdn,
+        )
 
         effective_key = (api_key or settings.SUBSOURCE_API_KEY or "").strip()
         headers = self._get_headers(effective_key)
@@ -731,12 +740,23 @@ class SubsourceProvider(BaseSubtitleProvider):
         if not url.startswith("http"):
             url = f"{self.BASE_URL}/subtitles/{download_ref}/download"
 
+        # An upstream-supplied absolute URL is not automatically trusted.
+        # API credentials are sent only to the fixed API origin; CDN origins
+        # receive generic headers only.
+        api_origin = is_allowed_provider_url(url, self.API_HOSTS)
+        cdn_origin = is_allowed_provider_url(url, self.DOWNLOAD_HOSTS)
+        if not (api_origin or cdn_origin):
+            logger.warning("Subsource download rejected an unapproved host")
+            return None
+        request_headers = headers if api_origin else safe_headers_for_cdn(headers)
+
         try:
             status, raw_content = await bounded_download_bytes(
                 self.client,
                 url,
-                headers=headers,
+                headers=request_headers,
                 timeout=settings.UPSTREAM_TIMEOUT,
+                allowed_hosts=self.API_HOSTS if api_origin else self.DOWNLOAD_HOSTS,
             )
             if status in (401, 403):
                 logger.warning(
@@ -754,6 +774,9 @@ class SubsourceProvider(BaseSubtitleProvider):
 
             # Handle possible JSON payload (e.g. {"downloadUrl": "https://..."} or error)
             if raw_content.strip().startswith(b"{"):
+                if len(raw_content) > MAX_HTML_RESPONSE_BYTES:
+                    logger.warning("Subsource download metadata exceeded the JSON limit")
+                    return None
                 try:
                     json_data = json.loads(raw_content.decode("utf-8"))
                     cdn_url = (
@@ -762,6 +785,11 @@ class SubsourceProvider(BaseSubtitleProvider):
                         or json_data.get("url")
                     )
                     if cdn_url:
+                        if not isinstance(cdn_url, str) or not is_allowed_provider_url(
+                            cdn_url, self.DOWNLOAD_HOSTS - self.API_HOSTS
+                        ):
+                            logger.warning("Subsource returned an unapproved CDN host")
+                            return None
                         # Do NOT forward X-API-Key or Authorization to CDN
                         cdn_headers = safe_headers_for_cdn(headers)
                         cdn_status, cdn_content = await bounded_download_bytes(
@@ -769,13 +797,14 @@ class SubsourceProvider(BaseSubtitleProvider):
                             cdn_url,
                             headers=cdn_headers,
                             timeout=settings.UPSTREAM_TIMEOUT,
+                            allowed_hosts=self.DOWNLOAD_HOSTS - self.API_HOSTS,
                         )
                         if cdn_status == 200 and cdn_content:
                             return cdn_content
                     logger.warning("Subsource returned a non-binary JSON download response")
                     return None
                 except Exception as e:
-                    logger.debug(f"JSON check parse error in Subsource download: {e}")
+                    logger.debug("Subsource download JSON parsing failed: %s", type(e).__name__)
 
             return raw_content
         except httpx.TimeoutException:

@@ -3,6 +3,7 @@
 from app.providers.base import BaseSubtitleProvider
 from app.providers.cinemeta import CinemetaClient
 from app.providers.opensubtitles import OpenSubtitlesProvider
+from app.providers.podnapisi import PodnapisiProvider
 from app.providers.subdl import SubdlProvider
 from app.providers.subsource import SubsourceProvider, SubSourceService
 from app.providers.subtitlecat import SubtitlecatProvider
@@ -14,6 +15,7 @@ __all__ = [
     "SubsourceProvider",
     "SubSourceService",
     "OpenSubtitlesProvider",
+    "PodnapisiProvider",
     "SubtitlecatProvider",
     "YifysubtitlesProvider",
     "CinemetaClient",

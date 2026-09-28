@@ -13,6 +13,35 @@ from app.providers.opensubtitles import OpenSubtitlesProvider
 from app.utils.config_parser import encode_user_config
 
 
+@pytest.fixture(autouse=True)
+def _adapt_legacy_get_post_mocks_to_bounded_json(monkeypatch):
+    """Adapt historical mocked API responses; helper limits have dedicated tests."""
+    from app.utils import http_limits
+
+    async def fake_bounded_json(client, method, url, **kwargs):
+        requester = getattr(client, method.lower())
+        call_kwargs = {
+            "headers": kwargs.get("headers"),
+            "timeout": kwargs.get("timeout"),
+            "follow_redirects": False,
+        }
+        if kwargs.get("params") is not None:
+            call_kwargs["params"] = kwargs["params"]
+        if kwargs.get("json_body") is not None:
+            call_kwargs["json"] = kwargs["json_body"]
+        response = await requester(url, **call_kwargs)
+        status = response.status_code
+        if status not in kwargs.get("accepted_statuses", (200,)):
+            return status, None
+        return status, response.json()
+
+    def fake_dns(host, port, **kwargs):
+        return [(2, 1, 6, "", ("93.184.216.34", port or 443))]
+
+    monkeypatch.setattr(http_limits, "bounded_fetch_json", fake_bounded_json)
+    monkeypatch.setattr(http_limits.socket, "getaddrinfo", fake_dns)
+
+
 @pytest.fixture
 def client():
     with TestClient(app) as c:
@@ -106,7 +135,7 @@ async def test_opensubtitles_search_movie_v1():
     assert req["headers"]["Api-Key"] == "test_opensubtitles_key_123"
     assert req["headers"]["User-Agent"] == "StremioArabicSubs v1.0.0"
     assert req["headers"]["Accept"] == "application/json"
-    assert req["kwargs"].get("follow_redirects") is True
+    assert req["kwargs"].get("follow_redirects") is False
 
     item1 = results[0]
     assert item1.provider == "opensubtitles"
@@ -355,7 +384,7 @@ async def test_opensubtitles_download_archive_success():
         assert url == "https://api.opensubtitles.com/api/v1/download"
         assert json == {"file_id": 12345}
         assert headers["Api-Key"] == "valid_key"
-        assert kwargs.get("follow_redirects") is True
+        assert kwargs.get("follow_redirects") is False
         resp = MagicMock(spec=httpx.Response)
         resp.status_code = 200
         resp.json.return_value = {
@@ -442,8 +471,8 @@ async def test_opensubtitles_resilient_error_handling():
 
 
 @pytest.mark.asyncio
-async def test_opensubtitles_search_follows_redirects():
-    """Verify search_subtitles passes follow_redirects=True to handle HTTP 301 gracefully."""
+async def test_opensubtitles_search_rejects_automatic_redirects():
+    """Authenticated API search must not forward Api-Key through redirects."""
     mock_client = AsyncMock(spec=httpx.AsyncClient)
     captured = {}
 
@@ -458,7 +487,7 @@ async def test_opensubtitles_search_follows_redirects():
     provider = OpenSubtitlesProvider(mock_client)
     await provider.search_subtitles("tt0111161", api_key="my_key")
 
-    assert captured["kwargs"].get("follow_redirects") is True
+    assert captured["kwargs"].get("follow_redirects") is False
 
 
 @pytest.mark.asyncio

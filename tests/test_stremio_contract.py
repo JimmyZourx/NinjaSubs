@@ -12,6 +12,26 @@ from app.models import SubtitleRelease
 from app.providers.subdl import SubdlProvider
 
 
+@pytest.fixture(autouse=True)
+def _adapt_legacy_provider_get_mocks(monkeypatch):
+    """Bridge legacy fake GET clients; bounded JSON I/O has dedicated tests."""
+    from app.utils import http_limits
+
+    async def fake_bounded_json(client, method, url, **kwargs):
+        response = await getattr(client, method.lower())(
+            url,
+            params=kwargs.get("params"),
+            headers=kwargs.get("headers"),
+            timeout=kwargs.get("timeout"),
+        )
+        status = response.status_code
+        if status not in kwargs.get("accepted_statuses", (200,)):
+            return status, None
+        return status, response.json()
+
+    monkeypatch.setattr(http_limits, "bounded_fetch_json", fake_bounded_json)
+
+
 @pytest.fixture
 def client():
     """FastAPI TestClient fixture with initialized mock HTTP client."""

@@ -18,6 +18,17 @@ from app.utils.http_limits import (
 )
 
 
+@pytest.fixture(autouse=True)
+def _resolve_test_provider_hosts_as_public(monkeypatch):
+    from app.utils import http_limits
+
+    monkeypatch.setattr(
+        http_limits.socket,
+        "getaddrinfo",
+        lambda host, port, **kwargs: [(2, 1, 6, "", ("93.184.216.34", port or 443))],
+    )
+
+
 class MockResponse:
     def __init__(self, status_code=200, chunks=(), headers=None, text_encoding="utf-8"):
         self.status_code = status_code
@@ -224,7 +235,7 @@ async def test_subsource_direct_binary_download_is_bounded_and_one_request():
 @pytest.mark.asyncio
 async def test_subsource_cdn_flow_bounds_both_requests_and_strips_secrets():
     payload = b"subtitle bytes from CDN"
-    api_json = b'{"downloadUrl":"https://cdn.example.test/signed?token=private"}'
+    api_json = b'{"downloadUrl":"https://cdn.subsource.net/signed?token=private"}'
     api_response = response(api_json)
     cdn_response = response(payload)
     client = MockHttpClient([api_response, cdn_response])
@@ -244,7 +255,7 @@ async def test_subsource_cdn_flow_bounds_both_requests_and_strips_secrets():
 
 @pytest.mark.asyncio
 async def test_cross_origin_redirect_strips_subdl_api_key_but_follows_redirect():
-    redirect = MockResponse(302, [], {"location": "https://cdn.example.test/file.zip"})
+    redirect = MockResponse(302, [], {"location": "https://cdn.subdl.com/file.zip"})
     payload = b"redirected file"
     captured = []
 
@@ -258,28 +269,19 @@ async def test_cross_origin_redirect_strips_subdl_api_key_but_follows_redirect()
     )
     assert result == payload
     assert client.stream_count == 2
-    assert captured[0][0] == "https://cdn.example.test/file.zip"
+    assert captured[0][0] == "https://cdn.subdl.com/file.zip"
     assert "x-api-key" not in {name.lower() for name in captured[0][1]}
-    assert client.stream_calls[1]["kwargs"]["params"] is None
+    assert client.stream_calls[1]["kwargs"].get("params") is None
 
 
 @pytest.mark.asyncio
-async def test_subsource_cross_origin_http_redirect_strips_both_auth_headers():
-    redirect = MockResponse(302, [], {"location": "https://other-origin.test/subtitle.srt"})
-    payload = b"redirected SubSource subtitle"
-    captured_headers = []
-
-    def capture_second(method, url, kwargs):
-        captured_headers.append(kwargs["headers"])
-        return response(payload)
-
-    client = MockHttpClient([redirect, capture_second])
+async def test_subsource_authenticated_redirect_to_cdn_is_rejected_before_credentials_forward():
+    redirect = MockResponse(302, [], {"location": "https://media.cloudfront.net/subtitle.srt"})
+    client = MockHttpClient([redirect])
     result = await SubsourceProvider(client).download_archive("sub-redirect", api_key="secret")
-    assert result == payload
-    assert client.stream_count == 2
-    forwarded_names = {name.lower() for name in captured_headers[0]}
-    assert "x-api-key" not in forwarded_names
-    assert "authorization" not in forwarded_names
+    assert result is None
+    assert client.stream_count == 1
+    assert redirect.iter_entered is False
 
 
 @pytest.mark.asyncio

@@ -50,6 +50,7 @@ class Settings(BaseSettings):
     AUTOSYNC_ENABLED: bool = False
     REFERENCE_CACHE_TTL_SECONDS: float = 2592000.0
     SYNC_REQUIRE_EXACT_MATCH: bool = True
+    REFERENCE_RESOLUTION_MAX_CONCURRENCY: int = 4
 
     model_config = SettingsConfigDict(
         env_file=".env",

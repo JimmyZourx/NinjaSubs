@@ -110,21 +110,20 @@ class OpenSubtitlesProvider(BaseSubtitleProvider):
 
         try:
             logger.info(f"[OpenSubtitles Request] Outbound URL: {url} | Params: {params}")
-            resp = await self.client.get(
+            from app.utils.http_limits import bounded_fetch_json
+
+            status, data = await bounded_fetch_json(
+                self.client,
+                "GET",
                 url,
                 params=params,
                 headers=headers,
                 timeout=settings.UPSTREAM_TIMEOUT,
-                follow_redirects=True,
+                follow_redirects=False,
+                allowed_hosts={"api.opensubtitles.com"},
             )
 
-            if resp.status_code == 200:
-                try:
-                    data = resp.json()
-                except Exception as json_err:
-                    logger.warning(f"[OpenSubtitles] JSON decode error: {json_err}")
-                    return []
-
+            if status == 200 and isinstance(data, dict):
                 raw_items = data.get("data", []) if isinstance(data, dict) else []
                 logger.info(f"[OpenSubtitles Response] Total items received: {len(raw_items)}")
 
@@ -197,17 +196,17 @@ class OpenSubtitlesProvider(BaseSubtitleProvider):
                 logger.info(f"[OpenSubtitles Response] Total items found: {len(results)}")
                 return results
 
-            elif resp.status_code in (401, 403):
+            elif status in (401, 403):
                 logger.warning(
-                    f"[OpenSubtitles] Authentication failed (HTTP {resp.status_code}). Check OPENSUBTITLES_API_KEY."
+                    f"[OpenSubtitles] Authentication failed (HTTP {status}). Check OPENSUBTITLES_API_KEY."
                 )
                 return []
-            elif resp.status_code == 429:
+            elif status == 429:
                 logger.warning("[OpenSubtitles] Rate limit reached (HTTP 429).")
                 return []
             else:
                 logger.warning(
-                    f"[OpenSubtitles] Unexpected HTTP {resp.status_code} for {imdb_id}: {resp.text[:300]}"
+                    f"[OpenSubtitles] Unexpected or invalid response HTTP {status} for {imdb_id}"
                 )
                 return []
 
@@ -215,7 +214,7 @@ class OpenSubtitlesProvider(BaseSubtitleProvider):
             logger.warning(f"[OpenSubtitles] Query timed out for {imdb_id}")
             return []
         except Exception as e:
-            logger.error(f"[OpenSubtitles] Search error for {imdb_id}: {e}", exc_info=True)
+            logger.error("[OpenSubtitles] Search error for %s: %s", imdb_id, type(e).__name__)
             return []
 
     async def get_download_url(self, file_id: int, api_key: str | None = None) -> str | None:
@@ -240,20 +239,25 @@ class OpenSubtitlesProvider(BaseSubtitleProvider):
         )
         should_close = self.client is None
         try:
-            res = await client.post(
+            from app.utils.http_limits import bounded_fetch_json
+
+            status, payload = await bounded_fetch_json(
+                client,
+                "POST",
                 f"{self.BASE_URL}/download",
                 headers=headers,
-                json={"file_id": int(file_id)},
-                follow_redirects=True,
+                json_body={"file_id": int(file_id)},
+                timeout=settings.UPSTREAM_TIMEOUT,
+                accepted_statuses=(200, 201),
+                follow_redirects=False,
+                allowed_hosts={"api.opensubtitles.com"},
             )
-            if res.status_code in (200, 201):
-                return res.json().get("link")
-            logger.error(
-                f"[OpenSubtitles Download Fail] Status: {res.status_code} | {res.text[:200]}"
-            )
+            if status in (200, 201) and isinstance(payload, dict):
+                return payload.get("link")
+            logger.error("[OpenSubtitles Download Fail] Status: %s", status)
             return None
         except Exception as e:
-            logger.error(f"[OpenSubtitles Download Fail] Exception: {e}")
+            logger.error("[OpenSubtitles Download Fail] Exception: %s", type(e).__name__)
             return None
         finally:
             if should_close:
@@ -295,6 +299,7 @@ class OpenSubtitlesProvider(BaseSubtitleProvider):
                 client,
                 target_url,
                 timeout=settings.UPSTREAM_TIMEOUT,
+                allowed_hosts={"opensubtitles.com", "opensubtitles.org"},
             )
             if status != 200:
                 logger.warning(

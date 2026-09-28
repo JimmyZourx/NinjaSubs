@@ -10,6 +10,7 @@ import re
 import tempfile
 import time
 from pathlib import Path
+from urllib.parse import urlparse
 
 from app.config import settings
 from app.extractor import MAX_SUBTITLE_ENTRY_BYTES
@@ -19,6 +20,8 @@ logger = logging.getLogger(__name__)
 _DEFAULT_TTL_SECONDS = 30 * 24 * 60 * 60
 _KNOWN_KINDS = frozenset({"team", "edition", "hash", "embedded"})
 _EXACT_KINDS = frozenset({"team", "hash", "embedded"})
+_KNOWN_PROVIDERS = frozenset({"subdl", "subsource", "podnapisi", "opensubtitles"})
+_MAX_SIDECAR_BYTES = 4096
 
 
 class ReferenceDiskCache:
@@ -42,8 +45,21 @@ class ReferenceDiskCache:
         self.min_bytes = max(0, min_bytes)
 
     @staticmethod
-    def _safe_token(value: str | None) -> str:
-        return re.sub(r"[^A-Za-z0-9]+", "", value or "ref") or "ref"
+    def _safe_candidate(value: object) -> str:
+        """Store bounded release provenance, never a URL or signed token."""
+        candidate = re.sub(r"[\x00-\x1f\x7f]+", " ", str(value or ""))
+        candidate = re.sub(r"\s+", " ", candidate).strip()[:256]
+        parsed = urlparse(candidate)
+        is_url = bool(parsed.netloc and (parsed.scheme or candidate.startswith("//")))
+        has_signed_query = bool(
+            re.search(
+                r"(?i)(?:^|[?&;])(?:token|sig|signature|api[_-]?key|x-amz-signature)\s*=",
+                candidate,
+            )
+        )
+        if is_url or has_signed_query:
+            return ""
+        return candidate
 
     @staticmethod
     def _sidecar(path: Path) -> Path:
@@ -53,6 +69,16 @@ class ReferenceDiskCache:
     def _kind_from_name(path: Path) -> str:
         suffix = path.stem.rsplit("_", 1)[-1]
         return suffix if suffix in _KNOWN_KINDS else "edition"
+
+    @staticmethod
+    def _provider_from_name(path: Path, cache_stem: str) -> str | None:
+        prefix = f"{cache_stem}_"
+        if not path.stem.startswith(prefix):
+            return None
+        parts = path.stem[len(prefix):].rsplit("_", 1)
+        if len(parts) != 2 or parts[0] not in _KNOWN_PROVIDERS:
+            return None
+        return parts[0]
 
     def _paths(self, query: ReferenceQuery) -> list[Path]:
         return sorted(self.root.glob(f"{query.cache_stem}_*.srt")) if self.root.is_dir() else []
@@ -65,6 +91,9 @@ class ReferenceDiskCache:
                 stat = path.stat()
                 if stat.st_size > MAX_SUBTITLE_ENTRY_BYTES:
                     continue
+                sidecar = self._sidecar(path)
+                if sidecar.stat().st_size > _MAX_SIDECAR_BYTES:
+                    continue
                 if time.time() - stat.st_mtime > self.ttl:
                     with contextlib.suppress(OSError):
                         path.unlink()
@@ -76,7 +105,8 @@ class ReferenceDiskCache:
                 continue
             kind = self._kind_from_name(path)
             if (
-                not isinstance(verdict, dict)
+                self._provider_from_name(path, query.cache_stem) is None
+                or not isinstance(verdict, dict)
                 or verdict.get("kind") != kind
                 or verdict.get("content_sha") != hashlib.sha256(text.encode()).hexdigest()
                 or (settings.SYNC_REQUIRE_EXACT_MATCH and verdict.get("strict") is not True)
@@ -88,7 +118,7 @@ class ReferenceDiskCache:
                 text,
                 kind,
                 verdict.get("bluray_match") is True and kind != "abort",
-                str(verdict.get("candidate") or ""),
+                self._safe_candidate(verdict.get("candidate")),
             )
             options.append((0 if kind in _EXACT_KINDS else 1, path.name, ref))
         return min(options, key=lambda item: (item[0], item[1]))[2] if options else None
@@ -107,14 +137,17 @@ class ReferenceDiskCache:
         encoded = text.encode("utf-8") if isinstance(text, str) else b""
         if not encoded or len(encoded) > MAX_SUBTITLE_ENTRY_BYTES or b"-->" not in encoded:
             return
+        provider = (source or "").strip().lower()
+        if provider not in _KNOWN_PROVIDERS:
+            return
         kind = kind if kind in _KNOWN_KINDS else "edition"
         try:
             self.root.mkdir(parents=True, exist_ok=True)
-            path = self.root / f"{query.cache_stem}_{self._safe_token(source)}_{kind}.srt"
+            path = self.root / f"{query.cache_stem}_{provider}_{kind}.srt"
             meta = {
                 "kind": kind,
                 "bluray_match": bool(bluray_match),
-                "candidate": candidate,
+                "candidate": self._safe_candidate(candidate),
                 "strict": bool(settings.SYNC_REQUIRE_EXACT_MATCH),
                 "content_sha": hashlib.sha256(encoded).hexdigest(),
             }
