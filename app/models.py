@@ -185,6 +185,8 @@ class UserPreferences(BaseModel):
     strip_diacritics: bool = False
     # Convert ASS/SSA subtitles to color-preserved SRT for playback stability
     convert_ass_to_srt: bool = True
+    # Opt-in AutoSync preference; effective only when enabled by the server.
+    auto_sync: bool = False
     # Subtitle badge components to display (order-independent; canonical order applied):
     #   "score"    -> "[100%]"
     #   "provider" -> "[SubDL]"

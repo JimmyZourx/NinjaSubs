@@ -1136,6 +1136,17 @@
 
                     <div class="pref-row">
                         <div class="min-w-0">
+                            <label for="autoSync" class="pref-label">Auto-Sync subtitles</label>
+                            <p class="pref-desc">Opt in to subtitle timing synchronization when the server enables AutoSync.</p>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="autoSync" class="peer sr-only">
+                            <span class="toggle-track"></span>
+                        </label>
+                    </div>
+
+                    <div class="pref-row">
+                        <div class="min-w-0">
                             <label for="cleanSpacing" class="pref-label">Normalize spacing</label>
                             <p class="pref-desc">Collapses multi-spaces and fixes <code class="text-white font-mono">word , next &rarr; word, next</code>.</p>
                         </div>
@@ -1565,6 +1576,10 @@
             if (convertAssToggle && typeof initialPrefs.convert_ass_to_srt === "boolean") {
                 convertAssToggle.checked = initialPrefs.convert_ass_to_srt;
             }
+            const autoSyncToggle = document.getElementById("autoSync");
+            if (autoSyncToggle && typeof initialPrefs.auto_sync === "boolean") {
+                autoSyncToggle.checked = initialPrefs.auto_sync;
+            }
             const stripDiacriticsToggle = document.getElementById("stripDiacritics");
             if (
                 stripDiacriticsToggle &&
@@ -1765,6 +1780,10 @@
             // Standalone preference, independent of HI track exclusion.
             if (stripHiEnabled) configObj.strip_hi = true;
 
+            const autoSyncToggle = document.getElementById("autoSync");
+            const autoSyncEnabled = autoSyncToggle ? autoSyncToggle.checked : false;
+            if (autoSyncEnabled) configObj.auto_sync = true;
+
             const subdlToggle = document.getElementById("enableSubdl");
             const subsourceToggle = document.getElementById("enableSubsource");
             const opensubtitlesToggle = document.getElementById("enableOpensubtitles");
@@ -1780,7 +1799,7 @@
                 !yifyEnabled || !catEnabled || !rtlEnabled || !adEnabled ||
                 !creditsEnabled || cleanFlagsNonDefault ||
                 easternNumeralsEnabled || stripDiacriticsEnabled ||
-                stripHiEnabled || !convertAssEnabled ||
+                stripHiEnabled || autoSyncEnabled || !convertAssEnabled ||
                 !subdlEnabled || !subsourceEnabled || !opensubtitlesEnabled;
 
             if (!hasAnyPreference) {

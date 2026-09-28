@@ -45,6 +45,12 @@ class Settings(BaseSettings):
     # Loaded from the NINJASUBS_ADMIN_TOKEN environment variable.
     NINJASUBS_ADMIN_TOKEN: str = ""
 
+    # AutoSync foundation gates and reference-cache policy. Execution/runtime
+    # integrations are added in later stages and remain disabled by default.
+    AUTOSYNC_ENABLED: bool = False
+    REFERENCE_CACHE_TTL_SECONDS: float = 2592000.0
+    SYNC_REQUIRE_EXACT_MATCH: bool = True
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

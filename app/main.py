@@ -234,6 +234,7 @@ def render_configure_html(request: Request, prefill_config: str | None = None) -
         "eastern_arabic_numerals": prefs.eastern_arabic_numerals,
         "strip_diacritics": prefs.strip_diacritics,
         "convert_ass_to_srt": prefs.convert_ass_to_srt,
+        "auto_sync": prefs.auto_sync,
     }
 
     if prefill_config:
