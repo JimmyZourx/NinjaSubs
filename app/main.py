@@ -1,5 +1,6 @@
 """FastAPI application for Stremio Arabic Subtitles Addon."""
 
+import asyncio
 import hashlib
 import hmac
 import html
@@ -35,12 +36,17 @@ from app.providers import (
     SubtitlecatProvider,
     YifysubtitlesProvider,
 )
+from app.providers.podnapisi import PodnapisiProvider
 from app.services.aggregator import (
     aggregate_subtitles,
     format_informative_badge,
 )
 from app.services.cache import clear_subtitle_cache
 from app.services.credentials import credential_store
+from app.services.sync.external_strategy import ExternalExactStrategy
+from app.services.sync.hash_strategy import HashExactStrategy
+from app.services.sync.orchestrator import SyncOrchestrator
+from app.services.sync_service import SubtitleSyncService
 from app.utils.ass_converter import convert_ass_to_srt_bytes
 from app.utils.cleaners import (
     CleanOptions,
@@ -69,11 +75,14 @@ logger = logging.getLogger("stremio_arabic_subs")
 # Global HTTP client container for connection pooling and lifecycle management
 _http_client: httpx.AsyncClient | None = None
 
+# Global AutoSync orchestrator
+_sync_orchestrator: SyncOrchestrator | None = None
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Manage application resources, async HTTP connection pool, and graceful shutdown."""
-    global _http_client
+    global _http_client, _sync_orchestrator
     # Invalidate and clear in-memory TTLCache and metadata cache on container restart / startup
     clear_subtitle_cache()
     cache_manager.clear_metadata()
@@ -90,8 +99,31 @@ async def lifespan(app: FastAPI):
         headers={"User-Agent": "StremioArabicSubs/1.0.0"},
         follow_redirects=True,
     )
+    # Build AutoSync orchestrator once per application lifespan
+    opensubtitles_provider = OpenSubtitlesProvider(_http_client)
+    subdl_provider = SubdlProvider(_http_client)
+    subsource_provider = SubsourceProvider(_http_client)
+    podnapisi_provider = PodnapisiProvider(_http_client)
+    hash_strategy = HashExactStrategy(opensubtitles_provider)
+    external_strategy = ExternalExactStrategy(
+        subdl_provider=subdl_provider,
+        subsource_provider=subsource_provider,
+        podnapisi_provider=podnapisi_provider,
+    )
+    sync_service = SubtitleSyncService()
+    _sync_orchestrator = SyncOrchestrator(
+        hash_strategy=hash_strategy,
+        external_strategy=external_strategy,
+        sync_service=sync_service,
+    )
+    logger.info("AutoSync orchestrator initialized")
     yield
     logger.info("Closing httpx.AsyncClient...")
+    if _sync_orchestrator:
+        try:
+            await _sync_orchestrator.close()
+        except Exception:
+            logger.exception("Error closing AutoSync orchestrator")
     if _http_client:
         await _http_client.aclose()
 
@@ -1141,6 +1173,32 @@ def _build_subtitle_response(
         )
 
 
+async def _maybe_sync_subtitle(
+    original_bytes: bytes,
+    target_id: str,
+    meta: dict,
+    auto_sync: bool,
+    convert_ass_enabled: bool,
+) -> bytes:
+    """Return synced bytes if AutoSync is enabled and safe; otherwise original bytes."""
+    if not settings.AUTOSYNC_ENABLED or not auto_sync:
+        return original_bytes
+    lang = (meta.get("lang") or "").lower()
+    if not lang.startswith("ar"):
+        return original_bytes
+    if _sync_orchestrator is None:
+        return original_bytes
+    if is_ass_subtitle(original_bytes) and not convert_ass_enabled:
+        return original_bytes
+    try:
+        synced = await _sync_orchestrator.evaluate_and_sync(original_bytes, meta, target_id, auto_sync=True)
+        return synced if isinstance(synced, bytes) else original_bytes
+    except asyncio.CancelledError:
+        raise
+    except Exception:
+        return original_bytes
+
+
 async def _serve_subtitle_handler(
     sub_id: str,
     config_str: str | None = None,
@@ -1161,6 +1219,7 @@ async def _serve_subtitle_handler(
     eastern_numerals_enabled = False
     strip_diacritics_enabled = False
     convert_ass_enabled = True
+    auto_sync = False
     if config_str:
         try:
             cfg_prefs = parse_user_config(config_str)
@@ -1172,6 +1231,7 @@ async def _serve_subtitle_handler(
             eastern_numerals_enabled = cfg_prefs.eastern_arabic_numerals
             strip_diacritics_enabled = cfg_prefs.strip_diacritics
             convert_ass_enabled = cfg_prefs.convert_ass_to_srt
+            auto_sync = cfg_prefs.auto_sync
         except Exception:
             rtl_fix_enabled = True
             ad_removal_enabled = True
@@ -1181,6 +1241,7 @@ async def _serve_subtitle_handler(
             eastern_numerals_enabled = False
             strip_diacritics_enabled = False
             convert_ass_enabled = True
+            auto_sync = False
 
     # URL-decode incoming sub_id in case player encoded spaces/brackets (%5B...%5D)
     clean_sub_id = urllib.parse.unquote(sub_id).strip()
@@ -1209,13 +1270,37 @@ async def _serve_subtitle_handler(
         if len(candidate) == 16:
             target_id = candidate
 
+    # Retrieve credential keys early so they're available for AutoSync on cache hits
+    cred_keys = await credential_store.get(target_id) or {}
+    subdl_key = cred_keys.get("subdl_key")
+    subsource_key = cred_keys.get("subsource_key")
+    opensubtitles_key = cred_keys.get("opensubtitles_key")
+    if config_str:
+        cfg_prefs = parse_user_config(config_str)
+        if not subdl_key:
+            subdl_key = cfg_prefs.subdl_key
+        if not subsource_key:
+            subsource_key = cfg_prefs.subsource_key
+        if not opensubtitles_key:
+            opensubtitles_key = cfg_prefs.opensubtitles_key
+
     # 1. Check local LRU disk cache
     cached_content = await cache_manager.get_subtitle(target_id)
     if cached_content:
-        meta = cache_manager.get_metadata(target_id)
+        meta = cache_manager.get_metadata(target_id) or {}
+        # Enrich meta with transient credential keys for AutoSync orchestrator
+        meta = {
+            **meta,
+            "subdl_key": subdl_key,
+            "subsource_key": subsource_key,
+            "opensubtitles_key": opensubtitles_key,
+        }
         release_name = meta.get("release_name", target_id) if meta else target_id
+        synced_bytes = await _maybe_sync_subtitle(
+            cached_content, target_id, meta, auto_sync, convert_ass_enabled
+        )
         return _build_subtitle_response(
-            cached_content,
+            synced_bytes,
             release_name,
             detected_format,
             rtl_fix_enabled,
@@ -1229,32 +1314,23 @@ async def _serve_subtitle_handler(
         )
 
     # 2. Cache miss: retrieve metadata for on-demand fetch
-    meta = cache_manager.get_metadata(target_id)
+    meta = cache_manager.get_metadata(target_id) or {}
     if not meta:
         raise HTTPException(status_code=404, detail="Subtitle metadata not found or expired")
+
+    # Enrich meta with transient credential keys for AutoSync orchestrator
+    meta = {
+        **meta,
+        "subdl_key": subdl_key,
+        "subsource_key": subsource_key,
+        "opensubtitles_key": opensubtitles_key,
+    }
 
     provider_name = meta.get("provider")
     download_url = meta.get("download_url")
     release_name = meta.get("release_name", target_id)
     season = meta.get("season")
     episode = meta.get("episode")
-
-    # Determine user-specific API key for this subtitle
-    # Always use CredentialStore for ephemeral credentials; never recover keys from disk metadata.
-    cred_keys = await credential_store.get(target_id) or {}
-    subdl_key = cred_keys.get("subdl_key")
-    subsource_key = cred_keys.get("subsource_key")
-    opensubtitles_key = cred_keys.get("opensubtitles_key")
-
-    # If config_str is provided on the URL, it can override or supply missing keys
-    if config_str:
-        cfg_prefs = parse_user_config(config_str)
-        if not subdl_key:
-            subdl_key = cfg_prefs.subdl_key
-        if not subsource_key:
-            subsource_key = cfg_prefs.subsource_key
-        if not opensubtitles_key:
-            opensubtitles_key = cfg_prefs.opensubtitles_key
 
     if not download_url:
         raise HTTPException(status_code=404, detail="Missing download URL for subtitle")
@@ -1303,8 +1379,11 @@ async def _serve_subtitle_handler(
                     f"Fallback to Subsource succeeded for #{target_id} ({len(fallback_bytes)} bytes)"
                 )
                 await cache_manager.save_subtitle(target_id, fallback_bytes)
+                synced_bytes = await _maybe_sync_subtitle(
+                    fallback_bytes, target_id, meta, auto_sync, convert_ass_enabled
+                )
                 return _build_subtitle_response(
-                    fallback_bytes,
+                    synced_bytes,
                     release_name,
                     detected_format,
                     rtl_fix_enabled,
@@ -1345,12 +1424,17 @@ async def _serve_subtitle_handler(
             detail="Upstream subtitle archive could not be processed",
         ) from e
 
-    # 5. Save to local LRU disk cache (triggers auto-cleanup if >1GB or >500 files)
+    # 5. Save original to local LRU disk cache (triggers auto-cleanup if >1GB or >500 files)
     await cache_manager.save_subtitle(target_id, srt_bytes)
+
+    # AutoSync before serving (request-scoped only)
+    synced_bytes = await _maybe_sync_subtitle(
+        srt_bytes, target_id, meta, auto_sync, convert_ass_enabled
+    )
 
     # 6. Serve with appropriate headers preserving native subtitle format
     return _build_subtitle_response(
-        srt_bytes,
+        synced_bytes,
         release_name,
         detected_format,
         rtl_fix_enabled,
@@ -1390,6 +1474,7 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
     eastern_numerals_enabled = False
     strip_diacritics_enabled = False
     convert_ass_enabled = True
+    auto_sync = False
     if config:
         try:
             cfg_prefs = parse_user_config(config)
@@ -1401,6 +1486,7 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
             eastern_numerals_enabled = cfg_prefs.eastern_arabic_numerals
             strip_diacritics_enabled = cfg_prefs.strip_diacritics
             convert_ass_enabled = cfg_prefs.convert_ass_to_srt
+            auto_sync = cfg_prefs.auto_sync
         except Exception:
             rtl_fix_enabled = True
             ad_removal_enabled = True
@@ -1410,6 +1496,7 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
             eastern_numerals_enabled = False
             strip_diacritics_enabled = False
             convert_ass_enabled = True
+            auto_sync = False
     else:
         if "enable_rtl_fix" in request.query_params:
             rtl_fix_enabled = request.query_params.get("enable_rtl_fix", "1").lower() not in (
@@ -1445,35 +1532,19 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
             ).lower() not in ("0", "false", "no")
         clean_options = _clean_options_from_query(request.query_params)
 
-    # 1. Check local disk cache first
-    cached_content = await cache_manager.get_subtitle(str(file_id))
-    if cached_content:
-        meta = cache_manager.get_metadata(str(file_id))
-        release_name = meta.get("release_name", file_id) if meta else file_id
-        return _build_subtitle_response(
-            cached_content,
-            release_name,
-            req_fmt,
-            rtl_fix_enabled,
-            ad_removal_enabled,
-            keep_credits_enabled,
-            clean_options,
-            strip_hi_enabled,
-            eastern_numerals_enabled,
-            strip_diacritics_enabled,
-            convert_ass_enabled,
-        )
-
-    # 2. Extract keys from credential store (first), then metadata, then config/params/env
+    # Retrieve credential keys early so they're available for AutoSync on cache hits
     cred_keys = await credential_store.get(str(file_id)) or {}
     api_key = cred_keys.get("opensubtitles_key")
     subsource_key = cred_keys.get("subsource_key")
+    subdl_key = cred_keys.get("subdl_key")
     if config:
         cfg_prefs = parse_user_config(config)
         if not api_key:
             api_key = cfg_prefs.opensubtitles_key
         if not subsource_key:
             subsource_key = cfg_prefs.subsource_key
+        if not subdl_key:
+            subdl_key = cfg_prefs.subdl_key
     if not api_key:
         api_key = (
             request.query_params.get("opensubtitles_key")
@@ -1488,6 +1559,42 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
             or request.query_params.get("subsource_api_key")
             or getattr(settings, "SUBSOURCE_API_KEY", "")
             or ""
+        )
+    if not subdl_key:
+        subdl_key = (
+            request.query_params.get("subdl_key")
+            or request.query_params.get("subdl_api_key")
+            or getattr(settings, "SUBDL_API_KEY", "")
+            or ""
+        )
+
+    # 1. Check local disk cache first
+    cached_content = await cache_manager.get_subtitle(str(file_id))
+    if cached_content:
+        meta = cache_manager.get_metadata(str(file_id)) or {}
+        # Enrich meta with transient credential keys for AutoSync orchestrator
+        meta = {
+            **meta,
+            "subdl_key": subdl_key,
+            "subsource_key": subsource_key,
+            "opensubtitles_key": api_key,
+        }
+        release_name = meta.get("release_name", file_id) if meta else file_id
+        synced_bytes = await _maybe_sync_subtitle(
+            cached_content, str(file_id), meta, auto_sync, convert_ass_enabled
+        )
+        return _build_subtitle_response(
+            synced_bytes,
+            release_name,
+            req_fmt,
+            rtl_fix_enabled,
+            ad_removal_enabled,
+            keep_credits_enabled,
+            clean_options,
+            strip_hi_enabled,
+            eastern_numerals_enabled,
+            strip_diacritics_enabled,
+            convert_ass_enabled,
         )
 
     # 3. Attempt to fetch OpenSubtitles temporary download URL and download content directly
@@ -1515,12 +1622,22 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
                 timeout=10.0,
             )
             if status == 200 and dl_content:
-                meta = cache_manager.get_metadata(str(file_id))
+                meta = cache_manager.get_metadata(str(file_id)) or {}
+                # Enrich meta with transient credential keys for AutoSync orchestrator
+                meta = {
+                    **meta,
+                    "subdl_key": subdl_key,
+                    "subsource_key": subsource_key,
+                    "opensubtitles_key": api_key,
+                }
                 release_name = meta.get("release_name", file_id) if meta else file_id
                 sub_bytes = transcode_to_utf8(dl_content)
                 await cache_manager.save_subtitle(str(file_id), sub_bytes)
+                synced_bytes = await _maybe_sync_subtitle(
+                    sub_bytes, str(file_id), meta, auto_sync, convert_ass_enabled
+                )
                 return _build_subtitle_response(
-                    sub_bytes,
+                    synced_bytes,
                     release_name,
                     req_fmt,
                     rtl_fix_enabled,
@@ -1545,7 +1662,14 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
                 await dl_client.aclose()
 
     # 4. OpenSubtitles failed / quota exceeded: Fallback to Subsource
-    meta = cache_manager.get_metadata(str(file_id))
+    meta = cache_manager.get_metadata(str(file_id)) or {}
+    # Enrich meta with transient credential keys for AutoSync orchestrator
+    meta = {
+        **meta,
+        "subdl_key": subdl_key,
+        "subsource_key": subsource_key,
+        "opensubtitles_key": api_key,
+    }
     if meta and meta.get("imdb_id"):
         logger.warning(
             f"OpenSubtitles download_url failed/limit reached for file_id {file_id}. "
@@ -1567,8 +1691,11 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
                 f"OpenSubtitles fallback succeeded for file_id {file_id} ({len(fallback_bytes)} bytes)"
             )
             await cache_manager.save_subtitle(str(file_id), fallback_bytes)
+            synced_bytes = await _maybe_sync_subtitle(
+                fallback_bytes, str(file_id), meta, auto_sync, convert_ass_enabled
+            )
             return _build_subtitle_response(
-                fallback_bytes,
+                synced_bytes,
                 meta.get("release_name", file_id),
                 req_fmt,
                 rtl_fix_enabled,
