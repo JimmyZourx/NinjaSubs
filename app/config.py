@@ -52,6 +52,11 @@ class Settings(BaseSettings):
     SYNC_REQUIRE_EXACT_MATCH: bool = True
     REFERENCE_RESOLUTION_MAX_CONCURRENCY: int = 4
 
+    # Subtitle auto-synchronization (alass)
+    ALASS_PATH: str = "/usr/local/bin/alass"
+    ALASS_TIMEOUT_SECONDS: float = 15.0
+    ALASS_MAX_CONCURRENCY: int = 1
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

@@ -51,11 +51,7 @@ def _parse_year(value: Any) -> int | None:
 
 
 class SyncOrchestrator:
-    """Apply server/user/language gates and coordinate injected reference strategies.
-
-    Stage 1 intentionally has no synchronizer attached, so enabled requests
-    safely return their original bytes until the execution stage is ported.
-    """
+    """Apply server/user/language gates and coordinate injected reference strategies."""
 
     def __init__(
         self,
@@ -141,22 +137,20 @@ class SyncOrchestrator:
         return ResolvedReference(None)
 
     async def _execute(self, sub_bytes: bytes, meta: dict, target_id: str) -> bytes:
-        if self._sync_service is None:
-            return sub_bytes
-        resolved = await self.resolve_reference(meta)
-        if not resolved.text:
-            return sub_bytes
-        from app.extractor import transcode_to_utf8
+        from app.extractor import MAX_SUBTITLE_ENTRY_BYTES, transcode_to_utf8
 
-        target = transcode_to_utf8(sub_bytes).decode("utf-8", "replace")
-        synced = await self._sync_service.sync_async(
-            target,
-            resolved.text,
-            decision_kind=resolved.kind,
-            is_series=self._build_query(meta).is_series,
-            source_confirmed=resolved.bluray_match,
-        )
-        return synced.encode("utf-8") if synced else sub_bytes
+        if self._sync_service is None or len(sub_bytes) > MAX_SUBTITLE_ENTRY_BYTES:
+            return sub_bytes
+        try:
+            resolved = await self.resolve_reference(meta)
+            if not resolved.text:
+                return sub_bytes
+            synced = await self._sync_service.sync_async(
+                transcode_to_utf8(sub_bytes), resolved.text.encode("utf-8")
+            )
+            return synced if isinstance(synced, bytes) and synced else sub_bytes
+        except Exception:
+            return sub_bytes
 
     @staticmethod
     def _flight_key(meta: dict, target_id: str, sub_bytes: bytes) -> str:
