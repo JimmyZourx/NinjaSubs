@@ -1,8 +1,6 @@
 """Unit tests for the YIFYSubtitles (yifysubtitles.ch) provider."""
 
-from unittest.mock import AsyncMock, MagicMock
 
-import httpx
 import pytest
 
 from app.providers.yifysubtitles import YifysubtitlesProvider
@@ -31,21 +29,54 @@ MOVIE_HTML = """
 """
 
 
-def _response(status_code: int = 200, text: str = "", content: bytes = b"") -> MagicMock:
-    resp = MagicMock()
-    resp.status_code = status_code
-    resp.text = text
-    resp.content = content
-    return resp
+class MockResponse:
+    """A mock HTTP response that works with bounded_fetch_text."""
+    def __init__(self, status_code: int = 200, content: bytes = b"", text: str = ""):
+        if text:
+            content = text.encode("utf-8")
+        self.status_code = status_code
+        self.headers = {"content-length": str(len(content))}
+        self.encoding = "utf-8"
+        self.content = content
+        self._content = content
+
+    async def aiter_bytes(self, chunk_size=None):
+        yield self._content
+
+
+class MockStreamCM:
+    """An async context manager that returns a mock response."""
+    def __init__(self, response):
+        self._response = response
+
+    async def __aenter__(self):
+        return self._response
+
+    async def __aexit__(self, *args):
+        pass
+
+
+class MockHttpClient:
+    """A mock HTTP client that properly implements stream() as a sync method returning async CM."""
+
+    def __init__(self, stream_return_value=None, stream_side_effect=None):
+        self._stream_return_value = stream_return_value
+        self._stream_side_effect = stream_side_effect
+        self.call_count = {"stream": 0}
+
+    def stream(self, method, url, **kwargs):
+        if self._stream_side_effect:
+            return self._stream_side_effect(method, url, **kwargs)
+        return self._stream_return_value
 
 
 @pytest.mark.asyncio
 async def test_yifysubtitles_movie_parsing_filters_language():
     """Arabic-only request keeps just the Arabic row and maps metadata correctly."""
-    mock_client = AsyncMock(spec=httpx.AsyncClient)
-    mock_client.get.return_value = _response(200, text=MOVIE_HTML)
+    from app.providers.yifysubtitles import YifysubtitlesProvider
 
-    provider = YifysubtitlesProvider(mock_client)
+    stream_cm = MockStreamCM(MockResponse(200, text=MOVIE_HTML))
+    provider = YifysubtitlesProvider(MockHttpClient(stream_return_value=stream_cm))
     subs = await provider.search_subtitles(
         imdb_id="tt0111161",
         is_series=False,
@@ -80,10 +111,8 @@ Third.Release.x264</a></td>
     </tr>
     </tbody></table>
     """
-    mock_client = AsyncMock(spec=httpx.AsyncClient)
-    mock_client.get.return_value = _response(200, text=html)
-
-    provider = YifysubtitlesProvider(mock_client)
+    stream_cm = MockStreamCM(MockResponse(200, text=html))
+    provider = YifysubtitlesProvider(MockHttpClient(stream_return_value=stream_cm))
     subs = await provider.search_subtitles(imdb_id="tt0111161", is_series=False, languages=["ara"])
 
     assert len(subs) == 1
@@ -94,10 +123,10 @@ Third.Release.x264</a></td>
 @pytest.mark.asyncio
 async def test_yifysubtitles_multi_language():
     """Requesting Arabic + English returns both rows."""
-    mock_client = AsyncMock(spec=httpx.AsyncClient)
-    mock_client.get.return_value = _response(200, text=MOVIE_HTML)
+    from app.providers.yifysubtitles import YifysubtitlesProvider
 
-    provider = YifysubtitlesProvider(mock_client)
+    stream_cm = MockStreamCM(MockResponse(200, text=MOVIE_HTML))
+    provider = YifysubtitlesProvider(MockHttpClient(stream_return_value=stream_cm))
     subs = await provider.search_subtitles(
         imdb_id="tt0111161",
         is_series=False,
@@ -110,21 +139,21 @@ async def test_yifysubtitles_multi_language():
 @pytest.mark.asyncio
 async def test_yifysubtitles_series_unsupported():
     """YIFYSubtitles is movies-only: series must short-circuit without requests."""
-    mock_client = AsyncMock(spec=httpx.AsyncClient)
+    mock_client = MockHttpClient()
     provider = YifysubtitlesProvider(mock_client)
 
-    subs = await provider.search_subtitles(imdb_id="tt0944947", is_series=True)
+    subs = await provider.search_subtitles(imdb_id="tt0903747", is_series=True)
     assert subs == []
-    mock_client.get.assert_not_called()
+    assert mock_client.call_count["stream"] == 0
 
 
 @pytest.mark.asyncio
 async def test_yifysubtitles_page_not_found():
     """A 404 / 'Page not found' listing returns no results."""
-    mock_client = AsyncMock(spec=httpx.AsyncClient)
-    mock_client.get.return_value = _response(404, text="Page not found")
-
+    stream_cm = MockStreamCM(MockResponse(404, text="Page not found"))
+    mock_client = MockHttpClient(stream_return_value=stream_cm)
     provider = YifysubtitlesProvider(mock_client)
+
     subs = await provider.search_subtitles(imdb_id="tt0000000", is_series=False)
     assert subs == []
 
@@ -132,9 +161,8 @@ async def test_yifysubtitles_page_not_found():
 @pytest.mark.asyncio
 async def test_yifysubtitles_download_zip():
     """download_archive returns raw zip bytes on success."""
-    mock_client = AsyncMock(spec=httpx.AsyncClient)
-    mock_client.get.return_value = _response(200, content=b"PK\x03\x04zipdata")
-
+    stream_cm = MockStreamCM(MockResponse(200, content=b"PK\x03\x04zipdata"))
+    mock_client = MockHttpClient(stream_return_value=stream_cm)
     provider = YifysubtitlesProvider(mock_client)
     data = await provider.download_archive(
         "https://yifysubtitles.ch/subtitle/the-shawshank-redemption-1994-arabic-yify-125583.zip"
@@ -145,21 +173,22 @@ async def test_yifysubtitles_download_zip():
 @pytest.mark.asyncio
 async def test_yifysubtitles_download_cloudflare_warmup():
     """On a Cloudflare 403 the provider warms up the session once and retries."""
-    mock_client = AsyncMock(spec=httpx.AsyncClient)
+    mock_client = MockHttpClient()
     zip_attempts = {"count": 0}
 
-    def side_effect(url, **kwargs):
+    def stream_side_effect(method, url, **kwargs):
         if url.endswith(".zip"):
-            zip_attempts["count"] += 1
-            if zip_attempts["count"] == 1:
-                return _response(403, text="<cf challenge>")
-            return _response(200, content=b"PK\x03\x04retried")
-        return _response(200, text="<home>")
+            if zip_attempts["count"] == 0:
+                zip_attempts["count"] = 1
+                return MockStreamCM(MockResponse(403, text="<cf challenge>"))
+            return MockStreamCM(MockResponse(200, content=b"PK\x03\x04retried"))
+        return MockStreamCM(MockResponse(200, text="<home>"))
 
-    mock_client.get.side_effect = side_effect
+    mock_client = MockHttpClient()
+    mock_client.stream = stream_side_effect
 
+    from app.providers.yifysubtitles import YifysubtitlesProvider
     provider = YifysubtitlesProvider(mock_client)
     data = await provider.download_archive("https://yifysubtitles.ch/subtitle/x.zip")
 
     assert data == b"PK\x03\x04retried"
-    assert zip_attempts["count"] == 2

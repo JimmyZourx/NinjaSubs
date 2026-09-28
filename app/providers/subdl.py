@@ -254,7 +254,10 @@ class SubdlProvider(BaseSubtitleProvider):
     async def download_archive(self, download_ref: str, api_key: str | None = None) -> bytes | None:
         """
         Download subtitle archive (.zip or .srt) from Subdl.
+        Performs exactly ONE streaming request.
         """
+        from app.utils.http_limits import bounded_download_bytes
+
         effective_key = (api_key or settings.SUBDL_API_KEY or "").strip()
         headers = {
             "User-Agent": "StremioArabicSubs/1.0.0",
@@ -265,28 +268,30 @@ class SubdlProvider(BaseSubtitleProvider):
             params["api_key"] = effective_key
 
         try:
-            resp = await self.client.get(
+            status, data = await bounded_download_bytes(
+                self.client,
                 download_ref,
-                params=params,
                 headers=headers,
+                params=params,
                 timeout=settings.UPSTREAM_TIMEOUT,
-                follow_redirects=True,
             )
-            if resp.status_code == 200 and resp.content:
-                return resp.content
-            if resp.status_code in (401, 403):
+            if status in (401, 403):
                 logger.warning(
-                    f"Subdl download authentication failed (HTTP {resp.status_code}). Check SUBDL_API_KEY."
+                    f"Subdl download authentication failed (HTTP {status}). Check SUBDL_API_KEY."
                 )
                 return None
-            if resp.status_code == 429:
+            if status == 429:
                 logger.warning("Subdl download rate limit reached (HTTP 429).")
                 return None
-            logger.warning(f"Subdl download returned HTTP {resp.status_code} for {download_ref}")
+            if status != 200:
+                logger.warning(f"Subdl download returned HTTP {status}")
+                return None
+            if data:
+                return data
             return None
         except httpx.TimeoutException:
-            logger.warning(f"Subdl download timed out for {download_ref}")
+            logger.warning("Subdl download timed out")
             return None
         except Exception as e:
-            logger.warning(f"Failed to download from Subdl ({download_ref}): {e}")
+            logger.warning(f"Failed to download from Subdl: {type(e).__name__}")
             return None

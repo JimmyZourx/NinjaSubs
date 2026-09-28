@@ -117,8 +117,26 @@ async def test_rtl_fix_toggle_controls_served_content(client):
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.content = raw
+        mock_resp.headers = {"content-length": str(len(raw))}
+        mock_resp.encoding = "utf-8"
+
+        async def aiter_bytes_mock(chunk_size=None):
+            yield raw
+
+        mock_stream_cm = AsyncMock(
+            __aenter__=AsyncMock(return_value=MagicMock(
+                status_code=200,
+                headers={"content-length": str(len(raw))},
+                encoding="utf-8",
+                aiter_bytes=aiter_bytes_mock,
+            )),
+            __aexit__=AsyncMock(return_value=None)
+        )
+
         mock_http = AsyncMock()
         mock_http.get = AsyncMock(return_value=mock_resp)
+        mock_http.stream = MagicMock(return_value=mock_stream_cm)
+
         with (
             patch(
                 "app.providers.opensubtitles.OpenSubtitlesProvider.get_download_url",
@@ -212,8 +230,26 @@ async def test_ad_removal_toggle_controls_served_content(client):
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.content = raw
+        mock_resp.headers = {"content-length": str(len(raw))}
+        mock_resp.encoding = "utf-8"
+
+        async def aiter_bytes_mock(chunk_size=None):
+            yield raw
+
+        mock_stream_cm = AsyncMock(
+            __aenter__=AsyncMock(return_value=MagicMock(
+                status_code=200,
+                headers={"content-length": str(len(raw))},
+                encoding="utf-8",
+                aiter_bytes=aiter_bytes_mock,
+            )),
+            __aexit__=AsyncMock(return_value=None)
+        )
+
         mock_http = AsyncMock()
         mock_http.get = AsyncMock(return_value=mock_resp)
+        mock_http.stream = MagicMock(return_value=mock_stream_cm)
+
         with (
             patch(
                 "app.providers.opensubtitles.OpenSubtitlesProvider.get_download_url",
@@ -281,8 +317,26 @@ async def test_keep_translator_credits_toggle_controls_served_content(client):
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.content = raw
+        mock_resp.headers = {"content-length": str(len(raw))}
+        mock_resp.encoding = "utf-8"
+
+        async def aiter_bytes_mock(chunk_size=None):
+            yield raw
+
+        mock_stream_cm = AsyncMock(
+            __aenter__=AsyncMock(return_value=MagicMock(
+                status_code=200,
+                headers={"content-length": str(len(raw))},
+                encoding="utf-8",
+                aiter_bytes=aiter_bytes_mock,
+            )),
+            __aexit__=AsyncMock(return_value=None)
+        )
+
         mock_http = AsyncMock()
         mock_http.get = AsyncMock(return_value=mock_resp)
+        mock_http.stream = MagicMock(return_value=mock_stream_cm)
+
         with (
             patch(
                 "app.providers.opensubtitles.OpenSubtitlesProvider.get_download_url",

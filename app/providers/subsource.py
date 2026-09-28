@@ -719,7 +719,10 @@ class SubsourceProvider(BaseSubtitleProvider):
         """
         Download subtitle archive (.zip or .srt) from Subsource using X-API-Key.
         Handles both direct binary streams and JSON redirects with downloadUrl.
+        Performs exactly ONE streaming request for the API call.
         """
+        from app.utils.http_limits import bounded_download_bytes, safe_headers_for_cdn
+
         effective_key = (api_key or settings.SUBSOURCE_API_KEY or "").strip()
         headers = self._get_headers(effective_key)
         headers["Accept"] = "*/*"
@@ -729,51 +732,55 @@ class SubsourceProvider(BaseSubtitleProvider):
             url = f"{self.BASE_URL}/subtitles/{download_ref}/download"
 
         try:
-            resp = await self.client.get(
+            status, raw_content = await bounded_download_bytes(
+                self.client,
                 url,
                 headers=headers,
                 timeout=settings.UPSTREAM_TIMEOUT,
-                follow_redirects=True,
             )
-            if resp.status_code == 200 and resp.content:
-                raw_content = resp.content
-                # Handle possible JSON payload (e.g. {"downloadUrl": "https://..."} or error)
-                if raw_content.strip().startswith(b"{"):
-                    try:
-                        json_data = json.loads(raw_content.decode("utf-8"))
-                        cdn_url = (
-                            json_data.get("downloadUrl")
-                            or json_data.get("download_url")
-                            or json_data.get("url")
-                        )
-                        if cdn_url:
-                            cdn_resp = await self.client.get(
-                                cdn_url,
-                                follow_redirects=True,
-                                timeout=settings.UPSTREAM_TIMEOUT,
-                            )
-                            if cdn_resp.status_code == 200 and cdn_resp.content:
-                                return cdn_resp.content
-                        logger.warning(f"Subsource returned non-binary JSON: {json_data}")
-                        return None
-                    except Exception as e:
-                        logger.debug(f"JSON check parse error in Subsource download: {e}")
-
-                return raw_content
-
-            if resp.status_code in (401, 403):
+            if status in (401, 403):
                 logger.warning(
-                    f"Subsource download authentication failed (HTTP {resp.status_code}). Check SUBSOURCE_API_KEY."
+                    f"Subsource download authentication failed (HTTP {status}). Check SUBSOURCE_API_KEY."
                 )
                 return None
-            if resp.status_code == 429:
+            if status == 429:
                 logger.warning("Subsource download rate limit reached (HTTP 429).")
                 return None
-            logger.warning(f"Subsource download returned HTTP {resp.status_code} for {url}")
-            return None
+            if status != 200:
+                logger.warning(f"Subsource download returned HTTP {status}")
+                return None
+            if not raw_content:
+                return None
+
+            # Handle possible JSON payload (e.g. {"downloadUrl": "https://..."} or error)
+            if raw_content.strip().startswith(b"{"):
+                try:
+                    json_data = json.loads(raw_content.decode("utf-8"))
+                    cdn_url = (
+                        json_data.get("downloadUrl")
+                        or json_data.get("download_url")
+                        or json_data.get("url")
+                    )
+                    if cdn_url:
+                        # Do NOT forward X-API-Key or Authorization to CDN
+                        cdn_headers = safe_headers_for_cdn(headers)
+                        cdn_status, cdn_content = await bounded_download_bytes(
+                            self.client,
+                            cdn_url,
+                            headers=cdn_headers,
+                            timeout=settings.UPSTREAM_TIMEOUT,
+                        )
+                        if cdn_status == 200 and cdn_content:
+                            return cdn_content
+                    logger.warning("Subsource returned a non-binary JSON download response")
+                    return None
+                except Exception as e:
+                    logger.debug(f"JSON check parse error in Subsource download: {e}")
+
+            return raw_content
         except httpx.TimeoutException:
-            logger.warning(f"Subsource download timed out for {url}")
+            logger.warning("Subsource download timed out")
             return None
         except Exception as e:
-            logger.warning(f"Failed to download from Subsource ({url}): {e}")
+            logger.warning(f"Failed to download from Subsource: {type(e).__name__}")
             return None

@@ -7,6 +7,13 @@ import re
 import zipfile
 from pathlib import Path
 
+MAX_ZIP_INPUT_BYTES = 10 * 1024 * 1024
+MAX_ARCHIVE_ENTRIES = 200
+MAX_SUBTITLE_ENTRY_BYTES = 5 * 1024 * 1024
+MAX_TOTAL_UNCOMPRESSED_BYTES = 20 * 1024 * 1024
+MAX_ZIP_COMPRESSION_RATIO = 200
+MAX_ARCHIVE_PATH_LENGTH = 256
+
 
 class SubtitleExtractionError(Exception):
     """Raised when subtitle extraction fails."""
@@ -122,29 +129,37 @@ def extract_srt_from_zip(
     Raises:
         SubtitleExtractionError: If archive is invalid or contains no safe subtitle files.
     """
+    if len(zip_bytes) > MAX_ZIP_INPUT_BYTES:
+        raise SubtitleExtractionError("ZIP input exceeds maximum size")
+
     try:
         zf = zipfile.ZipFile(io.BytesIO(zip_bytes))
     except (zipfile.BadZipFile, Exception) as e:
         raise SubtitleExtractionError(f"Corrupt or invalid ZIP archive: {e}") from e
 
-    valid_entries: list[zipfile.ZipInfo] = []
+    # Count ALL archive members (directories, metadata, junk, etc.) before processing
+    infos = zf.infolist()
+    if len(infos) > MAX_ARCHIVE_ENTRIES:
+        raise SubtitleExtractionError("Archive entry limit exceeded")
 
-    for entry in zf.infolist():
-        # Ignore directory entries
+    valid_entries: list[zipfile.ZipInfo] = []
+    total_uncompressed = 0
+
+    for entry in infos:
         if entry.is_dir():
             continue
 
         filename = entry.filename
 
-        # Zip Slip Protection: discard any path traversal or absolute path entries
+        if len(filename) > MAX_ARCHIVE_PATH_LENGTH:
+            raise SubtitleExtractionError("Archive path exceeds limit")
+
         if is_zip_slip_attempt(filename):
             continue
 
-        # Ignore macOS and system metadata
         if "__MACOSX" in filename or Path(filename).name.startswith("._"):
             continue
 
-        # Accept .srt, .ass, .ssa, and .vtt files
         f_lower = filename.lower()
         if not (
             f_lower.endswith(".srt")
@@ -154,14 +169,33 @@ def extract_srt_from_zip(
         ):
             continue
 
+        compress_size = entry.compress_size or 0
+        uncompressed_size = entry.file_size or 0
+
+        if compress_size == 0 and uncompressed_size > 0:
+            raise SubtitleExtractionError("Invalid compression size")
+
+        if uncompressed_size > MAX_SUBTITLE_ENTRY_BYTES:
+            raise SubtitleExtractionError("Entry exceeds maximum size")
+
+        if compress_size > 0:
+            ratio = uncompressed_size / compress_size if compress_size else float("inf")
+            if ratio > MAX_ZIP_COMPRESSION_RATIO:
+                raise SubtitleExtractionError("Compression ratio exceeds limit")
+
+        total_uncompressed += uncompressed_size
+        if total_uncompressed > MAX_TOTAL_UNCOMPRESSED_BYTES:
+            raise SubtitleExtractionError("Total uncompressed size exceeds limit")
+
         valid_entries.append(entry)
 
     if not valid_entries:
         raise SubtitleExtractionError("No valid subtitle files (.srt, .ass, .ssa, .vtt) found in the archive.")
 
-    # If single entry, extract and transcode directly
     if len(valid_entries) == 1:
         raw_sub = zf.read(valid_entries[0])
+        if len(raw_sub) > MAX_SUBTITLE_ENTRY_BYTES:
+            raise SubtitleExtractionError("Extracted entry exceeds size limit")
         return transcode_to_utf8(raw_sub)
 
     # If multiple entries exist, select the best candidate
@@ -172,6 +206,8 @@ def extract_srt_from_zip(
         episode=episode,
     )
     raw_sub = zf.read(best_entry)
+    if len(raw_sub) > MAX_SUBTITLE_ENTRY_BYTES:
+        raise SubtitleExtractionError("Extracted entry exceeds size limit")
     return transcode_to_utf8(raw_sub)
 
 

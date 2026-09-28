@@ -97,27 +97,27 @@ class SubtitlecatProvider(BaseSubtitleProvider):
             return []
 
         try:
-            resp = await self.client.get(
-                f"{self.BASE_URL}/index.php",
-                params={"search": query},
+            from urllib.parse import urlencode
+
+            from app.utils.http_limits import bounded_fetch_text
+
+            url = f"{self.BASE_URL}/index.php?{urlencode({'search': query})}"
+            status, html_text = await bounded_fetch_text(
+                self.client,
+                url,
                 headers=self._headers(),
                 timeout=settings.UPSTREAM_TIMEOUT,
                 follow_redirects=True,
             )
-        except httpx.TimeoutException:
-            logger.warning(f"[SubtitleCat] Search timed out for '{query}'")
-            return []
+            if status != 200 or not html_text:
+                return []
         except Exception as e:
             logger.warning(f"[SubtitleCat] Search error for '{query}': {e}")
             return []
 
-        if resp.status_code != 200:
-            logger.info(f"[SubtitleCat] Search HTTP {resp.status_code} for '{query}'")
-            return []
-
         candidates: list[tuple[str, str]] = []
         seen_paths: set[str] = set()
-        for match in _SEARCH_LINK_REGEX.finditer(resp.text):
+        for match in _SEARCH_LINK_REGEX.finditer(html_text):
             rel_path = match.group(1).strip()
             if rel_path in seen_paths:
                 continue
@@ -186,17 +186,21 @@ class SubtitlecatProvider(BaseSubtitleProvider):
 
     async def _fetch_detail(self, url: str) -> str:
         """Fetch a SubtitleCat detail page and return its HTML (empty on failure)."""
+        from app.utils.http_limits import bounded_fetch_text
+
         try:
-            resp = await self.client.get(
+            status, html_text = await bounded_fetch_text(
+                self.client,
                 url,
                 headers=self._headers(),
                 timeout=settings.UPSTREAM_TIMEOUT,
                 follow_redirects=True,
             )
-            if resp.status_code == 200:
-                return resp.text
+            if status != 200 or not html_text:
+                return ""
+            return html_text
         except Exception as e:
-            logger.debug(f"[SubtitleCat] Detail fetch failed for {url}: {e}")
+            logger.debug(f"[SubtitleCat] Detail fetch failed: {type(e).__name__}")
         return ""
 
     @staticmethod
@@ -207,6 +211,8 @@ class SubtitlecatProvider(BaseSubtitleProvider):
 
     async def download_archive(self, download_ref: str, api_key: str | None = None) -> bytes | None:
         """Download a plain ``.srt`` file (SubtitleCat returns raw text, not a zip)."""
+        from app.utils.http_limits import bounded_download_bytes
+
         url = download_ref
         if not url.startswith("http"):
             url = f"{self.BASE_URL}/{url.lstrip('/')}"
@@ -215,19 +221,21 @@ class SubtitlecatProvider(BaseSubtitleProvider):
         headers["Accept"] = "text/plain,application/octet-stream,*/*"
 
         try:
-            resp = await self.client.get(
+            status, data = await bounded_download_bytes(
+                self.client,
                 url,
                 headers=headers,
                 timeout=settings.UPSTREAM_TIMEOUT,
-                follow_redirects=True,
             )
-            if resp.status_code == 200 and resp.content:
-                return resp.content
-            logger.warning(f"[SubtitleCat] Download returned HTTP {resp.status_code} for {url}")
+            if status != 200:
+                logger.warning(f"[SubtitleCat] Download returned HTTP {status}")
+                return None
+            if data:
+                return data
             return None
         except httpx.TimeoutException:
-            logger.warning(f"[SubtitleCat] Download timed out for {url}")
+            logger.warning("[SubtitleCat] Download timed out")
             return None
         except Exception as e:
-            logger.warning(f"[SubtitleCat] Download error for {url}: {e}")
+            logger.warning(f"[SubtitleCat] Download error: {type(e).__name__}")
             return None

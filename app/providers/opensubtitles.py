@@ -263,7 +263,10 @@ class OpenSubtitlesProvider(BaseSubtitleProvider):
         """
         Download subtitle file from OpenSubtitles.
         Resolves direct download URL via get_download_url using file_id.
+        Performs exactly ONE streaming request.
         """
+        from app.utils.http_limits import bounded_download_bytes
+
         effective_key = (api_key or getattr(settings, "OPENSUBTITLES_API_KEY", "") or "").strip()
 
         m = re.search(r"(\d+)(?:\.srt)?$", str(download_ref).strip())
@@ -276,7 +279,7 @@ class OpenSubtitlesProvider(BaseSubtitleProvider):
         target_url = direct_link or (download_ref if str(download_ref).startswith("http") else None)
         if not target_url:
             logger.warning(
-                f"[OpenSubtitles Download] No valid download URL resolved for {download_ref}"
+                "[OpenSubtitles Download] No valid download URL resolved"
             )
             return None
 
@@ -287,17 +290,23 @@ class OpenSubtitlesProvider(BaseSubtitleProvider):
         )
         should_close = self.client is None
         try:
-            logger.info(f"[OpenSubtitles Download] Downloading content from {target_url}")
-            dl_resp = await client.get(target_url, follow_redirects=True)
-            if dl_resp.status_code == 200 and dl_resp.content:
-                return dl_resp.content
-            logger.warning(
-                f"[OpenSubtitles Download] Download failed with HTTP {dl_resp.status_code}"
+            logger.info("[OpenSubtitles Download] Fetching signed download content")
+            status, data = await bounded_download_bytes(
+                client,
+                target_url,
+                timeout=settings.UPSTREAM_TIMEOUT,
             )
+            if status != 200:
+                logger.warning(
+                    f"[OpenSubtitles Download] Download failed with HTTP {status}"
+                )
+                return None
+            if data:
+                return data
             return None
         except Exception as dl_err:
             logger.warning(
-                f"[OpenSubtitles Download] Error downloading content from {target_url}: {dl_err}"
+                f"[OpenSubtitles Download] Error downloading content: {type(dl_err).__name__}"
             )
             return None
         finally:

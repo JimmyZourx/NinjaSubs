@@ -333,6 +333,19 @@ async def test_opensubtitles_multi_language_mapping():
     assert captured_requests[0]["params"]["languages"] == "ar,en"
 
 
+def _stream_response(status_code: int = 200, content: bytes = b"") -> MagicMock:
+    """Create a mock stream response that works with bounded_download_bytes."""
+    resp = MagicMock(spec=httpx.Response)
+    resp.status_code = status_code
+    resp.headers = {"content-length": str(len(content))}
+    resp.encoding = "utf-8"
+
+    async def aiter_bytes(chunk_size=None):
+        yield content
+    resp.aiter_bytes = aiter_bytes
+    return resp
+
+
 @pytest.mark.asyncio
 async def test_opensubtitles_download_archive_success():
     """Verify download_archive resolves download link via POST /download and fetches file content."""
@@ -362,6 +375,10 @@ async def test_opensubtitles_download_archive_success():
 
     mock_client.post.side_effect = mock_post
     mock_client.get.side_effect = mock_get
+    # Mock stream for bounded_download_bytes
+    mock_client.stream.return_value.__aenter__.return_value = _stream_response(
+        200, content=b"1\n00:00:01,000 --> 00:00:04,000\nHello world\n"
+    )
 
     provider = OpenSubtitlesProvider(mock_client)
     content = await provider.download_archive(
@@ -385,6 +402,10 @@ async def test_opensubtitles_download_archive_direct_http_fallback():
         return resp
 
     mock_client.get.side_effect = mock_get
+    # Mock stream for bounded_download_bytes
+    mock_client.stream.return_value.__aenter__.return_value = _stream_response(
+        200, content=b"1\n00:00:01,000 --> 00:00:02,000\nDirect link test\n"
+    )
 
     provider = OpenSubtitlesProvider(mock_client)
     content = await provider.download_archive(
@@ -533,6 +554,20 @@ async def test_opensubtitles_proxy_stream_direct_delivery(client):
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.content = b"1\n00:00:01,000 --> 00:00:04,000\n\xd9\x85\xd8\xb1\xd8\xad\xd8\xa8\xd8\xa7 \xd8\xa8\xd9\x83.\n"
+    mock_resp.headers = {"content-length": str(len(mock_resp.content))}
+    mock_resp.encoding = "utf-8"
+
+    async def mock_aiter_bytes(chunk_size=None):
+        yield mock_resp.content
+    mock_resp.aiter_bytes = mock_aiter_bytes
+
+    mock_stream_cm = AsyncMock(
+        __aenter__=AsyncMock(return_value=mock_resp),
+        __aexit__=AsyncMock(return_value=None)
+    )
+
+    # stream should be a function that returns the context manager
+    mock_stream_fn = MagicMock(return_value=mock_stream_cm)
 
     with (
         patch(
@@ -540,7 +575,11 @@ async def test_opensubtitles_proxy_stream_direct_delivery(client):
             new=AsyncMock(return_value=f"https://download.opensubtitles.com/temp/{file_id}.srt"),
         ),
         patch("app.cache.cache_manager.get_subtitle", new=AsyncMock(return_value=None)),
-        patch("app.main._http_client.get", new=AsyncMock(return_value=mock_resp)),
+        patch("app.main._http_client", new=AsyncMock(
+            get=AsyncMock(return_value=mock_resp),
+            stream=mock_stream_fn,
+            aclose=AsyncMock()
+        )),
     ):
         resp = client.get(f"/sub/opensubtitles/{file_id}.srt?api_key=my_key")
         assert resp.status_code == 200
@@ -557,6 +596,19 @@ async def test_opensubtitles_proxy_stream_configured_direct_delivery(client):
     mock_resp = MagicMock()
     mock_resp.status_code = 200
     mock_resp.content = b"1\n00:00:01,000 --> 00:00:04,000\n\xd9\x85\xd8\xb1\xd8\xad\xd8\xa8\xd8\xa7 \xd8\xa8\xd9\x83.\n"
+    mock_resp.headers = {"content-length": str(len(mock_resp.content))}
+    mock_resp.encoding = "utf-8"
+
+    async def mock_aiter_bytes(chunk_size=None):
+        yield mock_resp.content
+    mock_resp.aiter_bytes = mock_aiter_bytes
+
+    mock_stream_cm = AsyncMock(
+        __aenter__=AsyncMock(return_value=mock_resp),
+        __aexit__=AsyncMock(return_value=None)
+    )
+
+    mock_stream_fn = MagicMock(return_value=mock_stream_cm)
 
     with (
         patch(
@@ -564,7 +616,11 @@ async def test_opensubtitles_proxy_stream_configured_direct_delivery(client):
             new=AsyncMock(return_value=f"https://download.opensubtitles.com/temp/{file_id}.srt"),
         ) as mock_get_dl,
         patch("app.cache.cache_manager.get_subtitle", new=AsyncMock(return_value=None)),
-        patch("app.main._http_client.get", new=AsyncMock(return_value=mock_resp)),
+        patch("app.main._http_client", new=AsyncMock(
+            get=AsyncMock(return_value=mock_resp),
+            stream=mock_stream_fn,
+            aclose=AsyncMock()
+        )),
     ):
         resp = client.get(f"/{user_cfg}/sub/opensubtitles/{file_id}.srt")
         assert resp.status_code == 200

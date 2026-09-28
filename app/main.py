@@ -1333,10 +1333,16 @@ async def _serve_subtitle_handler(
             srt_bytes = transcode_to_utf8(raw_archive)
     except SubtitleExtractionError as e:
         logger.error(f"ZIP extraction error for #{target_id}: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to unpack subtitle: {e}") from e
+        raise HTTPException(
+            status_code=502,
+            detail="Upstream subtitle archive could not be processed",
+        ) from e
     except Exception as e:
         logger.error(f"Unexpected error extracting subtitle #{target_id}: {e}")
-        raise HTTPException(status_code=500, detail="Internal subtitle extraction error") from e
+        raise HTTPException(
+            status_code=502,
+            detail="Upstream subtitle archive could not be processed",
+        ) from e
 
     # 5. Save to local LRU disk cache (triggers auto-cleanup if >1GB or >500 files)
     await cache_manager.save_subtitle(target_id, srt_bytes)
@@ -1500,11 +1506,17 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
             dl_client = httpx.AsyncClient(timeout=10.0, follow_redirects=True)
             should_close = True
         try:
-            dl_resp = await dl_client.get(download_url, follow_redirects=True)
-            if dl_resp.status_code == 200 and dl_resp.content:
+            from app.utils.http_limits import bounded_download_bytes
+
+            status, dl_content = await bounded_download_bytes(
+                dl_client,
+                download_url,
+                timeout=10.0,
+            )
+            if status == 200 and dl_content:
                 meta = cache_manager.get_metadata(str(file_id))
                 release_name = meta.get("release_name", file_id) if meta else file_id
-                sub_bytes = transcode_to_utf8(dl_resp.content)
+                sub_bytes = transcode_to_utf8(dl_content)
                 await cache_manager.save_subtitle(str(file_id), sub_bytes)
                 return _build_subtitle_response(
                     sub_bytes,
@@ -1521,11 +1533,11 @@ async def proxy_opensubtitles_stream(file_id: int, request: Request, config: str
                 )
             else:
                 logger.warning(
-                    f"[OpenSubtitles Direct Fetch] HTTP {dl_resp.status_code} from {download_url}"
+                    f"[OpenSubtitles Direct Fetch] HTTP {status}"
                 )
         except Exception as dl_err:
             logger.warning(
-                f"[OpenSubtitles Download] Direct fetch failed ({dl_err}), attempting fallback..."
+                f"[OpenSubtitles Download] Direct fetch failed ({type(dl_err).__name__}), attempting fallback..."
             )
         finally:
             if should_close:

@@ -70,6 +70,8 @@ class YifysubtitlesProvider(BaseSubtitleProvider):
         **kwargs,
     ) -> list[SubtitleRelease]:
         """Query YIFYSubtitles by IMDb ID (movies only; series are unsupported)."""
+        from app.utils.http_limits import bounded_fetch_text
+
         if is_series:
             return []
 
@@ -79,11 +81,11 @@ class YifysubtitlesProvider(BaseSubtitleProvider):
 
         page_url = f"{self.BASE_URL}/movie-imdb/{clean_imdb}"
         try:
-            resp = await self.client.get(
+            status, page_html = await bounded_fetch_text(
+                self.client,
                 page_url,
                 headers=self._headers(),
                 timeout=settings.UPSTREAM_TIMEOUT,
-                follow_redirects=True,
             )
         except httpx.TimeoutException:
             logger.warning(f"[YIFYSubtitles] Search timed out for {clean_imdb}")
@@ -92,9 +94,9 @@ class YifysubtitlesProvider(BaseSubtitleProvider):
             logger.warning(f"[YIFYSubtitles] Search error for {clean_imdb}: {e}")
             return []
 
-        if resp.status_code != 200 or "Page not found" in resp.text:
+        if status != 200 or "Page not found" in page_html:
             logger.info(
-                f"[YIFYSubtitles] No listing for {clean_imdb} (HTTP {resp.status_code})"
+                f"[YIFYSubtitles] No listing for {clean_imdb} (HTTP {status})"
             )
             return []
 
@@ -102,7 +104,7 @@ class YifysubtitlesProvider(BaseSubtitleProvider):
         results: list[SubtitleRelease] = []
         seen_slugs: set[str] = set()
 
-        for row_match in _ROW_REGEX.finditer(resp.text):
+        for row_match in _ROW_REGEX.finditer(page_html):
             row = row_match.group(2)
 
             lang_match = _LANG_REGEX.search(row)
@@ -162,6 +164,8 @@ class YifysubtitlesProvider(BaseSubtitleProvider):
 
     async def download_archive(self, download_ref: str, api_key: str | None = None) -> bytes | None:
         """Download a subtitle .zip archive, handling Cloudflare session warm-up."""
+        from app.utils.http_limits import bounded_download_bytes, bounded_fetch_text
+
         url = download_ref
         if not url.startswith("http"):
             url = f"{self.BASE_URL}/{url.lstrip('/')}"
@@ -170,43 +174,45 @@ class YifysubtitlesProvider(BaseSubtitleProvider):
         headers["Accept"] = "application/octet-stream,application/zip,*/*"
 
         try:
-            resp = await self.client.get(
+            # Single streaming request
+            status, data = await bounded_download_bytes(
+                self.client,
                 url,
                 headers=headers,
                 timeout=settings.UPSTREAM_TIMEOUT,
-                follow_redirects=True,
             )
-            if resp.status_code == 200 and resp.content:
-                return resp.content
+            if status == 200 and data:
+                return data
 
             # Cloudflare may require a fresh session cookie; warm up and retry once.
-            if resp.status_code in (403, 503):
-                logger.info("[YIFYSubtitles] Warming up session after HTTP %s", resp.status_code)
+            if status in (403, 503):
+                logger.info("[YIFYSubtitles] Warming up session after HTTP %s", status)
                 try:
-                    await self.client.get(
+                    # Use bounded fetch for warm-up to avoid unbounded read
+                    await bounded_fetch_text(
+                        self.client,
                         f"{self.BASE_URL}/",
                         headers=self._headers(),
                         timeout=settings.UPSTREAM_TIMEOUT,
-                        follow_redirects=True,
                     )
                 except Exception:
                     pass
-                resp = await self.client.get(
+                status, data = await bounded_download_bytes(
+                    self.client,
                     url,
                     headers=headers,
                     timeout=settings.UPSTREAM_TIMEOUT,
-                    follow_redirects=True,
                 )
-                if resp.status_code == 200 and resp.content:
-                    return resp.content
+                if status == 200 and data:
+                    return data
 
             logger.warning(
-                f"[YIFYSubtitles] Download returned HTTP {resp.status_code} for {url}"
+                f"[YIFYSubtitles] Download returned HTTP {status}"
             )
             return None
         except httpx.TimeoutException:
-            logger.warning(f"[YIFYSubtitles] Download timed out for {url}")
+            logger.warning("[YIFYSubtitles] Download timed out")
             return None
         except Exception as e:
-            logger.warning(f"[YIFYSubtitles] Download error for {url}: {e}")
+            logger.warning(f"[YIFYSubtitles] Download error: {type(e).__name__}")
             return None
