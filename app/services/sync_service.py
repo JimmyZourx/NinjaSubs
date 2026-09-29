@@ -24,6 +24,82 @@ _STAMP = r"(\d{2,6}):([0-5]\d):([0-5]\d),(\d{3})"
 _SPAN = re.compile(rf"^{_STAMP} --> {_STAMP}$")
 
 
+_FLEX_STAMP = r"(\d{2,6}):([0-5]\d):([0-5]\d)[.,](\d{1,3})"
+_FLEX_ARROW = r"-{1,2}>-?"
+_FLEX_SPAN = re.compile(rf"^\s*{_FLEX_STAMP}\s*{_FLEX_ARROW}\s*{_FLEX_STAMP}\s*$")
+_CANON_LABEL_LIMIT = 3
+
+
+def _fraction_to_ms(fraction: str) -> int:
+    """Convert a 1-3 digit fractional second string to milliseconds.
+
+    ,7 => 700, ,72 => 720, ,072 => 72.
+    """
+    return int(fraction) * 10 ** (3 - len(fraction))
+
+
+def _format_ts(milliseconds: int) -> str:
+    """Format milliseconds as HH:MM:SS,mmm.
+
+    Hours are zero-padded to at least two digits.
+    """
+    milliseconds = max(0, milliseconds)
+    hours = milliseconds // 3_600_000
+    minutes = (milliseconds % 3_600_000) // 60_000
+    seconds = (milliseconds % 60_000) // 1000
+    millis = milliseconds % 1000
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d},{millis:03d}"
+
+
+def _canonicalize_srt(text: str) -> str:
+    """Canonicalize structurally-defective SRT into strict, re-numbered SRT.
+
+    Accepts common bounded structural defects (non-numeric cue labels, missing
+    or garbled cue indices, leading/trailing blank structural lines, malformed
+    arrows -->/-> / ->- / -->-, comma or period millisecond separators, 1-3
+    millisecond digits, and surrounding whitespace) and converts each accepted
+    cue into the canonical form:
+
+        N
+        HH:MM:SS,mmm --> HH:MM:SS,mmm
+        body
+
+    Cues are re-numbered sequentially from 1.  Body text is never modified.
+    Raises ValueError when a cue cannot be safely canonicalized.
+    """
+    if "\x00" in text:
+        raise ValueError("invalid text")
+    if not text.strip():
+        return ""
+    cues: list[tuple[int, int, str]] = []
+    for block in re.split(r"\n[ \t]*\n", text.strip()):
+        lines = block.splitlines()
+        match = None
+        idx = -1
+        for i, raw in enumerate(lines[:_CANON_LABEL_LIMIT]):
+            m = _FLEX_SPAN.fullmatch(raw.strip())
+            if m:
+                match, idx = m, i
+                break
+        if match is None:
+            raise ValueError("invalid cue")
+        body = "\n".join(lines[idx + 1:])
+        if not body.strip() or "\x00" in body:
+            raise ValueError("invalid cue")
+        h1, mi1, s1, f1, h2, mi2, s2, f2 = match.groups()
+        start = (int(h1) * 3600 + int(mi1) * 60 + int(s1)) * 1000 + _fraction_to_ms(f1)
+        end = (int(h2) * 3600 + int(mi2) * 60 + int(s2)) * 1000 + _fraction_to_ms(f2)
+        if start >= end:
+            raise ValueError("invalid cue")
+        cues.append((start, end, body))
+    if not cues:
+        raise ValueError("invalid cue")
+    out = []
+    for n, (start, end, body) in enumerate(cues, 1):
+        out.append(f"{n}\n{_format_ts(start)} --> {_format_ts(end)}\n{body}")
+    return "\n\n".join(out) + "\n"
+
+
 def _parse_srt(text: str) -> list[tuple[int, int, str]]:
     """Parse a well-formed SRT string into (start_ms, end_ms, body_text) tuples."""
     cues: list[tuple[int, int, str]] = []
@@ -86,6 +162,7 @@ def _normalize(data: bytes) -> tuple[bytes, list[tuple[int, int, str]]]:
         text = convert_ass_to_srt(text, apply_rtl=False)
     elif text.startswith("WEBVTT"):
         text = _vtt_to_srt(text)
+    text = _canonicalize_srt(text)
     normalized = text.encode("utf-8")
     if len(normalized) > MAX_SUBTITLE_ENTRY_BYTES:
         raise ValueError("normalized size")
