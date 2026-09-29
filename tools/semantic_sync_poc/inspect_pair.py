@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from app.services.sync_service import _normalize, _duration
+from app.services.sync_service import _duration, _normalize
 
 
 def inspect(path: Path):

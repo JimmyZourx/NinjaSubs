@@ -8,12 +8,12 @@ from app.services.sync_service import _normalize
 
 MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
-AR_FILE = Path("subs_cache/43d229491b6048d2.srt")
+AR_FILE = Path("subs_cache/de8099e661d23434.srt")
 EN_FILE = Path(
     "subs_cache/references/"
-    "tt1748227_8ae53ebaa27a07affa2e_subdl_edition.srt"
+    "tt0092263_52346554f475b29d48e9_subdl_team.srt"
 )
-ALASS_FILE = Path("/tmp/the-collection.alass-sync.srt")
+ALASS_FILE = Path("/tmp/better-tomorrow.alass.srt")
 
 MIN_SCORE = 0.75
 MIN_MARGIN = 0.15
@@ -184,7 +184,6 @@ def report(name, errors):
 
 
 original_errors = []
-details = []
 alass_errors = []
 semantic_errors = []
 
@@ -239,17 +238,6 @@ for fold in range(5):
             semantic_time - target
         )
 
-        details.append({
-            "ai": ai,
-            "ei": ei,
-            "target": target,
-            "original": original_time,
-            "alass": alass_time,
-            "semantic": semantic_time,
-            "alass_error": alass_time - target,
-            "semantic_error": semantic_time - target,
-        })
-
 
 print("\n=== HELD-OUT TIMING RESULTS ===")
 
@@ -258,43 +246,3 @@ report("ALASS", alass_errors)
 report("SEMANTIC 5-FOLD CV", semantic_errors)
 
 print("\nLower is better.")
-
-
-print("\n=== WORST ALASS OUTLIERS ===")
-
-for d in sorted(
-    details,
-    key=lambda x: abs(x["alass_error"]),
-    reverse=True
-)[:10]:
-    ai = d["ai"]
-    ei = d["ei"]
-
-    print()
-    print(
-        f"AR #{ai+1} -> EN #{ei+1} | "
-        f"Alass={d['alass_error']:+.3f}s | "
-        f"Semantic={d['semantic_error']:+.3f}s"
-    )
-    print("AR:", ar[ai]["text"])
-    print("EN:", en[ei]["text"])
-
-
-print("\n=== WORST SEMANTIC OUTLIERS ===")
-
-for d in sorted(
-    details,
-    key=lambda x: abs(x["semantic_error"]),
-    reverse=True
-)[:10]:
-    ai = d["ai"]
-    ei = d["ei"]
-
-    print()
-    print(
-        f"AR #{ai+1} -> EN #{ei+1} | "
-        f"Semantic={d['semantic_error']:+.3f}s | "
-        f"Alass={d['alass_error']:+.3f}s"
-    )
-    print("AR:", ar[ai]["text"])
-    print("EN:", en[ei]["text"])

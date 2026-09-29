@@ -1,10 +1,10 @@
-from pathlib import Path
 import re
+from pathlib import Path
+
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
 from app.services.sync_service import _normalize
-
 
 MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
@@ -101,7 +101,7 @@ print("\n=== TOP HIGH-CONFIDENCE MATCHES ===")
 
 shown = 0
 
-for score, margin, ai, ei, second in matches:
+for score, margin, ai, ei, _second in matches:
     if score < 0.70:
         continue
 

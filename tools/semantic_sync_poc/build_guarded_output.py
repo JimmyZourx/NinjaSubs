@@ -1,5 +1,5 @@
-from pathlib import Path
 import re
+from pathlib import Path
 
 SLOPE = 1.04299092
 OFFSET_MS = -796.0
@@ -54,7 +54,7 @@ if len(original_blocks) != len(alass_blocks):
 out = []
 
 for cue_no, (orig, ala) in enumerate(
-    zip(original_blocks, alass_blocks),
+    zip(original_blocks, alass_blocks, strict=False),
     1,
 ):
     if cue_no not in SUSPICIOUS:

@@ -4,7 +4,6 @@ from pathlib import Path
 
 from app.services.sync_service import _normalize
 
-
 ARABIC_DIACRITICS = re.compile(r"[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]")
 HTML_TAGS = re.compile(r"<[^>]+>")
 ASS_TAGS = re.compile(r"\{\\[^}]+\}")

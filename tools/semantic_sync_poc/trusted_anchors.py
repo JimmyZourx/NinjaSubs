@@ -1,11 +1,10 @@
-from pathlib import Path
 import re
+from pathlib import Path
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
 from app.services.sync_service import _normalize
-
 
 MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 

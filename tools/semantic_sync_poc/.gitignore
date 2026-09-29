@@ -1,0 +1,29 @@
+# Generated subtitle payloads and per-run reports; retain Markdown summaries.
+*.srt
+*.vtt
+*.ass
+*.ssa
+*.srt.json
+*.log
+/validation-*/
+/outputs/
+/logs/
+/checkpoint-preview/
+
+# Experiment-local model downloads, embeddings, and caches.
+.cache/
+hf_cache/
+huggingface/
+models/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.py[cod]
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.onnx
+*.npy
+*.npz
+*.pkl
