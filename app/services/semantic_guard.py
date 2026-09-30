@@ -6,6 +6,7 @@ import asyncio
 import datetime
 import hashlib
 import json
+import logging
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -15,6 +16,8 @@ from app.config import settings
 
 if TYPE_CHECKING:
     from sentence_transformers import SentenceTransformer
+
+logger = logging.getLogger("semantic_guard")
 
 _REPORT_ALLOWLIST = {
     "imdb_id",
@@ -141,7 +144,13 @@ class SemanticGuardObserver:
 
         try:
             self._queue.put_nowait(obs)
+            logger.info(
+                "Semantic Guard observation queued imdb=%s fp=%s",
+                imdb_id,
+                fingerprint[:8],
+            )
         except asyncio.QueueFull:
+            logger.warning("Semantic Guard queue full, dropping observation")
             return
 
         self._seen_fingerprints.add(fingerprint)
@@ -159,9 +168,13 @@ class SemanticGuardObserver:
                     timeout=self.timeout_seconds
                 )
             except TimeoutError:
-                pass
-            except Exception:
-                pass
+                logger.warning("Semantic Guard timeout for imdb=%s", item.imdb_id)
+            except Exception as exc:
+                logger.error(
+                    "Semantic Guard worker error imdb=%s: %s",
+                    item.imdb_id,
+                    type(exc).__name__,
+                )
             finally:
                 self._queue.task_done()
 
@@ -178,9 +191,20 @@ class SemanticGuardObserver:
                 obs.imdb_id,
                 obs.target_id,
             )
-            await self._write_report(result)
-        except Exception:
-            pass
+            if result:
+                await self._write_report(result)
+                logger.info(
+                    "Semantic Guard analysis completed imdb=%s anchors=%d confidence=%s",
+                    obs.imdb_id,
+                    result.get("anchor_count", 0),
+                    result.get("confidence", False),
+                )
+        except Exception as exc:
+            logger.error(
+                "Semantic Guard analysis failed imdb=%s: %s",
+                obs.imdb_id,
+                type(exc).__name__,
+            )
 
     async def _load_model(self) -> None:
         async with self._lock:
@@ -190,10 +214,13 @@ class SemanticGuardObserver:
                 await asyncio.to_thread(self._load_encoder)
                 if self._encoder is not None:
                     self._model_loaded = True
+                    logger.info("Semantic Guard model ready")
                 else:
                     self._model_load_failed = True
-            except Exception:
+                    logger.warning("Semantic Guard model load returned None")
+            except Exception as exc:
                 self._model_load_failed = True
+                logger.warning("Semantic Guard model load failed: %s", type(exc).__name__)
 
     def _load_encoder(self) -> None:
         try:
@@ -205,7 +232,13 @@ class SemanticGuardObserver:
     def _analyze(self, target_bytes: bytes, reference_bytes: bytes, alass_bytes: bytes,
                  imdb_id: str, target_id: str) -> dict[str, Any]:
         if self._encoder is None or self._model_load_failed:
+            logger.warning("Semantic Guard analysis skipped: encoder not available")
             return {}
+
+        logger.info(
+            "Semantic Guard analysis started imdb=%s",
+            imdb_id,
+        )
 
         try:
             from app.services.semantic_guard_core import (
@@ -218,12 +251,20 @@ class SemanticGuardObserver:
             reference = parse_srt(reference_bytes)
             alass = parse_srt(alass_bytes)
 
+            logger.info(
+                "Semantic Guard cues parsed imdb=%s arabic=%d reference=%d alass=%d",
+                imdb_id,
+                len(arabic),
+                len(reference),
+                len(alass),
+            )
+
             encoder = self._encoder
-            texts = [c.text for c in arabic + reference]
+            texts = [c.body for c in arabic + reference]
             vectors = encoder.encode(texts, normalize_embeddings=True, show_progress_bar=False)
             scores = vectors[:len(arabic)] @ vectors[len(arabic):].T
-            scores[[not c.text for c in arabic], :] = -1
-            scores[:, [not c.text for c in reference]] = -1
+            scores[[not c.body for c in arabic], :] = -1
+            scores[:, [not c.body for c in reference]] = -1
             anchors = anchors_from_scores(scores)
 
             report = guard_analyze(arabic, reference, alass, anchors, observe_only=True)
@@ -256,7 +297,12 @@ class SemanticGuardObserver:
                 "model_identifier": self.model_id,
             }
             return result
-        except Exception:
+        except Exception as exc:
+            logger.error(
+                "Semantic Guard analysis error imdb=%s: %s",
+                imdb_id,
+                type(exc).__name__,
+            )
             return {}
 
     async def _write_report(self, report: dict[str, Any]) -> None:

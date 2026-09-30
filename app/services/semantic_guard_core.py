@@ -41,6 +41,8 @@ def parse_srt(path_or_bytes: Path | bytes) -> list[Cue]:
     if "\x00" in text or not text.strip():
         raise ValueError("Empty or invalid SRT")
 
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+
     cues = []
     for index, block in enumerate(re.split(r"\n[ \t]*\n", text.strip()), 1):
         lines = block.strip().splitlines()

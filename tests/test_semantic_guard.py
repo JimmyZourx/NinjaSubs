@@ -9,11 +9,107 @@ import pytest
 
 from app.services.semantic_guard import (
     SemanticGuardObserver,
+    _allowlisted_report,
     _fingerprint,
     _hash_id,
     _sanitize_filename,
     _validate_imdb_id,
 )
+from app.services.semantic_guard_core import Cue, parse_srt
+
+
+def test_parse_srt_lf_multi_cue():
+    """LF multi-cue SRT returns correct cue count."""
+    srt_bytes = (
+        b"1\n00:00:01,000 --> 00:00:02,000\nHello world\n\n"
+        b"2\n00:00:03,000 --> 00:00:04,000\nSecond cue\n\n"
+        b"3\n00:00:05,000 --> 00:00:06,000\nThird cue\n"
+    )
+    cues = parse_srt(srt_bytes)
+    assert len(cues) == 3
+    assert cues[0].body == "Hello world"
+    assert cues[1].body == "Second cue"
+    assert cues[2].body == "Third cue"
+
+
+def test_parse_srt_crlf_multi_cue():
+    """CRLF multi-cue SRT returns correct cue count."""
+    srt_bytes = (
+        b"1\r\n00:00:01,000 --> 00:00:02,000\r\nHello world\r\n\r\n"
+        b"2\r\n00:00:03,000 --> 00:00:04,000\r\nSecond cue\r\n\r\n"
+        b"3\r\n00:00:05,000 --> 00:00:06,000\r\nThird cue\r\n"
+    )
+    cues = parse_srt(srt_bytes)
+    assert len(cues) == 3
+    assert cues[0].body == "Hello world"
+    assert cues[1].body == "Second cue"
+    assert cues[2].body == "Third cue"
+
+
+def test_parse_srt_malformed_strict():
+    """Existing malformed SRT behavior remains strict."""
+    with pytest.raises(ValueError):
+        parse_srt(b"1\n00:00:01,000 --> 00:00:02,000\n\n\n2\nbad\n\n3\n00:00:03,000 --> 00:00:04,000\nText\n")
+
+
+def test_cue_body_is_correct_field():
+    """Cue body field is the correct field for embeddings."""
+    cue = Cue("1", 1.0, 2.0, "Hello world text")
+    assert cue.body == "Hello world text"
+    assert cue.text == "Hello world text"
+
+
+def test_analysis_uses_body_not_text():
+    """Analysis uses Cue.body not c.text to avoid AttributeError."""
+    observer = SemanticGuardObserver()
+    observer._model_load_failed = True
+
+    result = observer._analyze(b"target", b"ref", b"alass", "tt1234567", "target_id")
+    assert result == {}
+
+
+def test_disabled_mode_avoids_model_loading():
+    """Semantic Guard disabled mode still avoids unnecessary model loading."""
+    from app.config import settings
+
+    original_mode = settings.SEMANTIC_GUARD_MODE
+    settings.SEMANTIC_GUARD_MODE = "off"
+
+    observer = SemanticGuardObserver()
+    assert observer.mode == "off"
+    assert observer._encoder is None
+
+    settings.SEMANTIC_GUARD_MODE = original_mode
+
+
+@pytest.mark.asyncio
+async def test_fail_open_behavior():
+    """Semantic Guard fails open - never breaks subtitle delivery."""
+    from app.config import settings
+    from app.services.sync.orchestrator import SyncOrchestrator
+
+    original_mode = settings.SEMANTIC_GUARD_MODE
+    settings.SEMANTIC_GUARD_MODE = "observe"
+
+    orchestrator = SyncOrchestrator(sync_service=MagicMock())
+    orchestrator._sync_service.sync_async = AsyncMock(return_value=b"REAL_ALASS_RESULT")
+
+    mock_resolved = MagicMock()
+    mock_resolved.text = "reference text"
+    orchestrator.resolve_reference = AsyncMock(return_value=mock_resolved)
+
+    with patch("app.services.semantic_guard.SemanticGuardObserver") as MockObserver:
+        mock_obs = MagicMock()
+        mock_obs.start = AsyncMock()
+        mock_obs.enqueue = MagicMock()
+        mock_obs.close = AsyncMock()
+        MockObserver.return_value = mock_obs
+
+        result = await orchestrator._execute(b"original", {"imdb_id": "tt1234567", "lang": "ar"}, "target_id")
+
+        assert result == b"REAL_ALASS_RESULT"
+
+    settings.SEMANTIC_GUARD_MODE = original_mode
 
 
 class MockSettings:
@@ -159,7 +255,6 @@ async def test_graceful_shutdown_cancellation():
 
 def test_report_allowlist():
     """report allowlist/redaction prevents secrets."""
-    from app.services.semantic_guard import _allowlisted_report
 
     report = {
         "imdb_id": "tt1234567",
@@ -332,7 +427,6 @@ def test_no_sys_path_mutation():
 
 def test_report_no_subtitle_text():
     """report nested values cannot contain subtitle text."""
-    from app.services.semantic_guard import _allowlisted_report
 
     report = {
         "imdb_id": "tt1234567",
