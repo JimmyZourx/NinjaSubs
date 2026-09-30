@@ -57,6 +57,14 @@ class Settings(BaseSettings):
     ALASS_TIMEOUT_SECONDS: float = 15.0
     ALASS_MAX_CONCURRENCY: int = 1
 
+    # Semantic Guard Observation Mode
+    SEMANTIC_GUARD_MODE: str = "off"
+    SEMANTIC_GUARD_MODEL: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    SEMANTIC_GUARD_MAX_CONCURRENCY: int = 1
+    SEMANTIC_GUARD_QUEUE_SIZE: int = 2
+    SEMANTIC_GUARD_TIMEOUT_SECONDS: float = 30.0
+    SEMANTIC_GUARD_REPORT_DIR: str = "logs/semantic_guard"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

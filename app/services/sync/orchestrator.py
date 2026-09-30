@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import re
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from app.config import settings
 from app.services.sync.matching import (
@@ -16,6 +16,9 @@ from app.services.sync.matching import (
     is_informative_release_name,
 )
 from app.services.sync.query import ReferenceQuery, ResolvedReference
+
+if TYPE_CHECKING:
+    from app.services.semantic_guard import SemanticGuardObserver
 
 
 def _normalize_fingerprint(value: Any) -> str:
@@ -69,6 +72,7 @@ class SyncOrchestrator:
         self._sync_cache = sync_cache
         self._inflight: dict[str, asyncio.Future[bytes]] = {}
         self._inflight_lock = asyncio.Lock()
+        self._semantic_observer: SemanticGuardObserver | None = None
 
     def _strategies(self) -> list[tuple[str, Any]]:
         return [
@@ -145,10 +149,33 @@ class SyncOrchestrator:
             resolved = await self.resolve_reference(meta)
             if not resolved.text:
                 return sub_bytes
-            synced = await self._sync_service.sync_async(
-                transcode_to_utf8(sub_bytes), resolved.text.encode("utf-8")
-            )
-            return synced if isinstance(synced, bytes) and synced else sub_bytes
+
+            target_bytes = transcode_to_utf8(sub_bytes)
+            reference_bytes = resolved.text.encode("utf-8")
+
+            synced = await self._sync_service.sync_async(target_bytes, reference_bytes)
+            synced_bytes = synced if isinstance(synced, bytes) and synced else sub_bytes
+
+            if self._semantic_observer is None:
+                try:
+                    from app.config import settings
+                    from app.services.semantic_guard import SemanticGuardObserver
+                    if settings.SEMANTIC_GUARD_MODE.lower() == "observe":
+                        observer = SemanticGuardObserver()
+                        await observer.start()
+                        self._semantic_observer = observer
+                except Exception:
+                    pass
+
+            if self._semantic_observer:
+                try:
+                    self._semantic_observer.enqueue(
+                        target_bytes, reference_bytes, synced_bytes, meta, target_id
+                    )
+                except Exception:
+                    pass
+
+            return synced_bytes
         except Exception:
             return sub_bytes
 
@@ -169,6 +196,11 @@ class SyncOrchestrator:
             future.cancel()
         if pending:
             await asyncio.gather(*pending, return_exceptions=True)
+        if self._semantic_observer:
+            try:
+                await self._semantic_observer.close()
+            except Exception:
+                pass
 
 
 __all__ = [
