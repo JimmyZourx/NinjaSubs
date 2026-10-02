@@ -1,0 +1,11 @@
+1
+00:00:10,710 --> 00:00:11,920
+CHARACTER_A: compare verify verify
+
+2
+00:00:12,130 --> 00:00:16,010
+CHARACTER_B: seal anchor panel tray align docket primary nominal
+
+3
+00:00:16,260 --> 00:00:18,010
+CHARACTER_C: nominal mount

@@ -1,0 +1,2247 @@
+1
+00:00:10,763 --> 00:00:11,973
+CHARACTER_A: compare verify verify
+
+2
+00:00:12,190 --> 00:00:16,070
+CHARACTER_B: seal anchor panel tray align docket primary nominal
+
+3
+00:00:16,341 --> 00:00:18,091
+CHARACTER_C: nominal mount
+
+4
+00:00:18,431 --> 00:00:20,691
+CHARACTER_A: latch lateral marker sealed log docket spare primary valve
+
+5
+00:00:21,034 --> 00:00:23,124
+CHARACTER_B: partial roster index valve primary
+
+6
+00:00:24,049 --> 00:00:25,469
+CHARACTER_C: seal paired
+
+7
+00:00:25,858 --> 00:00:28,478
+CHARACTER_A: staged recalibrate ledger crate gauge purge compare
+
+8
+00:00:28,622 --> 00:00:29,622
+CHARACTER_B: inspect
+
+9
+00:00:29,758 --> 00:00:32,758
+CHARACTER_C: anchor mount sealed dormant relay staged sample timer inspect
+
+10
+00:00:34,029 --> 00:00:36,319
+CHARACTER_A: ledger marker verify nominal crate log spare record
+
+11
+00:00:36,632 --> 00:00:39,302
+CHARACTER_B: mount sealed relay beacon sealed marker roster
+
+12
+00:00:40,823 --> 00:00:42,403
+CHARACTER_C: circuit staged crate inline
+
+13
+00:00:42,581 --> 00:00:44,461
+CHARACTER_A: sealed staged ledger purge paired
+
+14
+00:00:44,591 --> 00:00:48,841
+CHARACTER_B: latch tray index detach purge anchor tray mount
+
+15
+00:00:49,787 --> 00:00:52,877
+CHARACTER_C: tray spindle marker parcel docket parcel staged beacon roster dormant
+
+16
+00:00:53,184 --> 00:00:54,524
+CHARACTER_A: inspect record signal
+
+17
+00:00:54,903 --> 00:00:59,573
+CHARACTER_B: confirm docket lateral spindle sealed align nominal detach
+
+18
+00:00:59,807 --> 00:01:03,107
+CHARACTER_C: ledger record nominal beacon dormant sealed sealed
+
+19
+00:01:03,375 --> 00:01:04,745
+CHARACTER_A: sealed purge roster
+
+20
+00:01:04,882 --> 00:01:07,092
+CHARACTER_B: spar inline circuit lateral idle parcel record conduit roster
+
+21
+00:01:09,495 --> 00:01:11,455
+CHARACTER_C: primary mark nominal trim sealed
+
+22
+00:01:12,048 --> 00:01:13,588
+CHARACTER_A: verify spar measure anchor
+
+23
+00:01:13,887 --> 00:01:16,147
+CHARACTER_B: docket nominal docket beacon idle
+
+24
+00:01:16,279 --> 00:01:18,619
+CHARACTER_C: secondary valve align mount tray idle recalibrate rotary
+
+25
+00:01:19,003 --> 00:01:21,303
+CHARACTER_A: idle anchor roster reroute spare hatch rotary inline relay purge log
+
+26
+00:01:22,188 --> 00:01:26,408
+CHARACTER_B: dormant idle purge gauge circuit verify paired sealed align purge
+
+27
+00:01:29,656 --> 00:01:30,656
+CHARACTER_C
+
+28
+00:03:19,974 --> 00:03:22,984
+CHARACTER_A: primary
+
+29
+00:03:25,009 --> 00:03:26,009
+CHARACTER_B
+
+30
+00:03:27,984 --> 00:03:31,074
+CHARACTER_C: marker gauge nominal inspect
+
+31
+00:03:31,964 --> 00:03:37,054
+CHARACTER_A: docket record sealed docket recalibrate anchor
+
+32
+00:03:37,964 --> 00:03:40,584
+CHARACTER_B: secondary relay marker anchor
+
+33
+00:03:42,818 --> 00:03:45,698
+CHARACTER_C: purge
+
+34
+00:03:46,346 --> 00:03:51,346
+CHARACTER_A: purge staged rotary crate relay circuit
+
+35
+00:03:54,396 --> 00:03:56,516
+CHARACTER_B: seal docket index seal docket
+
+36
+00:03:58,667 --> 00:03:59,747
+CHARACTER_C
+
+37
+00:04:25,872 --> 00:04:26,952
+CHARACTER_A: verify docket
+
+38
+00:04:28,636 --> 00:04:29,846
+CHARACTER_B: anchor confirm compare
+
+39
+00:04:30,184 --> 00:04:33,904
+CHARACTER_C: secondary marker anchor inspect hatch beacon spar dormant relay
+
+40
+00:04:34,133 --> 00:04:35,503
+CHARACTER_A: seal anchor panel trim
+
+41
+00:04:35,641 --> 00:04:37,931
+CHARACTER_B: inline dormant primary sealed secondary record beacon
+
+42
+00:04:40,917 --> 00:04:42,417
+CHARACTER_C: latch confirm
+
+43
+00:04:46,284 --> 00:04:49,204
+CHARACTER_A: hatch spare sealed staged mount align latch marker
+
+44
+00:04:49,550 --> 00:04:53,180
+CHARACTER_B: beacon verify confirm primary beacon ledger trim verify
+
+45
+00:04:53,831 --> 00:04:56,161
+CHARACTER_C: relay index hatch reroute secondary detach
+
+46
+00:04:56,806 --> 00:05:00,056
+CHARACTER_A: paired beacon crate lateral reroute secondary panel align
+
+47
+00:05:00,414 --> 00:05:03,494
+CHARACTER_B: measure ledger dormant dormant sealed relay
+
+48
+00:05:03,640 --> 00:05:04,680
+CHARACTER_C: secondary
+
+49
+00:05:05,982 --> 00:05:08,532
+CHARACTER_A: timer signal mount detach lateral spindle spare
+
+50
+00:05:09,921 --> 00:05:12,591
+CHARACTER_B: anchor beacon seal reroute beacon trim
+
+51
+00:05:12,776 --> 00:05:14,656
+CHARACTER_C: staged seal circuit docket
+
+52
+00:05:14,956 --> 00:05:17,666
+CHARACTER_A: log anchor trim
+
+53
+00:05:19,188 --> 00:05:21,688
+CHARACTER_B: hatch spare paired circuit hatch mark
+
+54
+00:05:21,911 --> 00:05:23,581
+CHARACTER_C: relay mount verify inspect index nominal
+
+55
+00:05:23,800 --> 00:05:25,930
+CHARACTER_A: idle seal confirm lateral timer docket
+
+56
+00:05:26,022 --> 00:05:28,022
+CHARACTER_B: inline recalibrate inline trim relay primary valve marker purge marker
+
+57
+00:05:28,162 --> 00:05:31,042
+CHARACTER_C: mount latch primary dormant anchor mark spindle
+
+58
+00:05:31,388 --> 00:05:33,678
+CHARACTER_A: reroute inline record partial measure recalibrate
+
+59
+00:05:34,152 --> 00:05:37,992
+CHARACTER_B: detach partial spindle partial lateral inspect parcel hatch anchor verify align
+
+60
+00:05:38,936 --> 00:05:40,516
+CHARACTER_C: measure marker staged
+
+61
+00:05:40,654 --> 00:05:44,614
+CHARACTER_A: docket verify purge conduit marker docket inspect
+
+62
+00:05:44,885 --> 00:05:47,135
+CHARACTER_B: reroute signal record dormant crate purge mount docket docket
+
+63
+00:05:47,277 --> 00:05:51,817
+CHARACTER_C: primary lateral confirm relay confirm beacon
+
+64
+00:05:53,559 --> 00:05:54,559
+CHARACTER_A: detach conduit
+
+65
+00:05:57,548 --> 00:05:58,918
+CHARACTER_B: timer index
+
+66
+00:06:00,222 --> 00:06:01,232
+CHARACTER_C
+
+67
+00:06:01,488 --> 00:06:03,448
+CHARACTER_A: paired anchor reroute record sample
+
+68
+00:06:05,799 --> 00:06:08,759
+CHARACTER_B: primary reroute dormant inspect
+
+69
+00:06:24,874 --> 00:06:28,294
+CHARACTER_C: inline mark inspect verify latch idle reroute lateral secondary
+
+70
+00:06:29,105 --> 00:06:32,315
+CHARACTER_A: index recalibrate docket beacon measure docket verify primary dormant sealed
+
+71
+00:06:33,507 --> 00:06:37,427
+CHARACTER_B: lateral spindle conduit docket detach paired
+
+72
+00:06:38,623 --> 00:06:39,623
+CHARACTER_C: log
+
+73
+00:06:41,135 --> 00:06:46,015
+CHARACTER_A: reroute seal verify conduit trim purge mount signal
+
+74
+00:06:46,924 --> 00:06:50,094
+CHARACTER_B: primary docket trim conduit verify mount rotary detach sealed reroute
+
+75
+00:06:51,577 --> 00:06:56,497
+CHARACTER_C: index spindle confirm partial dormant circuit mark mark reroute measure conduit
+
+76
+00:06:57,487 --> 00:06:59,737
+CHARACTER_A: staged docket primary ledger primary
+
+77
+00:07:00,542 --> 00:07:02,752
+CHARACTER_B: spare compare detach parcel marker
+
+78
+00:07:02,974 --> 00:07:04,514
+CHARACTER_C: purge primary measure paired rotary seal seal
+
+79
+00:07:05,034 --> 00:07:07,244
+CHARACTER_A: sealed recalibrate nominal anchor spare detach
+
+80
+00:07:07,376 --> 00:07:09,876
+CHARACTER_B: spar beacon anchor sample anchor dormant beacon docket sample
+
+81
+00:07:10,190 --> 00:07:13,060
+CHARACTER_C: reroute marker dormant docket seal staged docket inspect signal trim sample
+
+82
+00:07:13,205 --> 00:07:14,495
+CHARACTER_A: verify reroute
+
+83
+00:07:14,923 --> 00:07:17,383
+CHARACTER_B: latch lateral anchor verify mount secondary sealed staged
+
+84
+00:07:18,783 --> 00:07:22,073
+CHARACTER_C: panel sealed index measure confirm seal spare latch signal
+
+85
+00:07:22,973 --> 00:07:26,053
+CHARACTER_A: measure inspect partial spar
+
+86
+00:07:27,124 --> 00:07:28,334
+CHARACTER_B: primary marker staged
+
+87
+00:07:31,184 --> 00:07:33,274
+CHARACTER_C: compare align verify verify detach trim docket conduit staged index dormant
+
+88
+00:07:33,405 --> 00:07:36,745
+CHARACTER_A: anchor docket purge relay inline sample measure log anchor
+
+89
+00:07:38,852 --> 00:07:40,062
+CHARACTER_B: align reroute confirm lateral
+
+90
+00:07:40,199 --> 00:07:41,619
+CHARACTER_C: compare tray idle beacon
+
+91
+00:07:41,747 --> 00:07:44,377
+CHARACTER_A: lateral docket reroute inline marker marker
+
+92
+00:07:44,601 --> 00:07:46,601
+CHARACTER_B: primary signal timer
+
+93
+00:07:47,325 --> 00:07:49,575
+CHARACTER_C: parcel record dormant relay trim sample rotary inspect dormant purge idle
+
+94
+00:07:50,430 --> 00:07:52,800
+CHARACTER_A: crate purge partial align relay
+
+95
+00:07:54,159 --> 00:07:56,079
+CHARACTER_B: compare align lateral reroute detach
+
+96
+00:07:57,344 --> 00:07:59,714
+CHARACTER_C: anchor crate anchor spare sealed trim
+
+97
+00:08:01,746 --> 00:08:02,906
+CHARACTER_A: inspect
+
+98
+00:08:08,198 --> 00:08:14,498
+CHARACTER_B: relay ledger mount mark confirm purge verify latch
+
+99
+00:08:15,073 --> 00:08:17,073
+CHARACTER_C: seal measure align inspect reroute parcel parcel align
+
+100
+00:08:17,213 --> 00:08:21,463
+CHARACTER_A: nominal anchor mark inline secondary partial mount panel timer sealed paired idle
+
+101
+00:08:21,826 --> 00:08:23,406
+CHARACTER_B: compare marker reroute inline
+
+102
+00:08:24,339 --> 00:08:27,089
+CHARACTER_C: hatch reroute index secondary sealed
+
+103
+00:08:28,318 --> 00:08:31,738
+CHARACTER_A: sealed staged mark signal purge confirm mount detach parcel
+
+104
+00:08:32,389 --> 00:08:33,849
+CHARACTER_B: measure seal signal nominal index docket
+
+105
+00:08:33,977 --> 00:08:37,817
+CHARACTER_C: idle spar spare detach latch measure recalibrate
+
+106
+00:08:43,534 --> 00:08:44,534
+CHARACTER_A: signal
+
+107
+00:08:45,544 --> 00:08:50,384
+CHARACTER_B: nominal beacon seal sealed crate idle mark inline valve circuit
+
+108
+00:08:52,298 --> 00:08:56,088
+CHARACTER_C: valve lateral sample spare
+
+109
+00:09:11,413 --> 00:09:13,913
+CHARACTER_A: tray rotary beacon mark anchor
+
+110
+00:09:16,478 --> 00:09:19,068
+CHARACTER_B: mount lateral lateral sealed record spindle
+
+111
+00:09:19,664 --> 00:09:21,834
+CHARACTER_C: inspect signal seal latch panel nominal tray
+
+112
+00:09:22,267 --> 00:09:23,807
+CHARACTER_A: paired sealed
+
+113
+00:09:25,453 --> 00:09:26,953
+CHARACTER_B: spindle partial spindle paired
+
+114
+00:09:32,327 --> 00:09:33,497
+CHARACTER_C: confirm beacon
+
+115
+00:09:35,975 --> 00:09:39,765
+CHARACTER_A: latch trim secondary sealed anchor detach sealed lateral ledger
+
+116
+00:09:40,839 --> 00:09:42,709
+CHARACTER_B: spindle sealed anchor latch nominal tray paired
+
+117
+00:09:44,317 --> 00:09:48,277
+CHARACTER_C: partial beacon inline timer signal sample verify align rotary panel primary
+
+118
+00:09:49,050 --> 00:09:51,340
+CHARACTER_A: marker recalibrate docket lateral nominal marker
+
+119
+00:09:52,316 --> 00:09:54,986
+CHARACTER_B: roster inspect trim staged inspect inline
+
+120
+00:09:55,422 --> 00:09:58,422
+CHARACTER_C: partial docket index spindle paired sealed inline record mount verify
+
+121
+00:09:59,743 --> 00:10:01,863
+CHARACTER_A: relay inspect inspect trim log trim inline sealed sealed
+
+122
+00:10:14,869 --> 00:10:15,869
+CHARACTER_B: idle sample
+
+123
+00:10:16,467 --> 00:10:18,837
+CHARACTER_C: reroute purge spare rotary spar anchor trim relay
+
+124
+00:10:20,155 --> 00:10:21,155
+CHARACTER_A
+
+125
+00:10:23,461 --> 00:10:26,301
+CHARACTER_B: staged staged anchor reroute secondary
+
+126
+00:10:42,958 --> 00:10:44,208
+CHARACTER_C: secondary valve mark record inline
+
+127
+00:10:44,506 --> 00:10:47,216
+CHARACTER_A: reroute conduit recalibrate anchor trim paired align purge index
+
+128
+00:10:49,742 --> 00:10:52,292
+CHARACTER_B: beacon seal rotary marker
+
+129
+00:10:52,888 --> 00:10:55,138
+CHARACTER_C: docket anchor staged crate
+
+130
+00:10:57,672 --> 00:10:58,962
+CHARACTER_A: inline seal spindle ledger
+
+131
+00:11:01,822 --> 00:11:03,982
+CHARACTER_B: secondary lateral recalibrate spar relay relay spar mark index log inline
+
+132
+00:11:06,887 --> 00:11:08,687
+CHARACTER_C: relay circuit rotary seal
+
+133
+00:11:09,490 --> 00:11:12,280
+CHARACTER_A: inspect sealed purge sealed rotary align beacon mark anchor
+
+134
+00:11:12,586 --> 00:11:13,676
+CHARACTER_B: relay index
+
+135
+00:11:20,093 --> 00:11:22,093
+CHARACTER_C: lateral confirm lateral log secondary
+
+136
+00:11:25,379 --> 00:11:26,999
+CHARACTER_A: inspect log beacon marker mount
+
+137
+00:11:32,002 --> 00:11:34,332
+CHARACTER_B: nominal mount relay confirm lateral
+
+138
+00:11:37,027 --> 00:11:38,777
+CHARACTER_C: mount inspect rotary
+
+139
+00:11:43,228 --> 00:11:45,238
+CHARACTER_A: sealed beacon mark paired
+
+140
+00:11:45,409 --> 00:11:47,709
+CHARACTER_B: signal secondary docket purge verify log gauge
+
+141
+00:11:48,344 --> 00:11:51,394
+CHARACTER_C: nominal valve docket inline nominal recalibrate secondary inline panel inline nominal mark
+
+142
+00:11:51,700 --> 00:11:56,910
+CHARACTER_A: idle confirm signal beacon docket inline docket measure verify sealed spare
+
+143
+00:11:57,188 --> 00:12:00,108
+CHARACTER_B: sealed idle latch sample
+
+144
+00:12:00,464 --> 00:12:04,714
+CHARACTER_C: lateral primary spindle confirm detach relay idle record record valve signal measure anchor
+
+145
+00:12:05,780 --> 00:12:08,700
+CHARACTER_A: parcel crate sample secondary reroute index
+
+146
+00:12:10,142 --> 00:12:12,932
+CHARACTER_B: sample inline dormant mark
+
+147
+00:12:13,790 --> 00:12:17,000
+CHARACTER_C: idle record conduit reroute measure primary
+
+148
+00:12:18,614 --> 00:12:19,614
+CHARACTER_A: dormant signal ledger
+
+149
+00:12:20,283 --> 00:12:21,623
+CHARACTER_B: paired partial mark circuit
+
+150
+00:12:23,720 --> 00:12:26,520
+CHARACTER_C: secondary tray idle hatch beacon timer lateral
+
+151
+00:12:27,619 --> 00:12:30,879
+CHARACTER_A: secondary sample marker record ledger secondary crate relay
+
+152
+00:12:31,981 --> 00:12:37,191
+CHARACTER_B: align parcel measure signal staged mark recalibrate sealed rotary rotary seal
+
+153
+00:12:37,518 --> 00:12:38,638
+CHARACTER_C: paired docket inspect confirm relay
+
+154
+00:12:39,187 --> 00:12:41,987
+CHARACTER_A: gauge dormant index detach timer mark primary
+
+155
+00:12:42,463 --> 00:12:44,793
+CHARACTER_B: confirm verify anchor recalibrate partial
+
+156
+00:12:45,307 --> 00:12:48,687
+CHARACTER_C: trim anchor crate relay purge trim idle inline record recalibrate
+
+157
+00:12:50,302 --> 00:12:52,222
+CHARACTER_A: secondary recalibrate gauge relay nominal
+
+158
+00:12:52,352 --> 00:12:54,892
+CHARACTER_B: ledger reroute log relay mark measure inspect
+
+159
+00:12:56,834 --> 00:13:03,384
+CHARACTER_C: signal trim trim ledger conduit trim crate secondary paired
+
+160
+00:13:04,925 --> 00:13:08,765
+CHARACTER_A: roster panel primary dormant sealed
+
+161
+00:13:09,075 --> 00:13:11,325
+CHARACTER_B: confirm valve sealed relay partial spindle
+
+162
+00:13:11,507 --> 00:13:15,007
+CHARACTER_C: docket recalibrate gauge signal tray measure index
+
+163
+00:13:16,874 --> 00:13:21,044
+CHARACTER_A: rotary detach dormant index docket
+
+164
+00:13:21,567 --> 00:13:27,117
+CHARACTER_B: dormant mark ledger latch conduit sealed mount latch reroute
+
+165
+00:13:27,567 --> 00:13:32,027
+CHARACTER_C: spindle valve record dormant inline staged nominal sealed paired
+
+166
+00:13:32,341 --> 00:13:34,631
+CHARACTER_A: compare sealed staged
+
+167
+00:13:37,879 --> 00:13:40,419
+CHARACTER_B: sealed docket spindle sealed lateral
+
+168
+00:13:48,984 --> 00:13:50,984
+CHARACTER_C: anchor anchor latch idle spare docket primary
+
+169
+00:14:05,536 --> 00:14:07,836
+CHARACTER_A: inspect idle valve mark inspect crate lateral
+
+170
+00:14:08,561 --> 00:14:11,601
+CHARACTER_B: hatch relay dormant compare paired sample detach latch spare ledger detach paired
+
+171
+00:14:17,104 --> 00:14:20,154
+CHARACTER_C: verify record parcel idle sealed sealed signal sample primary
+
+172
+00:14:20,671 --> 00:14:22,551
+CHARACTER_A: confirm lateral confirm trim docket mark
+
+173
+00:14:22,681 --> 00:14:26,851
+CHARACTER_B: anchor align beacon trim spar relay recalibrate spare circuit lateral nominal
+
+174
+00:14:28,088 --> 00:14:30,218
+CHARACTER_C: relay marker lateral circuit
+
+175
+00:14:30,862 --> 00:14:33,692
+CHARACTER_A: align nominal align log confirm rotary secondary verify timer partial relay panel
+
+176
+00:14:40,158 --> 00:14:43,328
+CHARACTER_B: secondary sealed ledger sealed index beacon relay rotary
+
+177
+00:14:44,942 --> 00:14:51,862
+CHARACTER_C: nominal roster measure spare docket reroute sealed lateral secondary
+
+178
+00:14:52,781 --> 00:14:54,821
+CHARACTER_A: roster nominal beacon parcel crate index primary rotary primary inline
+
+179
+00:14:55,465 --> 00:14:57,425
+CHARACTER_B: inspect partial spare conduit spar confirm reroute
+
+180
+00:14:58,811 --> 00:15:00,021
+CHARACTER_C: relay relay paired record
+
+181
+00:15:01,796 --> 00:15:06,376
+CHARACTER_A: paired signal record staged inline sealed parcel detach valve docket spindle
+
+182
+00:15:08,670 --> 00:15:11,670
+CHARACTER_B: secondary partial ledger panel nominal circuit conduit tray idle verify
+
+183
+00:15:12,901 --> 00:15:17,361
+CHARACTER_C: recalibrate secondary idle sealed dormant anchor rotary
+
+184
+00:15:18,097 --> 00:15:20,187
+CHARACTER_A: partial roster nominal sealed beacon
+
+185
+00:15:21,574 --> 00:15:23,284
+CHARACTER_B: purge idle paired
+
+186
+00:15:25,012 --> 00:15:27,972
+CHARACTER_C: inline mount gauge marker log align mark seal lateral
+
+187
+00:15:28,660 --> 00:15:30,790
+CHARACTER_A: detach index mount sealed
+
+188
+00:15:31,554 --> 00:15:33,264
+CHARACTER_B: latch circuit
+
+189
+00:15:33,564 --> 00:15:36,404
+CHARACTER_C: sample dormant sample docket beacon inspect beacon tray detach compare
+
+190
+00:15:36,830 --> 00:15:38,420
+CHARACTER_A: inline timer nominal staged verify
+
+191
+00:15:38,850 --> 00:15:42,730
+CHARACTER_B: ledger partial beacon sealed record mount docket dormant record
+
+192
+00:15:43,001 --> 00:15:44,251
+CHARACTER_C: sample recalibrate ledger staged timer
+
+193
+00:15:47,654 --> 00:15:48,694
+CHARACTER_A: compare docket
+
+194
+00:15:49,162 --> 00:15:50,662
+CHARACTER_B: mark latch confirm sealed record purge
+
+195
+00:15:53,061 --> 00:15:54,061
+CHARACTER_C: gauge
+
+196
+00:15:54,187 --> 00:15:56,437
+CHARACTER_A: beacon partial idle latch partial compare spare
+
+197
+00:15:57,041 --> 00:15:58,291
+CHARACTER_B: sealed detach recalibrate mount
+
+198
+00:15:58,759 --> 00:16:02,139
+CHARACTER_C: inline measure spare sealed conduit partial
+
+199
+00:16:02,488 --> 00:16:05,908
+CHARACTER_A: crate purge recalibrate trim marker
+
+200
+00:16:07,312 --> 00:16:12,272
+CHARACTER_B: reroute purge seal partial seal gauge mark relay staged
+
+201
+00:16:12,628 --> 00:16:14,888
+CHARACTER_C: parcel secondary docket purge secondary trim gauge
+
+202
+00:16:15,020 --> 00:16:17,520
+CHARACTER_A: docket docket verify nominal log
+
+203
+00:16:17,955 --> 00:16:19,745
+CHARACTER_B: rotary staged inspect dormant inline
+
+204
+00:16:20,598 --> 00:16:23,308
+CHARACTER_C: hatch crate secondary panel measure valve log staged partial
+
+205
+00:16:24,286 --> 00:16:29,076
+CHARACTER_A: roster anchor record recalibrate beacon recalibrate spindle anchor spindle partial
+
+206
+00:16:29,734 --> 00:16:34,324
+CHARACTER_B: timer anchor mark reroute align gauge detach lateral crate conduit mount
+
+207
+00:16:35,140 --> 00:16:39,480
+CHARACTER_C: hatch align spindle relay relay relay dormant verify paired beacon sample
+
+208
+00:16:53,964 --> 00:16:55,884
+CHARACTER_A: tray align sealed primary index staged
+
+209
+00:17:20,828 --> 00:17:21,878
+CHARACTER_B: rotary valve sealed
+
+210
+00:17:32,948 --> 00:17:35,068
+CHARACTER_C
+
+211
+00:17:46,355 --> 00:17:47,695
+CHARACTER_A: idle dormant mark
+
+212
+00:17:50,385 --> 00:17:52,135
+CHARACTER_B: verify recalibrate valve
+
+213
+00:17:53,068 --> 00:17:55,988
+CHARACTER_C: measure sample latch relay inline primary align verify
+
+214
+00:17:57,128 --> 00:17:58,928
+CHARACTER_A: nominal anchor compare docket staged rotary gauge
+
+215
+00:18:00,696 --> 00:18:01,986
+CHARACTER_B: verify mark crate mark seal
+
+216
+00:18:03,882 --> 00:18:07,132
+CHARACTER_C: verify trim idle primary recalibrate record sample lateral gauge beacon align ledger index
+
+217
+00:18:19,681 --> 00:18:21,141
+CHARACTER_A: index
+
+218
+00:19:04,494 --> 00:19:05,664
+CHARACTER_B: log compare purge measure
+
+219
+00:19:05,921 --> 00:19:07,121
+CHARACTER_C: partial beacon sealed
+
+220
+00:19:07,338 --> 00:19:10,218
+CHARACTER_A: spare marker roster anchor align align
+
+221
+00:19:10,614 --> 00:19:14,444
+CHARACTER_B: seal conduit hatch log record panel
+
+222
+00:19:15,518 --> 00:19:20,228
+CHARACTER_C: anchor circuit docket reroute partial secondary primary mount lateral docket log
+
+223
+00:19:20,373 --> 00:19:21,673
+CHARACTER_A: staged align secondary confirm tray
+
+224
+00:19:21,800 --> 00:19:25,010
+CHARACTER_B: tray reroute gauge lateral relay purge inspect verify spar relay relay secondary
+
+225
+00:19:25,237 --> 00:19:27,327
+CHARACTER_C: detach secondary detach record panel sealed
+
+226
+00:19:27,548 --> 00:19:30,008
+CHARACTER_A: relay anchor conduit trim purge spindle primary
+
+227
+00:19:31,066 --> 00:19:34,366
+CHARACTER_B: beacon relay idle log latch
+
+228
+00:19:34,543 --> 00:19:39,343
+CHARACTER_C: record relay dormant mark anchor rotary primary conduit
+
+229
+00:19:39,829 --> 00:19:43,369
+CHARACTER_A: seal roster crate gauge rotary staged staged panel paired signal hatch hatch
+
+230
+00:19:43,809 --> 00:19:46,689
+CHARACTER_B: align marker parcel beacon tray paired crate
+
+231
+00:19:47,709 --> 00:19:48,879
+CHARACTER_C: ledger
+
+232
+00:20:06,190 --> 00:20:07,190
+CHARACTER_A
+
+233
+00:20:07,788 --> 00:20:08,998
+CHARACTER_B: nominal docket rotary
+
+234
+00:20:28,029 --> 00:20:30,869
+CHARACTER_C: relay docket nominal
+
+235
+00:20:31,466 --> 00:20:33,426
+CHARACTER_A: inspect inspect sealed relay roster latch sample idle
+
+236
+00:20:33,687 --> 00:20:35,357
+CHARACTER_B: spindle align detach inspect
+
+237
+00:20:35,536 --> 00:20:37,616
+CHARACTER_C: relay recalibrate mark spindle panel compare verify
+
+238
+00:20:37,798 --> 00:20:38,798
+CHARACTER_A
+
+239
+00:20:39,134 --> 00:20:41,554
+CHARACTER_B: seal circuit record signal anchor staged detach
+
+240
+00:20:42,029 --> 00:20:44,079
+CHARACTER_C: inspect reroute docket measure relay nominal
+
+241
+00:20:44,290 --> 00:20:46,090
+CHARACTER_A: measure idle sealed inline relay
+
+242
+00:20:46,642 --> 00:20:48,062
+CHARACTER_B: sample sealed sample compare
+
+243
+00:20:49,908 --> 00:20:51,668
+CHARACTER_C: docket align panel inspect purge anchor
+
+244
+00:20:53,054 --> 00:20:54,054
+CHARACTER_A: sample
+
+245
+00:20:58,169 --> 00:20:59,169
+CHARACTER_B: mark
+
+246
+00:21:00,521 --> 00:21:02,101
+CHARACTER_C: staged dormant latch index
+
+247
+00:21:07,264 --> 00:21:08,684
+CHARACTER_A: partial reroute inspect
+
+248
+00:21:08,812 --> 00:21:10,862
+CHARACTER_B: verify anchor relay ledger spar
+
+249
+00:21:11,123 --> 00:21:16,003
+CHARACTER_C: gauge nominal partial primary latch verify verify signal parcel spare relay log
+
+250
+00:21:16,189 --> 00:21:19,819
+CHARACTER_A: paired anchor docket secondary verify sealed detach docket paired anchor beacon
+
+251
+00:21:19,968 --> 00:21:23,098
+CHARACTER_B: secondary nominal conduit partial index seal spare spar
+
+252
+00:21:25,545 --> 00:21:27,545
+CHARACTER_C: relay align staged reroute
+
+253
+00:21:29,143 --> 00:21:32,023
+CHARACTER_A: primary sealed beacon spare signal crate spindle spare gauge ledger index spindle
+
+254
+00:21:32,460 --> 00:21:36,630
+CHARACTER_B: dormant verify record reroute anchor mount anchor compare docket
+
+255
+00:21:37,193 --> 00:21:40,113
+CHARACTER_C: verify latch rotary index trim sample anchor anchor partial spindle docket
+
+256
+00:21:40,299 --> 00:21:42,129
+CHARACTER_A: docket anchor conduit relay staged latch
+
+257
+00:21:42,771 --> 00:21:47,311
+CHARACTER_B: reroute partial signal seal record docket signal paired inline docket dormant log
+
+258
+00:21:47,635 --> 00:21:51,175
+CHARACTER_C: seal align anchor sealed docket spindle nominal beacon recalibrate sample
+
+259
+00:21:51,324 --> 00:21:52,324
+CHARACTER_A
+
+260
+00:21:53,585 --> 00:21:54,585
+CHARACTER_B: sealed
+
+261
+00:21:55,303 --> 00:21:56,843
+CHARACTER_C: sample mount relay dormant staged relay valve sealed paired
+
+262
+00:21:57,524 --> 00:21:59,864
+CHARACTER_A: record record purge panel anchor parcel rotary latch
+
+263
+00:22:02,047 --> 00:22:03,097
+CHARACTER_B: compare docket marker record
+
+264
+00:22:07,795 --> 00:22:09,795
+CHARACTER_C: compare ledger
+
+265
+00:22:16,971 --> 00:22:17,971
+CHARACTER_A: inspect
+
+266
+00:22:18,227 --> 00:22:20,397
+CHARACTER_B: measure align ledger circuit circuit align
+
+267
+00:22:20,619 --> 00:22:21,619
+CHARACTER_C: verify relay
+
+268
+00:22:26,026 --> 00:22:28,116
+CHARACTER_A: seal purge align tray secondary measure seal
+
+269
+00:22:29,845 --> 00:22:32,765
+CHARACTER_B: hatch idle beacon valve recalibrate sealed primary staged latch ledger
+
+270
+00:22:33,403 --> 00:22:34,403
+CHARACTER_C
+
+271
+00:22:39,272 --> 00:22:41,022
+CHARACTER_A: primary partial relay
+
+272
+00:22:52,227 --> 00:22:53,977
+CHARACTER_B: spindle compare primary relay anchor
+
+273
+00:22:55,704 --> 00:22:57,084
+CHARACTER_C: idle
+
+274
+00:23:12,517 --> 00:23:13,517
+CHARACTER_A: relay parcel conduit secondary
+
+275
+00:23:14,357 --> 00:23:16,027
+CHARACTER_B: lateral signal measure recalibrate
+
+276
+00:23:17,331 --> 00:23:19,501
+CHARACTER_C: mark gauge sealed hatch latch signal
+
+277
+00:23:22,155 --> 00:23:25,865
+CHARACTER_A: staged compare secondary partial trim paired anchor sealed anchor
+
+278
+00:23:29,613 --> 00:23:31,113
+CHARACTER_B: docket log log
+
+279
+00:23:31,874 --> 00:23:32,924
+CHARACTER_C
+
+280
+00:23:33,683 --> 00:23:35,933
+CHARACTER_A: confirm ledger reroute align latch docket spare spar
+
+281
+00:23:36,446 --> 00:23:37,446
+CHARACTER_B
+
+282
+00:23:38,165 --> 00:23:41,795
+CHARACTER_C: gauge idle seal reroute circuit purge relay sealed
+
+283
+00:23:42,276 --> 00:23:43,816
+CHARACTER_A: seal rotary confirm signal confirm confirm
+
+284
+00:23:44,115 --> 00:23:45,785
+CHARACTER_B: inline anchor inline nominal secondary secondary
+
+285
+00:23:46,296 --> 00:23:48,716
+CHARACTER_C: spindle sample valve valve partial roster staged parcel anchor
+
+286
+00:23:48,858 --> 00:23:51,318
+CHARACTER_A: trim dormant lateral seal parcel valve sealed
+
+287
+00:23:53,300 --> 00:23:55,260
+CHARACTER_B: relay roster circuit docket seal verify
+
+288
+00:23:56,778 --> 00:23:57,778
+CHARACTER_C
+
+289
+00:23:58,074 --> 00:23:59,824
+CHARACTER_A: valve panel relay partial
+
+290
+00:24:01,682 --> 00:24:05,812
+CHARACTER_B: signal relay panel beacon signal parcel inline mount
+
+291
+00:24:06,084 --> 00:24:08,834
+CHARACTER_C: confirm relay partial secondary index paired secondary docket mount
+
+292
+00:24:09,019 --> 00:24:12,019
+CHARACTER_A: primary primary recalibrate rotary inspect trim measure primary idle sample primary
+
+293
+00:24:29,350 --> 00:24:31,100
+CHARACTER_B: spindle valve roster circuit record
+
+294
+00:24:31,862 --> 00:24:33,652
+CHARACTER_C: compare index ledger paired relay
+
+295
+00:24:36,013 --> 00:24:37,013
+CHARACTER_A: marker
+
+296
+00:24:37,138 --> 00:24:39,308
+CHARACTER_B: latch staged hatch latch rotary dormant inspect beacon sample
+
+297
+00:24:39,621 --> 00:24:40,741
+CHARACTER_C: compare idle align
+
+298
+00:24:40,877 --> 00:24:42,837
+CHARACTER_A: sealed recalibrate crate compare rotary seal partial
+
+299
+00:24:43,179 --> 00:24:44,469
+CHARACTER_B: ledger relay timer log
+
+300
+00:24:45,068 --> 00:24:48,528
+CHARACTER_C: inline signal relay sample anchor sample dormant compare marker crate
+
+301
+00:24:48,716 --> 00:24:51,796
+CHARACTER_A: anchor anchor gauge idle dormant timer staged index verify seal
+
+302
+00:24:51,982 --> 00:24:53,022
+CHARACTER_B: record relay idle record nominal
+
+303
+00:24:56,384 --> 00:24:57,504
+CHARACTER_C: dormant align nominal
+
+304
+00:24:58,354 --> 00:25:03,604
+CHARACTER_A: idle primary purge latch recalibrate partial confirm circuit purge mount sealed tray
+
+305
+00:25:03,801 --> 00:25:05,681
+CHARACTER_B: sample mount docket partial
+
+306
+00:25:07,027 --> 00:25:10,657
+CHARACTER_C: confirm ledger dormant conduit sealed nominal secondary panel paired recalibrate
+
+307
+00:25:11,057 --> 00:25:13,307
+CHARACTER_A: align trim nominal hatch
+
+308
+00:25:13,942 --> 00:25:17,782
+CHARACTER_B: align dormant anchor inspect relay spare docket sealed align
+
+309
+00:25:18,555 --> 00:25:19,805
+CHARACTER_C: staged inline
+
+310
+00:25:20,193 --> 00:25:22,073
+CHARACTER_A: sample rotary panel rotary secondary
+
+311
+00:25:23,298 --> 00:25:25,378
+CHARACTER_B: relay verify sample trim
+
+312
+00:25:26,142 --> 00:25:30,232
+CHARACTER_C: partial valve nominal beacon inspect inline detach docket relay hatch
+
+313
+00:25:30,584 --> 00:25:32,634
+CHARACTER_A: compare record inspect
+
+314
+00:25:32,805 --> 00:25:37,815
+CHARACTER_B: mount mount align purge spare anchor roster sealed anchor mark trim
+
+315
+00:25:38,212 --> 00:25:41,972
+CHARACTER_C: record relay index paired index
+
+316
+00:25:42,112 --> 00:25:45,242
+CHARACTER_A: rotary anchor partial gauge dormant crate signal
+
+317
+00:25:45,840 --> 00:25:49,220
+CHARACTER_B: tray marker marker circuit nominal paired verify
+
+318
+00:25:49,529 --> 00:25:55,289
+CHARACTER_C: record circuit spare spare rotary trim detach valve tray confirm relay
+
+319
+00:25:55,780 --> 00:26:00,330
+CHARACTER_A: secondary conduit relay anchor paired panel align seal
+
+320
+00:26:11,166 --> 00:26:12,496
+CHARACTER_B: sealed lateral
+
+321
+00:26:15,729 --> 00:26:20,569
+CHARACTER_C: index docket beacon inline detach secondary timer beacon relay latch
+
+322
+00:26:29,266 --> 00:26:31,986
+CHARACTER_A: sealed compare rotary index measure reroute docket
+
+323
+00:26:35,809 --> 00:26:38,609
+CHARACTER_B: log circuit roster latch docket docket
+
+324
+00:26:40,924 --> 00:26:43,844
+CHARACTER_C: primary inspect primary parcel
+
+325
+00:26:54,421 --> 00:26:55,881
+CHARACTER_A: docket rotary tray nominal
+
+326
+00:26:56,180 --> 00:26:57,180
+CHARACTER_B
+
+327
+00:26:57,979 --> 00:27:00,899
+CHARACTER_C: inline trim staged inspect secondary
+
+328
+00:27:01,044 --> 00:27:03,884
+CHARACTER_A: sample anchor inline conduit relay nominal purge relay
+
+329
+00:27:04,100 --> 00:27:06,560
+CHARACTER_B: beacon ledger docket inline nominal sealed docket paired docket
+
+330
+00:27:06,743 --> 00:27:09,743
+CHARACTER_C: relay anchor partial verify recalibrate detach record parcel
+
+331
+00:27:10,009 --> 00:27:12,099
+CHARACTER_A: anchor relay parcel spare docket
+
+332
+00:27:13,537 --> 00:27:16,037
+CHARACTER_B: measure valve mount index anchor mark
+
+333
+00:27:17,305 --> 00:27:21,855
+CHARACTER_C: record verify sealed spare relay docket partial recalibrate latch compare compare
+
+334
+00:27:21,999 --> 00:27:24,209
+CHARACTER_A: primary relay primary lateral nominal measure
+
+335
+00:27:24,561 --> 00:27:29,231
+CHARACTER_B: crate confirm beacon mount relay spar idle seal seal
+
+336
+00:27:30,009 --> 00:27:33,929
+CHARACTER_C: paired idle crate dormant record nominal
+
+337
+00:27:48,702 --> 00:27:51,792
+CHARACTER_A: tray relay inline anchor mount reroute relay partial purge
+
+338
+00:27:52,983 --> 00:27:57,733
+CHARACTER_B: relay circuit sealed relay marker docket signal compare rotary anchor
+
+339
+00:27:58,048 --> 00:28:00,098
+CHARACTER_C: primary mark log gauge nominal rotary reroute index index ledger secondary
+
+340
+00:28:01,153 --> 00:28:05,073
+CHARACTER_A: anchor paired primary index tray spindle sealed
+
+341
+00:28:16,118 --> 00:28:18,368
+CHARACTER_B: reroute align sealed mount spare sealed gauge log detach
+
+342
+00:28:18,550 --> 00:28:20,630
+CHARACTER_C: record record rotary record rotary inline relay docket
+
+343
+00:28:20,892 --> 00:28:22,022
+CHARACTER_A: spare reroute gauge compare
+
+344
+00:28:22,198 --> 00:28:26,908
+CHARACTER_B: beacon beacon staged lateral roster anchor crate roster paired recalibrate anchor
+
+345
+00:28:27,052 --> 00:28:28,432
+CHARACTER_C: reroute gauge docket primary
+
+346
+00:28:28,650 --> 00:28:30,780
+CHARACTER_A: log docket lateral staged dormant rotary
+
+347
+00:28:30,952 --> 00:28:34,462
+CHARACTER_B: nominal primary align inspect relay nominal nominal lateral detach
+
+348
+00:28:34,851 --> 00:28:36,101
+CHARACTER_C: docket circuit reroute align conduit spindle
+
+349
+00:28:36,278 --> 00:28:39,618
+CHARACTER_A: anchor docket index mount docket docket signal anchor seal spar
+
+350
+00:28:39,926 --> 00:28:44,266
+CHARACTER_B: signal anchor reroute seal spar align seal spindle staged anchor reroute nominal trim
+
+351
+00:28:44,409 --> 00:28:46,329
+CHARACTER_C: valve ledger relay compare inline index seal idle inspect
+
+352
+00:28:47,012 --> 00:28:48,012
+CHARACTER_A: latch inline align spare
+
+353
+00:28:49,022 --> 00:28:53,152
+CHARACTER_B: sealed panel spare trim anchor sealed primary spare
+
+354
+00:28:53,795 --> 00:28:55,385
+CHARACTER_C: circuit index detach
+
+355
+00:28:58,871 --> 00:29:01,371
+CHARACTER_A: inspect docket
+
+356
+00:29:03,815 --> 00:29:04,815
+CHARACTER_B
+
+357
+00:29:06,418 --> 00:29:08,458
+CHARACTER_C: detach inline spindle conduit primary
+
+358
+00:29:08,599 --> 00:29:12,769
+CHARACTER_A: docket verify idle inspect verify primary index mount purge rotary seal panel
+
+359
+00:29:13,081 --> 00:29:17,381
+CHARACTER_B: partial rotary secondary spare docket anchor beacon paired relay ledger reroute rotary
+
+360
+00:29:17,523 --> 00:29:21,153
+CHARACTER_C: recalibrate sample seal log index dormant inline docket roster recalibrate purge
+
+361
+00:29:21,674 --> 00:29:24,724
+CHARACTER_A: index timer secondary relay recalibrate measure conduit timer dormant
+
+362
+00:29:25,573 --> 00:29:27,283
+CHARACTER_B: log mark relay anchor relay
+
+363
+00:29:27,543 --> 00:29:31,343
+CHARACTER_C: docket anchor latch timer inspect lateral staged hatch compare
+
+364
+00:29:31,483 --> 00:29:32,483
+CHARACTER_A: docket
+
+365
+00:29:32,619 --> 00:29:36,449
+CHARACTER_B: roster paired relay panel partial sample measure align staged beacon mount
+
+366
+00:29:37,473 --> 00:29:39,943
+CHARACTER_C: docket panel latch relay measure
+
+367
+00:29:50,769 --> 00:29:52,809
+CHARACTER_A: relay trim circuit sample
+
+368
+00:29:55,623 --> 00:29:57,463
+CHARACTER_B: detach parcel
+
+369
+00:29:58,266 --> 00:30:02,226
+CHARACTER_C: timer roster timer purge docket sealed
+
+370
+00:30:03,301 --> 00:30:06,181
+CHARACTER_A: index compare latch spar circuit gauge inline
+
+371
+00:30:06,356 --> 00:30:08,656
+CHARACTER_B: confirm panel mark spindle purge
+
+372
+00:30:10,467 --> 00:30:13,307
+CHARACTER_C: parcel spindle beacon anchor
+
+373
+00:30:18,306 --> 00:30:20,436
+CHARACTER_A: relay relay sealed primary purge anchor sealed
+
+374
+00:30:21,914 --> 00:30:23,454
+CHARACTER_B: latch lateral sealed signal
+
+375
+00:30:25,512 --> 00:30:27,892
+CHARACTER_C: paired beacon lateral compare compare seal
+
+376
+00:30:32,265 --> 00:30:34,515
+CHARACTER_A: roster spare lateral partial measure nominal sealed parcel
+
+377
+00:30:38,004 --> 00:30:39,294
+CHARACTER_B
+
+378
+00:30:42,697 --> 00:30:44,117
+CHARACTER_C: inline
+
+379
+00:30:46,767 --> 00:30:48,807
+CHARACTER_A: gauge detach marker relay reroute
+
+380
+00:30:52,094 --> 00:30:54,714
+CHARACTER_B: verify log mark sealed anchor idle idle
+
+381
+00:30:55,360 --> 00:30:58,740
+CHARACTER_C: confirm relay circuit hatch mount anchor inspect conduit
+
+382
+00:31:00,224 --> 00:31:01,224
+CHARACTER_A
+
+383
+00:31:01,983 --> 00:31:05,613
+CHARACTER_B: trim verify sample anchor signal record anchor
+
+384
+00:31:22,777 --> 00:31:23,897
+CHARACTER_C: reroute anchor beacon spare staged valve
+
+385
+00:31:25,249 --> 00:31:26,999
+CHARACTER_A: ledger mark mark latch tray
+
+386
+00:31:28,515 --> 00:31:31,645
+CHARACTER_B: parcel verify tray mark recalibrate relay panel
+
+387
+00:31:32,626 --> 00:31:33,996
+CHARACTER_C: record parcel
+
+388
+00:31:35,138 --> 00:31:37,518
+CHARACTER_A: spare measure hatch primary verify recalibrate sealed
+
+389
+00:31:39,037 --> 00:31:41,497
+CHARACTER_B: recalibrate sample valve relay docket anchor crate anchor
+
+390
+00:31:43,359 --> 00:31:45,019
+CHARACTER_C: recalibrate beacon
+
+391
+00:31:45,490 --> 00:31:47,290
+CHARACTER_A: relay relay paired sealed
+
+392
+00:31:47,459 --> 00:31:49,379
+CHARACTER_B: sealed log latch mount partial marker inspect
+
+393
+00:31:56,645 --> 00:31:59,315
+CHARACTER_C: anchor anchor sealed beacon
+
+394
+00:32:00,745 --> 00:32:03,585
+CHARACTER_A: paired docket index conduit trim docket
+
+395
+00:32:05,489 --> 00:32:08,909
+CHARACTER_B: anchor purge sealed seal spare
+
+396
+00:32:12,524 --> 00:32:13,614
+CHARACTER_C: sealed
+
+397
+00:32:15,418 --> 00:32:18,838
+CHARACTER_A: primary conduit timer confirm seal partial record
+
+398
+00:32:20,152 --> 00:32:22,122
+CHARACTER_B: gauge sample timer parcel mount
+
+399
+00:32:23,087 --> 00:32:24,887
+CHARACTER_C: measure relay relay roster mark
+
+400
+00:32:27,368 --> 00:32:29,618
+CHARACTER_A: rotary sealed mark mark gauge log gauge
+
+401
+00:32:30,132 --> 00:32:33,132
+CHARACTER_B: spar anchor panel trim mount timer
+
+402
+00:32:34,202 --> 00:32:38,332
+CHARACTER_C: measure lateral relay trim relay anchor timer staged spare mount
+
+403
+00:32:40,945 --> 00:32:44,955
+CHARACTER_A: gauge index spare index beacon paired sealed verify secondary secondary inspect anchor
+
+404
+00:32:45,136 --> 00:32:48,226
+CHARACTER_B: purge record measure secondary ledger hatch compare rotary nominal measure gauge signal timer
+
+405
+00:32:48,664 --> 00:32:50,784
+CHARACTER_C: nominal latch dormant docket
+
+406
+00:32:51,759 --> 00:32:55,059
+CHARACTER_A: anchor tray idle mount log recalibrate timer staged
+
+407
+00:32:56,041 --> 00:33:00,671
+CHARACTER_B: spar relay align parcel verify recalibrate verify spar
+
+408
+00:33:03,076 --> 00:33:04,586
+CHARACTER_C: staged secondary record valve
+
+409
+00:33:05,176 --> 00:33:07,136
+CHARACTER_A: compare anchor dormant
+
+410
+00:33:07,859 --> 00:33:10,319
+CHARACTER_B: partial measure spar compare detach ledger
+
+411
+00:33:11,045 --> 00:33:13,715
+CHARACTER_C: dormant trim compare index sealed index staged
+
+412
+00:33:14,774 --> 00:33:16,364
+CHARACTER_A: nominal idle spar staged
+
+413
+00:33:18,543 --> 00:33:20,003
+CHARACTER_B: sealed gauge conduit sealed sealed
+
+414
+00:33:22,442 --> 00:33:23,442
+CHARACTER_C: staged
+
+415
+00:33:26,472 --> 00:33:28,552
+CHARACTER_A: record purge timer sample align
+
+416
+00:33:34,351 --> 00:33:36,391
+CHARACTER_B: latch recalibrate idle verify measure verify
+
+417
+00:33:41,346 --> 00:33:45,396
+CHARACTER_C: paired spare lateral ledger measure lateral sealed compare
+
+418
+00:33:51,205 --> 00:33:52,575
+CHARACTER_A: log sample primary recalibrate primary
+
+419
+00:33:56,481 --> 00:33:57,481
+CHARACTER_B: spare
+
+420
+00:34:03,436 --> 00:34:05,106
+CHARACTER_C: sample roster compare tray
+
+421
+00:34:07,506 --> 00:34:11,596
+CHARACTER_A: valve align seal docket latch ledger staged
+
+422
+00:34:18,611 --> 00:34:23,491
+CHARACTER_B: anchor secondary primary beacon measure measure idle record
+
+423
+00:34:39,113 --> 00:34:41,403
+CHARACTER_C: anchor tray conduit gauge trim inspect docket log
+
+424
+00:34:43,596 --> 00:34:45,516
+CHARACTER_A: spindle seal spare
+
+425
+00:34:48,500 --> 00:34:49,710
+CHARACTER_B: idle verify
+
+426
+00:35:25,132 --> 00:35:27,722
+CHARACTER_C: confirm relay confirm gauge
+
+427
+00:35:41,614 --> 00:35:43,694
+CHARACTER_A: idle sealed spare
+
+428
+00:35:47,725 --> 00:35:49,605
+CHARACTER_B: dormant inline signal
+
+429
+00:35:51,463 --> 00:35:54,633
+CHARACTER_C: anchor partial record index anchor secondary verify align
+
+430
+00:36:11,995 --> 00:36:13,955
+CHARACTER_A: paired trim purge
+
+431
+00:36:18,789 --> 00:36:23,379
+CHARACTER_B: verify relay panel marker measure gauge paired crate idle
+
+432
+00:36:25,372 --> 00:36:29,412
+CHARACTER_C: rotary marker mount conduit purge idle marker gauge docket purge compare
+
+433
+00:36:31,402 --> 00:36:32,782
+CHARACTER_A: spare reroute paired
+
+434
+00:36:34,638 --> 00:36:36,258
+CHARACTER_B: partial partial ledger
+
+435
+00:36:40,588 --> 00:36:41,708
+CHARACTER_C: partial partial log beacon
+
+436
+00:36:42,015 --> 00:36:45,555
+CHARACTER_A: index trim timer gauge spindle idle anchor idle paired
+
+437
+00:36:45,703 --> 00:36:47,283
+CHARACTER_B: measure mark beacon
+
+438
+00:36:47,924 --> 00:36:51,254
+CHARACTER_C: ledger verify valve verify dormant
+
+439
+00:36:51,773 --> 00:36:56,743
+CHARACTER_A: marker index reroute hatch dormant anchor inspect sample sealed anchor record conduit confirm
+
+440
+00:36:59,281 --> 00:37:00,821
+CHARACTER_B: sample seal
+
+441
+00:37:03,140 --> 00:37:04,140
+CHARACTER_C: signal
+
+442
+00:37:05,321 --> 00:37:06,321
+CHARACTER_A: parcel
+
+443
+00:37:07,622 --> 00:37:10,422
+CHARACTER_B: staged hatch timer spare sealed rotary mount relay sealed purge
+
+444
+00:37:17,351 --> 00:37:18,351
+CHARACTER_C: hatch
+
+445
+00:37:22,004 --> 00:37:23,294
+CHARACTER_A: log idle beacon
+
+446
+00:37:23,722 --> 00:37:25,762
+CHARACTER_B: valve staged latch compare
+
+447
+00:37:26,104 --> 00:37:29,444
+CHARACTER_C: rotary idle relay docket panel mark docket docket dormant panel inline signal
+
+448
+00:37:29,712 --> 00:37:31,092
+CHARACTER_A: spar partial detach
+
+449
+00:37:31,260 --> 00:37:33,770
+CHARACTER_B: gauge docket detach nominal verify recalibrate latch sealed
+
+450
+00:37:33,903 --> 00:37:39,163
+CHARACTER_C: beacon primary parcel relay idle nominal anchor docket staged
+
+451
+00:37:39,943 --> 00:37:42,863
+CHARACTER_A: sample spindle mark relay dormant crate measure record
+
+452
+00:37:47,400 --> 00:37:50,280
+CHARACTER_B: purge timer primary
+
+453
+00:37:50,968 --> 00:37:54,428
+CHARACTER_C: hatch staged docket purge partial seal docket dormant mount conduit
+
+454
+00:37:56,787 --> 00:37:58,127
+CHARACTER_A: record record
+
+455
+00:38:01,440 --> 00:38:04,410
+CHARACTER_B: anchor sealed nominal detach seal
+
+456
+00:38:04,545 --> 00:38:08,635
+CHARACTER_C: reroute mount spar dormant confirm sealed crate mount anchor
+
+457
+00:38:10,666 --> 00:38:13,456
+CHARACTER_A: roster partial align reroute anchor
+
+458
+00:38:15,148 --> 00:38:17,108
+CHARACTER_B: relay inline paired staged relay
+
+459
+00:38:17,249 --> 00:38:20,289
+CHARACTER_C: align log ledger docket
+
+460
+00:38:21,058 --> 00:38:24,478
+CHARACTER_A: purge marker mark spar trim reroute docket crate staged trim
+
+461
+00:38:26,384 --> 00:38:28,094
+CHARACTER_B: relay lateral docket
+
+462
+00:38:31,962 --> 00:38:35,212
+CHARACTER_C: idle timer latch inspect log
+
+463
+00:38:36,153 --> 00:38:38,403
+CHARACTER_A: parcel paired
+
+464
+00:38:41,931 --> 00:38:43,441
+CHARACTER_B: paired hatch secondary lateral
+
+465
+00:38:46,213 --> 00:38:47,213
+CHARACTER_C: relay
+
+466
+00:39:54,030 --> 00:39:57,290
+CHARACTER_A: parcel mount latch sample detach circuit
+
+467
+00:39:57,467 --> 00:40:00,517
+CHARACTER_B: tray seal secondary rotary roster crate paired
+
+468
+00:40:00,824 --> 00:40:03,204
+CHARACTER_C: recalibrate confirm valve partial sealed primary rotary panel verify docket
+
+469
+00:40:03,879 --> 00:40:05,509
+CHARACTER_A: align index lateral spindle marker
+
+470
+00:40:05,849 --> 00:40:07,859
+CHARACTER_B: lateral marker timer anchor
+
+471
+00:40:08,452 --> 00:40:09,452
+CHARACTER_C: marker
+
+472
+00:40:09,628 --> 00:40:14,218
+CHARACTER_A: beacon sealed dormant reroute detach circuit paired primary
+
+473
+00:40:14,492 --> 00:40:17,492
+CHARACTER_B: anchor compare primary rotary verify conduit
+
+474
+00:40:17,718 --> 00:40:20,218
+CHARACTER_C: paired crate seal paired panel
+
+475
+00:40:20,522 --> 00:40:21,822
+CHARACTER_A: index conduit
+
+476
+00:40:22,120 --> 00:40:24,790
+CHARACTER_B: partial staged
+
+477
+00:40:24,924 --> 00:40:29,594
+CHARACTER_C: sealed align beacon nominal compare inspect rotary trim
+
+478
+00:40:30,371 --> 00:40:33,501
+CHARACTER_A: signal purge sealed relay
+
+479
+00:40:34,110 --> 00:40:38,360
+CHARACTER_B: sample docket sealed paired partial signal recalibrate compare
+
+480
+00:40:48,732 --> 00:40:50,032
+CHARACTER_C: crate measure anchor index
+
+481
+00:40:58,672 --> 00:41:00,092
+CHARACTER_A: inline purge beacon paired purge
+
+482
+00:41:24,530 --> 00:41:26,280
+CHARACTER_B: docket mark crate relay sealed
+
+483
+00:41:27,676 --> 00:41:29,556
+CHARACTER_C: relay dormant spare relay
+
+484
+00:41:30,480 --> 00:41:31,480
+CHARACTER_A: idle circuit
+
+485
+00:41:32,118 --> 00:41:35,418
+CHARACTER_B: reroute confirm align inline partial gauge relay panel staged
+
+486
+00:41:36,389 --> 00:41:37,519
+CHARACTER_C: mount tray partial
+
+487
+00:41:37,907 --> 00:41:40,697
+CHARACTER_A: lateral signal anchor conduit gauge sealed recalibrate anchor paired recalibrate trim
+
+488
+00:41:52,871 --> 00:41:55,541
+CHARACTER_B: recalibrate valve trim
+
+489
+00:41:57,434 --> 00:41:58,434
+CHARACTER_C
+
+490
+00:41:59,786 --> 00:42:02,956
+CHARACTER_A: panel record purge seal spindle purge lateral
+
+491
+00:42:13,283 --> 00:42:16,283
+CHARACTER_B: tray lateral mount dormant mark log inspect seal gauge secondary
+
+492
+00:42:25,855 --> 00:42:27,025
+CHARACTER_C: detach mark docket
+
+493
+00:42:29,584 --> 00:42:31,464
+CHARACTER_A: circuit spare nominal gauge
+
+494
+00:42:32,267 --> 00:42:33,687
+CHARACTER_B: ledger spare staged
+
+495
+00:42:33,815 --> 00:42:37,245
+CHARACTER_C: circuit index paired secondary staged latch ledger
+
+496
+00:42:40,951 --> 00:42:43,491
+CHARACTER_A: spare anchor roster spar
+
+497
+00:42:43,755 --> 00:42:46,385
+CHARACTER_B: dormant crate sealed beacon gauge staged
+
+498
+00:42:47,322 --> 00:42:48,322
+CHARACTER_C: partial
+
+499
+00:42:49,202 --> 00:42:52,162
+CHARACTER_A: spare seal spar spare index rotary roster
+
+500
+00:42:52,387 --> 00:42:55,477
+CHARACTER_B: latch lateral latch spare recalibrate
+
+501
+00:42:56,709 --> 00:43:01,919
+CHARACTER_C: relay detach trim signal reroute primary log measure confirm anchor docket dormant spindle
+
+502
+00:43:05,633 --> 00:43:07,633
+CHARACTER_A: anchor mark
+
+503
+00:43:08,779 --> 00:43:12,159
+CHARACTER_B: timer detach spare confirm tray measure
+
+504
+00:43:14,859 --> 00:43:16,189
+CHARACTER_C: tray sample relay marker nominal primary anchor idle
+
+505
+00:43:16,327 --> 00:43:18,747
+CHARACTER_A: valve reroute reroute sealed valve partial anchor
+
+506
+00:43:19,010 --> 00:43:22,180
+CHARACTER_B: confirm sealed reroute paired beacon primary nominal spare inline
+
+507
+00:43:23,110 --> 00:43:24,990
+CHARACTER_C: record index latch sample detach sealed index sealed marker
+
+508
+00:43:25,422 --> 00:43:27,752
+CHARACTER_A: seal parcel paired roster confirm staged
+
+509
+00:43:28,608 --> 00:43:30,228
+CHARACTER_B: secondary log idle sample nominal conduit rotary
+
+510
+00:43:30,658 --> 00:43:32,578
+CHARACTER_C: log anchor align compare anchor
+
+511
+00:43:32,668 --> 00:43:34,298
+CHARACTER_A: nominal confirm confirm record sample mark
+
+512
+00:43:34,517 --> 00:43:36,897
+CHARACTER_B: secondary mark parcel docket sealed gauge sealed align
+
+513
+00:43:47,009 --> 00:43:48,009
+CHARACTER_C
+
+514
+00:43:50,446 --> 00:43:51,736
+CHARACTER_A: log
+
+515
+00:43:52,577 --> 00:43:54,167
+CHARACTER_B: panel seal record partial
+
+516
+00:43:55,220 --> 00:43:56,220
+CHARACTER_C
+
+517
+00:43:57,280 --> 00:43:59,820
+CHARACTER_A: mount circuit signal confirm sealed docket signal secondary seal
+
+518
+00:44:00,084 --> 00:44:04,134
+CHARACTER_B: recalibrate purge log align measure docket inline
+
+519
+00:44:06,165 --> 00:44:07,995
+CHARACTER_C: trim partial parcel sample
+
+520
+00:44:08,255 --> 00:44:12,725
+CHARACTER_A: staged ledger panel relay confirm relay detach paired recalibrate parcel rotary lateral secondary valve
+
+521
+00:44:14,255 --> 00:44:17,545
+CHARACTER_B: index spare panel mark
+
+522
+00:44:20,918 --> 00:44:25,298
+CHARACTER_C: compare parcel primary log align compare parcel partial measure
+
+523
+00:44:25,742 --> 00:44:29,072
+CHARACTER_A: valve docket beacon primary panel hatch paired crate index gauge
+
+524
+00:44:30,395 --> 00:44:34,725
+CHARACTER_B: relay seal record compare latch docket relay
+
+525
+00:44:37,892 --> 00:44:39,482
+CHARACTER_C: secondary seal
+
+526
+00:44:41,792 --> 00:44:43,042
+CHARACTER_A: inspect docket log
+
+527
+00:44:46,867 --> 00:44:48,657
+CHARACTER_B: mark align lateral mark detach
+
+528
+00:44:52,646 --> 00:44:54,066
+CHARACTER_C: sealed log seal
+
+529
+00:44:56,796 --> 00:44:57,796
+CHARACTER_A
+
+530
+00:45:00,947 --> 00:45:03,287
+CHARACTER_B: seal anchor recalibrate dormant seal relay idle
+
+531
+00:45:06,776 --> 00:45:07,816
+CHARACTER_C: timer
+
+532
+00:45:13,057 --> 00:45:14,067
+CHARACTER_A
+
+533
+00:45:18,012 --> 00:45:20,802
+CHARACTER_B: beacon record mount hatch anchor sample
+
+534
+00:45:23,288 --> 00:45:25,288
+CHARACTER_C: parcel circuit log primary
+
+535
+00:45:26,766 --> 00:45:28,436
+CHARACTER_A: lateral reroute confirm purge
+
+536
+00:45:28,575 --> 00:45:32,155
+CHARACTER_B: spar align recalibrate relay sealed sample seal partial lateral ledger
+
+537
+00:45:33,600 --> 00:45:34,600
+CHARACTER_C
+
+538
+00:45:36,534 --> 00:45:37,624
+CHARACTER_A: measure latch compare
+
+539
+00:45:39,137 --> 00:45:41,637
+CHARACTER_B: beacon index lateral gauge
+
+540
+00:45:42,443 --> 00:45:44,823
+CHARACTER_C: index relay relay relay spare
+
+541
+00:45:44,956 --> 00:45:46,166
+CHARACTER_A: conduit inspect
+
+542
+00:45:47,730 --> 00:45:50,900
+CHARACTER_B: measure staged anchor timer conduit index
+
+543
+00:46:03,157 --> 00:46:04,277
+CHARACTER_C: spar seal
+
+544
+00:46:05,920 --> 00:46:07,840
+CHARACTER_A: verify align spindle
+
+545
+00:46:09,528 --> 00:46:10,608
+CHARACTER_B: mount latch
+
+546
+00:46:14,634 --> 00:46:17,724
+CHARACTER_C: log sample signal sealed sample paired lateral conduit lateral docket spare
+
+547
+00:46:18,784 --> 00:46:20,664
+CHARACTER_A: secondary partial rotary signal
+
+548
+00:46:21,005 --> 00:46:22,015
+CHARACTER_B
+
+549
+00:46:24,191 --> 00:46:28,281
+CHARACTER_C: latch inline measure secondary partial spare seal compare
+
+550
+00:46:36,100 --> 00:46:38,100
+CHARACTER_A: partial docket spare recalibrate staged detach
+
+551
+00:46:40,120 --> 00:46:41,330
+CHARACTER_B: anchor primary gauge
+
+552
+00:46:42,342 --> 00:46:43,932
+CHARACTER_C: partial log inspect
+
+553
+00:46:47,547 --> 00:46:53,587
+CHARACTER_A: sealed ledger paired compare sample crate anchor mark signal staged partial latch
+
+554
+00:47:03,889 --> 00:47:05,139
+CHARACTER_B: marker latch
+
+555
+00:47:12,190 --> 00:47:13,190
+CHARACTER_C
+
+556
+00:47:14,240 --> 00:47:16,540
+CHARACTER_A: trim detach spindle hatch
+
+557
+00:47:18,059 --> 00:47:20,059
+CHARACTER_B: relay reroute recalibrate log inline reroute lateral hatch compare
+
+558
+00:47:24,893 --> 00:47:26,183
+CHARACTER_C: anchor anchor
+
+559
+00:47:27,406 --> 00:47:29,116
+CHARACTER_A: paired beacon compare
+
+560
+00:47:36,169 --> 00:47:37,709
+CHARACTER_B: reroute partial
+
+561
+00:47:40,521 --> 00:47:41,821
+CHARACTER_C: index
+
+562
+00:47:47,144 --> 00:47:48,564
+CHARACTER_A: relay inline sealed marker valve inline

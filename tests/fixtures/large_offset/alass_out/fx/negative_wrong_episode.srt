@@ -1,0 +1,2855 @@
+1
+00:00:10,160 --> 00:00:11,879
+STRANGER_1: relay staged
+
+2
+00:00:12,040 --> 00:00:13,440
+STRANGER_2: trim idle compare mark align
+
+3
+00:00:13,640 --> 00:00:17,714
+STRANGER_3: spar rotary sample inline record gauge inline paired marker relay spar measure
+
+4
+00:00:17,920 --> 00:00:20,355
+STRANGER_1: inspect anchor align verify dormant index latch
+
+5
+00:00:20,520 --> 00:00:22,876
+STRANGER_2: detach align verify rotary detach reroute
+
+6
+00:00:23,120 --> 00:00:25,760
+STRANGER_3: idle dormant lateral inline roster index inline sealed
+
+7
+00:00:25,960 --> 00:00:28,111
+STRANGER_1: align inline spare log
+
+8
+00:00:28,960 --> 00:00:30,917
+STRANGER_2: marker spar detach beacon
+
+9
+00:00:31,080 --> 00:00:32,480
+STRANGER_3: compare valve compare timer sealed marker
+
+10
+00:00:32,640 --> 00:00:35,075
+STRANGER_1: nominal align sealed confirm roster sealed partial hatch hatch anchor primary
+
+11
+00:00:35,480 --> 00:00:38,040
+STRANGER_2: spare mount parcel purge
+
+12
+00:00:38,200 --> 00:00:39,270
+STRANGER_3: signal
+
+13
+00:00:39,440 --> 00:00:41,955
+STRANGER_1: verify secondary idle gauge paired
+
+14
+00:00:42,120 --> 00:00:44,635
+STRANGER_2: mark sealed panel sealed mount index
+
+15
+00:00:44,800 --> 00:00:46,632
+STRANGER_3: docket ledger confirm staged gauge rotary
+
+16
+00:00:46,800 --> 00:00:48,917
+STRANGER_1: docket lateral docket seal relay dormant
+
+17
+00:00:49,080 --> 00:00:53,552
+STRANGER_2: panel partial anchor paired seal hatch record compare mark confirm trim staged crate
+
+18
+00:00:55,080 --> 00:00:56,833
+STRANGER_3: mark
+
+19
+00:00:57,000 --> 00:00:58,912
+STRANGER_1: anchor compare spindle marker sample idle
+
+20
+00:00:59,640 --> 00:01:03,634
+STRANGER_2: paired partial parcel idle staged inspect
+
+21
+00:01:04,240 --> 00:01:06,118
+STRANGER_3: rotary ledger recalibrate beacon idle purge log anchor
+
+22
+00:01:07,280 --> 00:01:10,273
+STRANGER_1: marker ledger timer rotary reroute circuit log
+
+23
+00:01:10,480 --> 00:01:12,517
+STRANGER_2: nominal sealed circuit dormant
+
+24
+00:01:12,760 --> 00:01:15,559
+STRANGER_3: primary parcel trim rotary nominal
+
+25
+00:01:15,800 --> 00:01:17,439
+STRANGER_1: measure measure spare index idle relay secondary
+
+26
+00:01:17,720 --> 00:01:19,234
+STRANGER_2: confirm nominal rotary
+
+27
+00:01:19,440 --> 00:01:21,272
+STRANGER_3: spindle index timer idle relay
+
+28
+00:01:21,480 --> 00:01:23,551
+STRANGER_1: anchor crate marker reroute dormant
+
+29
+00:01:23,760 --> 00:01:25,319
+STRANGER_2: spindle latch nominal sealed measure panel
+
+30
+00:01:25,560 --> 00:01:27,199
+STRANGER_3: spare paired anchor primary confirm dormant
+
+31
+00:03:58,160 --> 00:04:00,800
+STRANGER_1: secondary marker sealed index mount
+
+32
+00:04:00,960 --> 00:04:02,997
+STRANGER_2: sealed latch relay align spare
+
+33
+00:04:05,240 --> 00:04:06,913
+STRANGER_3
+
+34
+00:04:08,600 --> 00:04:12,674
+STRANGER_1: signal parcel rotary paired record confirm signal compare secondary idle staged timer
+
+35
+00:04:15,520 --> 00:04:18,035
+STRANGER_2: hatch log verify docket dormant
+
+36
+00:04:19,760 --> 00:04:23,276
+STRANGER_3: valve detach sample align conduit gauge staged mount inline align secondary staged recalibrate valve
+
+37
+00:04:23,600 --> 00:04:26,069
+STRANGER_1: staged spare relay relay marker reroute relay circuit timer
+
+38
+00:04:26,320 --> 00:04:28,630
+STRANGER_2: panel spindle record lateral compare align
+
+39
+00:04:28,800 --> 00:04:30,234
+STRANGER_3
+
+40
+00:04:33,400 --> 00:04:36,359
+STRANGER_1: record relay sample recalibrate rotary dormant relay nominal
+
+41
+00:04:36,520 --> 00:04:38,910
+STRANGER_2: primary inline anchor ledger spar relay tray docket inline
+
+42
+00:04:39,120 --> 00:04:42,511
+STRANGER_3: rotary measure idle seal gauge parcel marker latch anchor align
+
+43
+00:04:42,680 --> 00:04:45,149
+STRANGER_1: anchor anchor hatch sealed
+
+44
+00:04:45,800 --> 00:04:47,678
+STRANGER_2: detach primary confirm latch detach primary
+
+45
+00:04:47,880 --> 00:04:49,792
+STRANGER_3: signal inspect panel mark ledger
+
+46
+00:04:49,960 --> 00:04:52,953
+STRANGER_1: roster confirm circuit staged signal panel anchor nominal anchor
+
+47
+00:04:53,120 --> 00:04:54,520
+STRANGER_2: primary reroute record
+
+48
+00:04:54,680 --> 00:04:57,149
+STRANGER_3: index dormant nominal sealed docket
+
+49
+00:04:57,320 --> 00:04:59,630
+STRANGER_1: docket staged recalibrate spindle rotary inspect mark
+
+50
+00:04:59,800 --> 00:05:04,431
+STRANGER_2: primary hatch record align reroute sealed partial marker inline docket sealed anchor log relay
+
+51
+00:05:05,200 --> 00:05:07,920
+STRANGER_3: mount timer inline docket marker
+
+52
+00:05:08,120 --> 00:05:11,909
+STRANGER_1: valve paired reroute nominal docket rotary sealed hatch sealed
+
+53
+00:05:13,320 --> 00:05:15,312
+STRANGER_2: nominal mount purge docket sealed mark secondary
+
+54
+00:05:15,480 --> 00:05:17,517
+STRANGER_3: sample anchor crate index paired spindle beacon
+
+55
+00:05:17,720 --> 00:05:20,633
+STRANGER_1: trim lateral spar sealed sample conduit
+
+56
+00:05:20,840 --> 00:05:24,151
+STRANGER_2: nominal secondary beacon align lateral secondary inline crate primary
+
+57
+00:05:24,360 --> 00:05:27,990
+STRANGER_3: relay sample purge sealed inline timer record log conduit trim circuit
+
+58
+00:05:28,680 --> 00:05:30,751
+STRANGER_1: relay purge compare reroute
+
+59
+00:05:31,600 --> 00:05:35,640
+STRANGER_2: compare hatch mount verify trim beacon mark
+
+60
+00:05:35,840 --> 00:05:38,639
+STRANGER_3: signal partial docket docket trim conduit detach anchor parcel
+
+61
+00:05:41,080 --> 00:05:44,437
+STRANGER_1: idle paired verify paired measure nominal detach inline sealed
+
+62
+00:05:44,800 --> 00:05:47,076
+STRANGER_2: conduit confirm measure purge confirm lateral lateral panel hatch
+
+63
+00:05:47,280 --> 00:05:49,954
+STRANGER_3: reroute inline timer relay staged timer
+
+64
+00:05:50,160 --> 00:05:53,232
+STRANGER_1: nominal spare parcel lateral circuit reroute spare
+
+65
+00:05:53,400 --> 00:05:57,076
+STRANGER_2: conduit beacon rotary beacon recalibrate hatch seal
+
+66
+00:05:58,280 --> 00:06:01,273
+STRANGER_3: purge conduit mark spare verify paired idle detach tray inline
+
+67
+00:06:02,200 --> 00:06:03,714
+STRANGER_1
+
+68
+00:06:06,800 --> 00:06:09,315
+STRANGER_2: primary circuit dormant docket mark
+
+69
+00:06:11,400 --> 00:06:14,552
+STRANGER_3: idle valve docket anchor roster valve partial detach hatch lateral primary index spare
+
+70
+00:06:14,720 --> 00:06:16,552
+STRANGER_1: compare confirm seal staged rotary crate detach
+
+71
+00:06:16,720 --> 00:06:18,120
+STRANGER_2: spare sample log seal paired latch log
+
+72
+00:06:18,720 --> 00:06:19,756
+STRANGER_3: anchor
+
+73
+00:06:19,920 --> 00:06:21,832
+STRANGER_1: purge anchor ledger beacon sealed
+
+74
+00:06:23,880 --> 00:06:26,475
+STRANGER_2: detach purge detach recalibrate beacon mark
+
+75
+00:06:32,520 --> 00:06:34,352
+STRANGER_3: parcel latch inspect rotary anchor
+
+76
+00:06:35,160 --> 00:06:36,753
+STRANGER_1: lateral verify lateral
+
+77
+00:06:37,000 --> 00:06:39,037
+STRANGER_2: tray inline spare
+
+78
+00:06:39,240 --> 00:06:41,471
+STRANGER_3: rotary valve confirm purge
+
+79
+00:06:41,640 --> 00:06:44,075
+STRANGER_1: beacon compare nominal relay idle anchor trim
+
+80
+00:06:46,200 --> 00:06:48,431
+STRANGER_2: spindle rotary confirm measure recalibrate
+
+81
+00:06:49,920 --> 00:06:52,799
+STRANGER_3: docket conduit record mark
+
+82
+00:06:56,360 --> 00:06:58,920
+STRANGER_1: latch verify
+
+83
+00:06:59,080 --> 00:07:01,072
+STRANGER_2: spare
+
+84
+00:07:01,280 --> 00:07:03,033
+STRANGER_3: docket
+
+85
+00:07:04,880 --> 00:07:06,314
+STRANGER_1: index relay tray mark
+
+86
+00:07:06,480 --> 00:07:07,550
+STRANGER_2: purge
+
+87
+00:07:07,720 --> 00:07:09,393
+STRANGER_3: anchor secondary beacon crate ledger staged
+
+88
+00:07:09,560 --> 00:07:11,711
+STRANGER_1: verify inline trim rotary
+
+89
+00:07:11,880 --> 00:07:14,475
+STRANGER_2: marker signal trim sample inspect relay docket gauge
+
+90
+00:07:14,640 --> 00:07:16,359
+STRANGER_3: spare recalibrate trim spar beacon nominal timer
+
+91
+00:07:16,520 --> 00:07:17,556
+STRANGER_1
+
+92
+00:07:18,920 --> 00:07:20,513
+STRANGER_2: conduit
+
+93
+00:07:24,400 --> 00:07:25,675
+STRANGER_3: sample
+
+94
+00:07:25,880 --> 00:07:27,030
+STRANGER_1: purge signal beacon
+
+95
+00:07:27,200 --> 00:07:29,157
+STRANGER_2: relay circuit record anchor
+
+96
+00:07:31,480 --> 00:07:33,119
+STRANGER_3
+
+97
+00:07:33,320 --> 00:07:36,074
+STRANGER_1: anchor detach mark signal
+
+98
+00:07:36,240 --> 00:07:38,311
+STRANGER_2: trim relay nominal timer measure docket paired verify
+
+99
+00:07:40,080 --> 00:07:41,355
+STRANGER_3: sample anchor
+
+100
+00:07:41,600 --> 00:07:42,795
+STRANGER_1: hatch spare
+
+101
+00:07:43,000 --> 00:07:44,036
+STRANGER_2
+
+102
+00:07:44,240 --> 00:07:45,993
+STRANGER_3: align trim log secondary purge
+
+103
+00:07:46,160 --> 00:07:48,914
+STRANGER_1: index relay idle secondary spare mount docket
+
+104
+00:07:49,080 --> 00:07:51,959
+STRANGER_2: beacon nominal staged measure measure gauge signal relay compare
+
+105
+00:07:52,120 --> 00:07:54,430
+STRANGER_3: index compare secondary paired latch
+
+106
+00:07:54,600 --> 00:07:56,000
+STRANGER_1: partial sealed docket
+
+107
+00:07:56,200 --> 00:07:57,714
+STRANGER_2: compare tray crate idle
+
+108
+00:07:57,880 --> 00:07:59,394
+STRANGER_3: sealed inline
+
+109
+00:07:59,560 --> 00:08:00,835
+STRANGER_1: docket circuit
+
+110
+00:08:01,560 --> 00:08:03,552
+STRANGER_2: nominal lateral spindle roster
+
+111
+00:08:14,080 --> 00:08:16,914
+STRANGER_3: idle beacon lateral rotary
+
+112
+00:08:26,000 --> 00:08:29,880
+STRANGER_1: sealed valve measure dormant latch confirm relay inspect sample relay inline
+
+113
+00:08:33,840 --> 00:08:35,354
+STRANGER_2: partial nominal ledger secondary spindle mount
+
+114
+00:08:35,520 --> 00:08:38,115
+STRANGER_3: inline anchor staged inline trim mark sample parcel secondary
+
+115
+00:08:38,280 --> 00:08:39,919
+STRANGER_1: mark secondary mark hatch docket beacon
+
+116
+00:08:40,840 --> 00:08:42,194
+STRANGER_2
+
+117
+00:08:42,400 --> 00:08:43,754
+STRANGER_3: mount staged relay
+
+118
+00:08:55,160 --> 00:08:57,038
+STRANGER_1: mount seal staged anchor
+
+119
+00:08:57,200 --> 00:08:59,590
+STRANGER_2: primary paired gauge dormant gauge
+
+120
+00:08:59,760 --> 00:09:02,434
+STRANGER_3: marker anchor marker crate conduit circuit rotary
+
+121
+00:09:02,640 --> 00:09:04,836
+STRANGER_1: relay inline record recalibrate
+
+122
+00:09:05,000 --> 00:09:07,720
+STRANGER_2: inspect confirm measure spare sample primary nominal spare parcel
+
+123
+00:09:07,880 --> 00:09:10,679
+STRANGER_3: align verify sealed verify docket relay circuit beacon
+
+124
+00:09:10,880 --> 00:09:13,111
+STRANGER_1: latch recalibrate idle verify latch log latch confirm
+
+125
+00:09:13,320 --> 00:09:15,596
+STRANGER_2: sealed tray relay spindle crate gauge anchor recalibrate
+
+126
+00:09:15,760 --> 00:09:18,036
+STRANGER_3: latch mount docket reroute docket
+
+127
+00:09:18,600 --> 00:09:20,114
+STRANGER_1: inspect
+
+128
+00:09:20,280 --> 00:09:21,600
+STRANGER_2: sample staged spindle secondary
+
+129
+00:09:21,760 --> 00:09:24,673
+STRANGER_3: staged mark latch roster index ledger beacon purge spare anchor
+
+130
+00:09:24,840 --> 00:09:27,833
+STRANGER_1: sample sealed paired anchor timer detach trim relay beacon docket hatch
+
+131
+00:09:28,040 --> 00:09:29,793
+STRANGER_2: anchor docket inline latch nominal
+
+132
+00:09:30,000 --> 00:09:31,559
+STRANGER_3: anchor idle sample
+
+133
+00:09:31,800 --> 00:09:35,430
+STRANGER_1: inline seal mount sealed seal timer staged latch rotary
+
+134
+00:09:36,280 --> 00:09:38,397
+STRANGER_2: dormant partial
+
+135
+00:09:38,560 --> 00:09:42,474
+STRANGER_3: purge secondary rotary circuit record sample spare docket lateral seal rotary panel
+
+136
+00:09:42,680 --> 00:09:44,956
+STRANGER_1: signal mark beacon tray anchor circuit conduit
+
+137
+00:09:45,120 --> 00:09:46,634
+STRANGER_2: mount panel mount purge
+
+138
+00:09:46,800 --> 00:09:49,793
+STRANGER_3: sealed docket inspect dormant relay secondary lateral inspect
+
+139
+00:09:49,960 --> 00:09:53,476
+STRANGER_1: sample relay latch anchor anchor recalibrate anchor
+
+140
+00:09:53,640 --> 00:09:55,313
+STRANGER_2: crate docket detach sample
+
+141
+00:09:56,720 --> 00:10:00,430
+STRANGER_3: idle relay mark inspect primary inspect lateral relay paired spindle
+
+142
+00:10:00,600 --> 00:10:03,115
+STRANGER_1: sealed recalibrate record docket staged timer mount dormant
+
+143
+00:10:03,280 --> 00:10:04,680
+STRANGER_2: mark lateral timer partial index staged
+
+144
+00:10:04,840 --> 00:10:05,910
+STRANGER_3: trim
+
+145
+00:10:06,120 --> 00:10:08,077
+STRANGER_1: latch partial rotary reroute
+
+146
+00:10:08,240 --> 00:10:11,677
+STRANGER_2: recalibrate tray purge tray signal align primary ledger
+
+147
+00:10:11,880 --> 00:10:14,714
+STRANGER_3: paired primary seal log sealed confirm staged inline timer
+
+148
+00:10:14,960 --> 00:10:18,670
+STRANGER_1: relay beacon index inspect relay relay docket ledger mark compare spindle crate
+
+149
+00:10:18,840 --> 00:10:21,275
+STRANGER_2: spare detach log align recalibrate tray idle nominal
+
+150
+00:10:21,440 --> 00:10:24,000
+STRANGER_3: verify primary sample inspect primary anchor idle paired
+
+151
+00:10:24,160 --> 00:10:27,790
+STRANGER_1: trim latch measure mark relay roster purge compare rotary
+
+152
+00:10:27,960 --> 00:10:29,952
+STRANGER_2: rotary partial mark index recalibrate
+
+153
+00:10:30,120 --> 00:10:32,760
+STRANGER_3: spare measure inspect nominal lateral seal
+
+154
+00:10:32,920 --> 00:10:35,674
+STRANGER_1: signal align recalibrate anchor panel spare spindle
+
+155
+00:10:36,520 --> 00:10:37,874
+STRANGER_2: sealed verify dormant
+
+156
+00:10:38,040 --> 00:10:39,474
+STRANGER_3: log lateral recalibrate nominal
+
+157
+00:10:39,640 --> 00:10:42,872
+STRANGER_1: anchor tray docket marker relay compare spindle seal spare reroute gauge
+
+158
+00:10:43,040 --> 00:10:46,078
+STRANGER_2: latch relay anchor record ledger sealed spar measure
+
+159
+00:10:46,240 --> 00:10:48,880
+STRANGER_3: dormant inline seal conduit align inline inspect record mount
+
+160
+00:10:49,080 --> 00:10:50,912
+STRANGER_1: dormant sealed relay timer
+
+161
+00:10:51,080 --> 00:10:54,073
+STRANGER_2: primary mark confirm dormant dormant purge recalibrate relay log relay
+
+162
+00:10:54,240 --> 00:10:57,233
+STRANGER_3: mount spare sample staged index sealed index lateral circuit spare primary rotary
+
+163
+00:10:57,400 --> 00:10:59,551
+STRANGER_1: primary verify beacon primary beacon paired
+
+164
+00:10:59,760 --> 00:11:03,674
+STRANGER_2: verify relay marker circuit beacon beacon seal detach relay
+
+165
+00:11:03,840 --> 00:11:08,119
+STRANGER_3: compare conduit detach tray reroute beacon mount anchor index index inline spindle measure
+
+166
+00:11:08,280 --> 00:11:10,033
+STRANGER_1: detach panel nominal purge
+
+167
+00:11:10,200 --> 00:11:14,194
+STRANGER_2: gauge compare dormant inspect spare lateral relay sample detach measure spare sealed align parcel
+
+168
+00:11:14,400 --> 00:11:16,835
+STRANGER_3: verify gauge mark signal reroute tray secondary docket
+
+169
+00:11:17,000 --> 00:11:18,912
+STRANGER_1: staged reroute purge primary recalibrate tray
+
+170
+00:11:19,080 --> 00:11:21,720
+STRANGER_2: tray secondary nominal roster measure rotary seal primary
+
+171
+00:11:21,880 --> 00:11:23,200
+STRANGER_3: relay beacon anchor lateral
+
+172
+00:11:23,360 --> 00:11:25,317
+STRANGER_1: anchor relay docket seal
+
+173
+00:11:29,200 --> 00:11:30,998
+STRANGER_2: recalibrate measure reroute nominal
+
+174
+00:11:31,160 --> 00:11:34,039
+STRANGER_3: log beacon sealed mark recalibrate roster panel dormant inspect
+
+175
+00:11:34,200 --> 00:11:35,680
+STRANGER_1: relay ledger
+
+176
+00:11:35,880 --> 00:11:37,360
+STRANGER_2: signal
+
+177
+00:11:37,520 --> 00:11:40,035
+STRANGER_3: idle panel relay ledger latch
+
+178
+00:11:40,400 --> 00:11:42,471
+STRANGER_1: idle sealed confirm docket align
+
+179
+00:11:42,680 --> 00:11:45,991
+STRANGER_2: timer seal idle compare anchor crate inline valve partial verify inline
+
+180
+00:11:46,160 --> 00:11:48,880
+STRANGER_3: confirm anchor compare crate tray signal
+
+181
+00:11:49,280 --> 00:11:52,034
+STRANGER_1: compare mark log
+
+182
+00:12:09,280 --> 00:12:11,431
+STRANGER_2: log sample sample paired circuit mark
+
+183
+00:12:11,600 --> 00:12:15,230
+STRANGER_3: index latch spar confirm reroute align inspect ledger
+
+184
+00:12:16,280 --> 00:12:17,873
+STRANGER_1
+
+185
+00:12:22,120 --> 00:12:24,191
+STRANGER_2: inline
+
+186
+00:12:24,760 --> 00:12:28,071
+STRANGER_3: sealed relay detach confirm
+
+187
+00:12:28,240 --> 00:12:32,996
+STRANGER_1: lateral signal record record lateral log staged dormant spar
+
+188
+00:12:34,080 --> 00:12:35,878
+STRANGER_2: inspect
+
+189
+00:12:37,200 --> 00:12:38,680
+STRANGER_3
+
+190
+00:12:53,320 --> 00:12:54,720
+STRANGER_1: dormant seal dormant record
+
+191
+00:13:07,720 --> 00:13:09,473
+STRANGER_2: mount dormant
+
+192
+00:13:09,680 --> 00:13:12,673
+STRANGER_3: paired spare rotary marker staged hatch anchor
+
+193
+00:13:15,280 --> 00:13:17,158
+STRANGER_1: record marker
+
+194
+00:13:18,160 --> 00:13:21,119
+STRANGER_2: partial rotary sealed ledger relay mark mount inline log valve
+
+195
+00:13:21,320 --> 00:13:22,879
+STRANGER_3: rotary detach marker marker spare spar
+
+196
+00:13:23,040 --> 00:13:24,599
+STRANGER_1: partial align lateral seal panel detach
+
+197
+00:13:24,760 --> 00:13:26,672
+STRANGER_2: relay secondary parcel conduit gauge
+
+198
+00:13:26,840 --> 00:13:27,956
+STRANGER_3: mark secondary valve
+
+199
+00:13:28,160 --> 00:13:30,117
+STRANGER_1: mark inspect nominal paired primary inline hatch
+
+200
+00:13:30,280 --> 00:13:32,476
+STRANGER_2: confirm mark rotary recalibrate signal roster spare idle
+
+201
+00:13:32,640 --> 00:13:34,233
+STRANGER_3: partial secondary sealed
+
+202
+00:13:34,400 --> 00:13:35,993
+STRANGER_1: valve relay ledger anchor
+
+203
+00:13:36,160 --> 00:13:38,994
+STRANGER_2: lateral staged anchor primary idle docket compare index idle signal parcel
+
+204
+00:13:39,160 --> 00:13:42,039
+STRANGER_3: inline paired hatch paired parcel partial trim
+
+205
+00:13:46,280 --> 00:13:48,715
+STRANGER_1: primary signal measure partial paired sample
+
+206
+00:13:48,920 --> 00:13:52,072
+STRANGER_2: roster mark trim measure sealed sealed latch seal
+
+207
+00:13:52,240 --> 00:13:54,960
+STRANGER_3: spare anchor relay primary primary docket
+
+208
+00:13:55,120 --> 00:13:57,840
+STRANGER_1: staged gauge paired inspect sealed purge compare recalibrate record compare
+
+209
+00:13:58,000 --> 00:14:01,960
+STRANGER_2: roster detach recalibrate spar ledger staged staged sealed sealed gauge timer compare crate
+
+210
+00:14:02,120 --> 00:14:04,476
+STRANGER_3: align anchor detach purge spar reroute lateral spar
+
+211
+00:14:04,640 --> 00:14:06,120
+STRANGER_1: relay
+
+212
+00:14:06,320 --> 00:14:09,916
+STRANGER_2: lateral sample tray compare sealed
+
+213
+00:14:10,400 --> 00:14:13,791
+STRANGER_3: valve sealed paired circuit beacon conduit anchor parcel hatch beacon anchor record
+
+214
+00:14:14,840 --> 00:14:17,036
+STRANGER_1: inspect secondary idle spar sealed tray idle
+
+215
+00:14:17,760 --> 00:14:20,229
+STRANGER_2: detach sealed dormant mount trim
+
+216
+00:14:21,200 --> 00:14:23,590
+STRANGER_3: align spar recalibrate compare
+
+217
+00:14:25,360 --> 00:14:27,079
+STRANGER_1: inspect relay index purge relay
+
+218
+00:14:27,240 --> 00:14:28,276
+STRANGER_2: record idle conduit measure
+
+219
+00:14:28,440 --> 00:14:29,760
+STRANGER_3: paired timer dormant spare
+
+220
+00:14:29,920 --> 00:14:31,320
+STRANGER_1: secondary sealed
+
+221
+00:14:31,520 --> 00:14:33,113
+STRANGER_2: spar spar ledger
+
+222
+00:14:33,280 --> 00:14:34,396
+STRANGER_3
+
+223
+00:14:37,720 --> 00:14:39,791
+STRANGER_1: nominal lateral paired staged compare
+
+224
+00:14:39,960 --> 00:14:43,670
+STRANGER_2: verify parcel crate confirm secondary seal staged timer seal sample secondary
+
+225
+00:14:46,640 --> 00:14:48,154
+STRANGER_3: primary
+
+226
+00:14:51,880 --> 00:14:53,951
+STRANGER_1: sealed verify spar recalibrate inline
+
+227
+00:14:54,160 --> 00:14:55,833
+STRANGER_2: rotary beacon measure spar sealed
+
+228
+00:14:56,040 --> 00:14:57,554
+STRANGER_3: ledger partial trim panel valve
+
+229
+00:14:57,720 --> 00:14:59,154
+STRANGER_1: mount trim
+
+230
+00:14:59,400 --> 00:15:00,754
+STRANGER_2: latch log staged signal conduit
+
+231
+00:15:00,960 --> 00:15:03,634
+STRANGER_3: sealed primary beacon recalibrate
+
+232
+00:15:04,760 --> 00:15:08,276
+STRANGER_1: verify lateral ledger index index
+
+233
+00:15:10,240 --> 00:15:11,993
+STRANGER_2: relay relay
+
+234
+00:15:16,600 --> 00:15:18,159
+STRANGER_3: detach seal sealed relay conduit
+
+235
+00:15:23,520 --> 00:15:25,352
+STRANGER_1: docket
+
+236
+00:15:29,720 --> 00:15:31,120
+STRANGER_2
+
+237
+00:15:32,040 --> 00:15:33,360
+STRANGER_3: mount
+
+238
+00:15:45,560 --> 00:15:47,074
+STRANGER_1
+
+239
+00:15:48,000 --> 00:15:49,400
+STRANGER_2
+
+240
+00:15:50,360 --> 00:15:53,831
+STRANGER_3: latch spare docket detach docket rotary
+
+241
+00:15:54,040 --> 00:15:58,910
+STRANGER_1: seal compare hatch primary inspect valve verify paired
+
+242
+00:15:59,080 --> 00:16:00,355
+STRANGER_2
+
+243
+00:16:01,480 --> 00:16:05,554
+STRANGER_3: reroute measure circuit rotary parcel inline crate docket inspect sample inspect
+
+244
+00:16:05,720 --> 00:16:06,915
+STRANGER_1: mark
+
+245
+00:16:07,080 --> 00:16:11,916
+STRANGER_2: confirm inspect anchor dormant nominal sealed marker roster secondary
+
+246
+00:16:13,800 --> 00:16:15,598
+STRANGER_3: nominal anchor paired staged
+
+247
+00:16:17,120 --> 00:16:18,952
+STRANGER_1: rotary
+
+248
+00:16:20,520 --> 00:16:22,034
+STRANGER_2: reroute recalibrate compare purge
+
+249
+00:16:22,200 --> 00:16:24,999
+STRANGER_3: anchor measure anchor gauge timer spare
+
+250
+00:16:26,160 --> 00:16:28,994
+STRANGER_1: sealed purge lateral primary trim nominal
+
+251
+00:16:29,200 --> 00:16:31,351
+STRANGER_2: lateral spindle relay
+
+252
+00:16:31,680 --> 00:16:34,514
+STRANGER_3: spar idle seal relay sample reroute log docket beacon
+
+253
+00:16:41,320 --> 00:16:43,755
+STRANGER_1: spindle parcel paired
+
+254
+00:17:21,120 --> 00:17:24,272
+STRANGER_2: beacon secondary inspect align sealed record crate
+
+255
+00:17:26,560 --> 00:17:28,392
+STRANGER_3: rotary compare docket paired
+
+256
+00:17:28,600 --> 00:17:30,751
+STRANGER_1: reroute roster ledger recalibrate verify lateral idle sealed rotary
+
+257
+00:17:32,080 --> 00:17:34,993
+STRANGER_2: log mount tray record
+
+258
+00:17:35,640 --> 00:17:38,792
+STRANGER_3: idle nominal recalibrate confirm staged valve
+
+259
+00:17:39,840 --> 00:17:41,718
+STRANGER_1: inline gauge confirm
+
+260
+00:17:57,120 --> 00:17:59,112
+STRANGER_2: inline
+
+261
+00:17:59,760 --> 00:18:00,796
+STRANGER_3
+
+262
+00:18:03,760 --> 00:18:06,514
+STRANGER_1: sealed staged beacon
+
+263
+00:18:06,680 --> 00:18:08,353
+STRANGER_2: measure detach
+
+264
+00:18:08,560 --> 00:18:11,075
+STRANGER_3: detach detach anchor inline mount
+
+265
+00:18:11,760 --> 00:18:15,310
+STRANGER_1: idle mark dormant record sealed trim crate inline compare inline
+
+266
+00:18:15,960 --> 00:18:17,360
+STRANGER_2: spindle seal measure sample verify
+
+267
+00:18:17,520 --> 00:18:18,556
+STRANGER_3: beacon spindle
+
+268
+00:18:18,720 --> 00:18:21,918
+STRANGER_1: lateral conduit rotary anchor spindle align roster inline hatch
+
+269
+00:18:23,760 --> 00:18:26,150
+STRANGER_2: valve mark inline mark
+
+270
+00:18:26,880 --> 00:18:29,714
+STRANGER_3: spare purge beacon reroute latch idle
+
+271
+00:18:29,920 --> 00:18:34,392
+STRANGER_1: align relay sealed marker compare lateral lateral sealed inline anchor inline trim rotary
+
+272
+00:18:34,560 --> 00:18:38,474
+STRANGER_2: sealed latch align reroute trim secondary roster tray compare
+
+273
+00:18:38,640 --> 00:18:41,235
+STRANGER_3: sealed roster reroute docket trim anchor mount gauge tray record
+
+274
+00:18:41,400 --> 00:18:44,996
+STRANGER_1: trim reroute signal primary verify log inspect parcel signal partial verify inspect latch
+
+275
+00:18:45,160 --> 00:18:47,994
+STRANGER_2: purge spar inspect record valve paired log sealed seal
+
+276
+00:18:48,160 --> 00:18:50,356
+STRANGER_3: rotary reroute rotary anchor seal primary purge relay
+
+277
+00:18:50,560 --> 00:18:54,554
+STRANGER_1: mount ledger rotary primary seal sealed inline paired
+
+278
+00:18:54,720 --> 00:18:58,714
+STRANGER_2: compare anchor confirm purge timer spare valve log measure
+
+279
+00:18:58,880 --> 00:19:03,557
+STRANGER_3: docket beacon docket signal reroute verify idle timer
+
+280
+00:19:03,760 --> 00:19:08,198
+STRANGER_1: measure compare tray signal mark beacon hatch rotary purge docket
+
+281
+00:19:08,480 --> 00:19:11,473
+STRANGER_2: conduit record dormant conduit crate anchor tray
+
+282
+00:19:11,640 --> 00:19:13,199
+STRANGER_3: nominal signal confirm anchor anchor paired spar
+
+283
+00:19:13,360 --> 00:19:15,158
+STRANGER_1: ledger spare gauge secondary sealed
+
+284
+00:19:15,320 --> 00:19:16,674
+STRANGER_2
+
+285
+00:19:17,880 --> 00:19:19,360
+STRANGER_3: roster inline rotary
+
+286
+00:19:19,520 --> 00:19:21,876
+STRANGER_1: docket hatch crate dormant relay
+
+287
+00:19:28,360 --> 00:19:30,636
+STRANGER_2: conduit docket sample trim circuit spar anchor spar
+
+288
+00:19:30,800 --> 00:19:32,996
+STRANGER_3: docket index reroute sample conduit signal
+
+289
+00:19:33,200 --> 00:19:34,554
+STRANGER_1: measure sealed index
+
+290
+00:19:34,760 --> 00:19:36,513
+STRANGER_2: detach staged detach roster conduit
+
+291
+00:19:36,680 --> 00:19:39,991
+STRANGER_3: sealed sealed panel mark reroute reroute mark tray idle inline
+
+292
+00:19:40,160 --> 00:19:41,833
+STRANGER_1: conduit hatch relay
+
+293
+00:19:42,000 --> 00:19:45,152
+STRANGER_2: docket docket measure dormant conduit trim sealed
+
+294
+00:19:45,320 --> 00:19:47,630
+STRANGER_3: dormant signal latch roster primary ledger log
+
+295
+00:19:47,800 --> 00:19:50,395
+STRANGER_1: paired recalibrate latch trim primary valve
+
+296
+00:19:50,560 --> 00:19:52,358
+STRANGER_2: latch recalibrate spar recalibrate
+
+297
+00:19:52,800 --> 00:19:55,872
+STRANGER_3: partial marker secondary paired partial relay spindle docket idle mark
+
+298
+00:19:56,040 --> 00:19:59,351
+STRANGER_1: marker dormant lateral seal valve anchor latch primary relay
+
+299
+00:20:09,320 --> 00:20:12,518
+STRANGER_2: docket anchor primary measure circuit beacon latch mount relay
+
+300
+00:20:19,560 --> 00:20:22,712
+STRANGER_3: mark valve recalibrate recalibrate tray
+
+301
+00:20:25,520 --> 00:20:27,716
+STRANGER_1: tray detach lateral measure inspect
+
+302
+00:20:31,600 --> 00:20:34,559
+STRANGER_2: timer relay relay ledger beacon log anchor conduit
+
+303
+00:20:45,800 --> 00:20:48,315
+STRANGER_3: parcel inline detach gauge docket index relay dormant
+
+304
+00:20:49,560 --> 00:20:51,517
+STRANGER_1: seal latch hatch
+
+305
+00:20:54,080 --> 00:20:57,710
+STRANGER_2: recalibrate verify secondary align circuit staged trim purge idle
+
+306
+00:21:03,600 --> 00:21:05,114
+STRANGER_3: conduit reroute hatch paired
+
+307
+00:21:14,680 --> 00:21:16,672
+STRANGER_1: measure mount inspect panel staged align spindle
+
+308
+00:21:16,840 --> 00:21:19,719
+STRANGER_2: docket spar inspect seal anchor docket spindle recalibrate
+
+309
+00:21:20,960 --> 00:21:23,395
+STRANGER_3: recalibrate ledger mark trim
+
+310
+00:21:24,080 --> 00:21:26,231
+STRANGER_1: recalibrate secondary mark staged relay signal nominal
+
+311
+00:21:26,400 --> 00:21:29,279
+STRANGER_2: compare beacon relay sample lateral timer valve sealed
+
+312
+00:21:29,440 --> 00:21:31,830
+STRANGER_3: crate sealed staged paired conduit confirm verify recalibrate
+
+313
+00:21:32,000 --> 00:21:35,038
+STRANGER_1: recalibrate sample idle circuit spar paired panel inspect nominal paired relay confirm
+
+314
+00:21:35,800 --> 00:21:38,872
+STRANGER_2: secondary hatch dormant gauge secondary relay parcel tray
+
+315
+00:21:39,040 --> 00:21:42,920
+STRANGER_3: anchor purge recalibrate record beacon log detach paired compare sealed spare idle docket
+
+316
+00:21:43,720 --> 00:21:45,871
+STRANGER_1: beacon reroute recalibrate docket anchor hatch
+
+317
+00:21:47,040 --> 00:21:48,918
+STRANGER_2: reroute staged recalibrate ledger
+
+318
+00:21:57,800 --> 00:21:59,996
+STRANGER_3: primary recalibrate spare
+
+319
+00:22:01,000 --> 00:22:02,798
+STRANGER_1: detach
+
+320
+00:22:04,040 --> 00:22:06,600
+STRANGER_2: anchor circuit partial primary rotary record dormant
+
+321
+00:22:06,800 --> 00:22:10,271
+STRANGER_3: compare trim staged spare inline inspect
+
+322
+00:22:10,680 --> 00:22:13,673
+STRANGER_1: partial align paired mark rotary reroute mount gauge index beacon sample
+
+323
+00:22:13,840 --> 00:22:15,240
+STRANGER_2: anchor partial staged
+
+324
+00:22:15,400 --> 00:22:18,598
+STRANGER_3: anchor spar lateral
+
+325
+00:22:24,480 --> 00:22:28,633
+STRANGER_1: mount nominal paired conduit purge sample recalibrate staged
+
+326
+00:22:29,200 --> 00:22:31,237
+STRANGER_2: marker measure anchor mount detach
+
+327
+00:22:31,400 --> 00:22:35,872
+STRANGER_3: inspect align inline index
+
+328
+00:22:36,080 --> 00:22:40,233
+STRANGER_1: docket staged signal staged tray docket conduit record gauge dormant record mount inspect sealed
+
+329
+00:22:40,400 --> 00:22:41,550
+STRANGER_2: partial
+
+330
+00:22:41,720 --> 00:22:45,634
+STRANGER_3: spare circuit nominal secondary partial log reroute measure relay sample align
+
+331
+00:22:45,840 --> 00:22:48,355
+STRANGER_1: beacon anchor conduit gauge detach confirm
+
+332
+00:22:48,520 --> 00:22:50,830
+STRANGER_2: primary mount
+
+333
+00:22:53,440 --> 00:22:55,397
+STRANGER_3: staged docket anchor ledger hatch latch staged
+
+334
+00:22:55,600 --> 00:22:57,796
+STRANGER_1: index parcel index latch conduit trim
+
+335
+00:22:57,960 --> 00:23:00,475
+STRANGER_2: timer idle dormant confirm ledger
+
+336
+00:23:02,400 --> 00:23:05,916
+STRANGER_3: sealed tray spar confirm sealed idle sealed
+
+337
+00:23:06,080 --> 00:23:07,594
+STRANGER_1: inspect circuit
+
+338
+00:23:07,760 --> 00:23:10,514
+STRANGER_2: reroute rotary mark anchor staged docket anchor
+
+339
+00:23:11,880 --> 00:23:14,349
+STRANGER_3: paired rotary timer parcel beacon measure gauge anchor anchor
+
+340
+00:23:14,560 --> 00:23:16,756
+STRANGER_1: idle signal latch anchor trim
+
+341
+00:23:16,920 --> 00:23:19,480
+STRANGER_2: signal dormant recalibrate
+
+342
+00:23:19,640 --> 00:23:21,518
+STRANGER_3: seal purge seal
+
+343
+00:23:21,680 --> 00:23:24,275
+STRANGER_1: confirm staged dormant tray marker docket nominal confirm
+
+344
+00:23:24,440 --> 00:23:29,515
+STRANGER_2: valve circuit secondary index sample marker sample sealed anchor inspect compare purge staged
+
+345
+00:23:29,720 --> 00:23:30,949
+STRANGER_3: tray nominal mount beacon beacon
+
+346
+00:23:31,120 --> 00:23:32,440
+STRANGER_1
+
+347
+00:23:33,240 --> 00:23:35,038
+STRANGER_2
+
+348
+00:23:35,200 --> 00:23:38,318
+STRANGER_3: timer staged trim inspect recalibrate rotary compare relay
+
+349
+00:23:42,200 --> 00:23:46,319
+STRANGER_1: idle log panel partial rotary parcel align roster dormant recalibrate beacon align measure panel mark
+
+350
+00:23:46,520 --> 00:23:48,671
+STRANGER_2: beacon sample relay anchor trim record
+
+351
+00:23:48,840 --> 00:23:51,196
+STRANGER_3: partial signal secondary mount idle inline relay inspect reroute
+
+352
+00:23:51,360 --> 00:23:53,272
+STRANGER_1: detach nominal roster latch mark nominal
+
+353
+00:23:54,280 --> 00:23:55,396
+STRANGER_2: nominal
+
+354
+00:23:55,560 --> 00:23:57,279
+STRANGER_3: docket marker
+
+355
+00:23:57,440 --> 00:24:00,114
+STRANGER_1: verify anchor circuit sealed recalibrate valve trim lateral
+
+356
+00:24:00,280 --> 00:24:02,840
+STRANGER_2: align sealed conduit valve reroute inline
+
+357
+00:24:03,040 --> 00:24:05,111
+STRANGER_3: lateral log purge conduit recalibrate measure nominal mount
+
+358
+00:24:05,280 --> 00:24:06,475
+STRANGER_1: confirm dormant relay signal
+
+359
+00:24:07,200 --> 00:24:09,112
+STRANGER_2: mount valve staged inline relay relay inspect
+
+360
+00:24:09,280 --> 00:24:11,476
+STRANGER_3: crate recalibrate spindle sealed ledger timer
+
+361
+00:24:12,280 --> 00:24:13,839
+STRANGER_1: roster sealed sealed
+
+362
+00:24:14,000 --> 00:24:15,753
+STRANGER_2: inline gauge lateral measure partial primary docket crate conduit
+
+363
+00:24:18,320 --> 00:24:21,518
+STRANGER_3: secondary lateral purge rotary marker measure primary
+
+364
+00:24:21,680 --> 00:24:23,512
+STRANGER_1: primary conduit spare dormant recalibrate spar
+
+365
+00:24:23,720 --> 00:24:27,396
+STRANGER_2: sealed roster seal dormant inline nominal sealed spindle crate marker purge sealed spindle
+
+366
+00:24:27,560 --> 00:24:31,474
+STRANGER_3: staged recalibrate record index sealed panel timer secondary
+
+367
+00:24:31,640 --> 00:24:33,597
+STRANGER_1: sealed latch paired purge lateral sealed relay
+
+368
+00:24:35,200 --> 00:24:37,795
+STRANGER_2: relay purge seal relay
+
+369
+00:24:39,920 --> 00:24:42,196
+STRANGER_3: compare detach reroute
+
+370
+00:24:42,360 --> 00:24:46,274
+STRANGER_1: dormant lateral log sealed relay dormant detach log panel sealed
+
+371
+00:24:46,440 --> 00:24:47,954
+STRANGER_2: spare compare timer confirm record
+
+372
+00:24:48,120 --> 00:24:49,554
+STRANGER_3: purge
+
+373
+00:24:49,720 --> 00:24:52,440
+STRANGER_1: anchor align secondary primary anchor staged
+
+374
+00:24:53,200 --> 00:24:56,796
+STRANGER_2: relay log docket crate spare idle inline verify nominal confirm purge compare
+
+375
+00:24:56,960 --> 00:24:58,997
+STRANGER_3: signal nominal log docket
+
+376
+00:25:01,240 --> 00:25:02,879
+STRANGER_1: latch trim detach panel
+
+377
+00:25:03,080 --> 00:25:05,276
+STRANGER_2: confirm confirm
+
+378
+00:25:05,480 --> 00:25:08,439
+STRANGER_3: crate sample sealed roster anchor measure gauge nominal
+
+379
+00:25:08,600 --> 00:25:09,716
+STRANGER_1: docket
+
+380
+00:25:09,880 --> 00:25:12,395
+STRANGER_2: sealed spare trim compare reroute inline docket log
+
+381
+00:25:12,560 --> 00:25:14,119
+STRANGER_3: timer dormant partial dormant
+
+382
+00:25:14,400 --> 00:25:17,916
+STRANGER_1: beacon latch idle partial compare
+
+383
+00:25:18,160 --> 00:25:20,595
+STRANGER_2: crate confirm anchor
+
+384
+00:25:20,760 --> 00:25:23,275
+STRANGER_3: compare lateral hatch trim mount
+
+385
+00:25:23,440 --> 00:25:26,353
+STRANGER_1: crate staged rotary nominal spar
+
+386
+00:25:26,560 --> 00:25:28,040
+STRANGER_2
+
+387
+00:25:30,360 --> 00:25:34,149
+STRANGER_3: record ledger staged lateral spar
+
+388
+00:25:34,320 --> 00:25:38,519
+STRANGER_1: relay inline reroute anchor paired gauge inspect timer seal seal sealed gauge recalibrate
+
+389
+00:25:39,040 --> 00:25:41,600
+STRANGER_2: index inline beacon lateral spar rotary verify
+
+390
+00:25:41,760 --> 00:25:44,195
+STRANGER_3: detach secondary inline reroute spare
+
+391
+00:25:44,400 --> 00:25:46,437
+STRANGER_1: purge
+
+392
+00:25:47,600 --> 00:25:50,354
+STRANGER_2: mark confirm spare mark timer docket
+
+393
+00:25:50,560 --> 00:25:52,916
+STRANGER_3: hatch partial compare lateral circuit partial
+
+394
+00:25:53,080 --> 00:25:55,595
+STRANGER_1: paired crate staged reroute conduit latch primary parcel
+
+395
+00:25:55,760 --> 00:25:57,513
+STRANGER_2
+
+396
+00:25:57,680 --> 00:25:59,876
+STRANGER_3: idle idle trim primary ledger mount
+
+397
+00:26:01,600 --> 00:26:03,034
+STRANGER_1: spindle
+
+398
+00:26:03,240 --> 00:26:04,799
+STRANGER_2: idle log sealed mount conduit
+
+399
+00:26:05,480 --> 00:26:07,153
+STRANGER_3: signal spare sample measure index relay
+
+400
+00:26:07,320 --> 00:26:09,437
+STRANGER_1: conduit dormant anchor partial verify circuit sealed
+
+401
+00:26:09,600 --> 00:26:10,920
+STRANGER_2: docket circuit
+
+402
+00:26:11,600 --> 00:26:15,389
+STRANGER_3: purge marker circuit timer spare confirm primary sealed confirm measure
+
+403
+00:26:16,600 --> 00:26:18,990
+STRANGER_1: staged timer paired lateral detach gauge
+
+404
+00:26:23,400 --> 00:26:27,030
+STRANGER_2: mount spindle tray inline measure sealed primary docket relay timer spare staged record
+
+405
+00:26:27,200 --> 00:26:29,237
+STRANGER_3: sealed relay signal detach sealed nominal anchor log detach
+
+406
+00:26:29,440 --> 00:26:31,033
+STRANGER_1: idle primary beacon
+
+407
+00:26:31,240 --> 00:26:32,720
+STRANGER_2: confirm spare
+
+408
+00:26:32,880 --> 00:26:34,439
+STRANGER_3: mount mount crate verify compare idle
+
+409
+00:26:34,600 --> 00:26:35,716
+STRANGER_1: sealed roster sealed
+
+410
+00:26:35,880 --> 00:26:38,111
+STRANGER_2: log paired index hatch
+
+411
+00:26:40,200 --> 00:26:42,192
+STRANGER_3: index dormant compare purge sealed
+
+412
+00:26:42,360 --> 00:26:44,192
+STRANGER_1: partial sealed beacon crate partial detach mount
+
+413
+00:26:44,360 --> 00:26:47,432
+STRANGER_2: measure docket idle nominal relay record hatch verify spar inline idle sample valve
+
+414
+00:26:47,640 --> 00:26:50,951
+STRANGER_3: relay mount relay mount sealed idle sealed valve detach recalibrate
+
+415
+00:26:51,360 --> 00:26:53,397
+STRANGER_1: sample relay docket docket tray spar
+
+416
+00:26:53,560 --> 00:26:57,918
+STRANGER_2: align spindle compare purge parcel verify primary ledger idle record
+
+417
+00:27:00,200 --> 00:27:03,238
+STRANGER_3: relay beacon timer seal measure spindle rotary staged
+
+418
+00:27:03,440 --> 00:27:06,911
+STRANGER_1: spindle gauge spindle confirm circuit beacon staged trim relay detach anchor
+
+419
+00:27:14,520 --> 00:27:16,318
+STRANGER_2: purge idle log nominal relay
+
+420
+00:27:17,520 --> 00:27:20,354
+STRANGER_3: docket primary docket recalibrate spar signal sample nominal timer log
+
+421
+00:27:20,520 --> 00:27:24,150
+STRANGER_1: timer secondary tray valve compare nominal latch idle valve crate secondary
+
+422
+00:27:24,320 --> 00:27:26,277
+STRANGER_2: sealed nominal secondary index idle gauge anchor verify idle
+
+423
+00:27:26,800 --> 00:27:28,996
+STRANGER_3: nominal nominal anchor timer
+
+424
+00:27:29,160 --> 00:27:30,196
+STRANGER_1: timer hatch docket
+
+425
+00:27:30,360 --> 00:27:34,115
+STRANGER_2: verify anchor align anchor beacon marker idle tray confirm latch panel valve
+
+426
+00:27:34,280 --> 00:27:37,000
+STRANGER_3: measure inspect inspect spare sealed confirm paired spar lateral confirm
+
+427
+00:27:37,160 --> 00:27:38,389
+STRANGER_1: trim partial docket panel idle
+
+428
+00:27:38,560 --> 00:27:40,199
+STRANGER_2: tray nominal relay
+
+429
+00:27:40,360 --> 00:27:41,840
+STRANGER_3: recalibrate idle detach signal
+
+430
+00:27:42,000 --> 00:27:44,469
+STRANGER_1: tray tray nominal compare idle partial spare
+
+431
+00:27:44,680 --> 00:27:46,160
+STRANGER_2: parcel paired lateral mark
+
+432
+00:27:46,840 --> 00:27:48,069
+STRANGER_3: primary
+
+433
+00:27:48,240 --> 00:27:50,835
+STRANGER_1: relay lateral panel seal compare mount inline
+
+434
+00:27:51,000 --> 00:27:53,390
+STRANGER_2: docket signal staged gauge idle partial measure
+
+435
+00:27:53,560 --> 00:27:57,156
+STRANGER_3: sample spare partial reroute confirm sample rotary latch panel confirm dormant log sample
+
+436
+00:27:57,360 --> 00:28:00,558
+STRANGER_1: circuit reroute anchor primary partial valve anchor paired rotary primary nominal
+
+437
+00:28:03,960 --> 00:28:06,634
+STRANGER_2: relay lateral compare lateral inline reroute staged conduit sealed
+
+438
+00:28:06,800 --> 00:28:09,360
+STRANGER_3: inline verify record recalibrate relay latch secondary align crate
+
+439
+00:28:09,520 --> 00:28:11,989
+STRANGER_1: signal relay sample circuit inline timer paired
+
+440
+00:28:12,160 --> 00:28:14,470
+STRANGER_2: sample beacon log sealed timer spar dormant docket
+
+441
+00:28:14,640 --> 00:28:17,200
+STRANGER_3: nominal anchor paired inline nominal rotary seal timer
+
+442
+00:28:17,400 --> 00:28:19,039
+STRANGER_1: anchor primary purge index ledger crate align staged
+
+443
+00:28:19,200 --> 00:28:22,432
+STRANGER_2: docket measure secondary spare rotary nominal secondary latch lateral reroute spare
+
+444
+00:28:22,600 --> 00:28:26,514
+STRANGER_3: primary idle anchor rotary dormant marker partial mark lateral index sealed primary compare confirm
+
+445
+00:28:26,720 --> 00:28:28,916
+STRANGER_1: docket beacon tray align sealed confirm rotary latch
+
+446
+00:28:29,080 --> 00:28:31,993
+STRANGER_2: purge dormant idle anchor anchor align circuit hatch signal relay
+
+447
+00:28:32,160 --> 00:28:35,153
+STRANGER_3: nominal spare partial relay sealed marker measure
+
+448
+00:28:35,320 --> 00:28:36,834
+STRANGER_1: verify conduit tray
+
+449
+00:28:37,000 --> 00:28:39,959
+STRANGER_2: docket measure panel trim marker mark
+
+450
+00:28:40,120 --> 00:28:41,679
+STRANGER_3: spare detach nominal dormant
+
+451
+00:28:41,840 --> 00:28:43,991
+STRANGER_1: log secondary gauge paired spare anchor
+
+452
+00:28:44,240 --> 00:28:47,358
+STRANGER_2: gauge anchor parcel crate idle dormant inline secondary latch
+
+453
+00:28:47,920 --> 00:28:51,391
+STRANGER_3: parcel primary conduit measure marker panel anchor inline circuit confirm
+
+454
+00:28:51,560 --> 00:28:53,074
+STRANGER_1
+
+455
+00:28:53,400 --> 00:28:54,993
+STRANGER_2
+
+456
+00:29:00,040 --> 00:29:03,192
+STRANGER_3: sealed sample partial primary dormant seal mount nominal spindle seal
+
+457
+00:29:03,360 --> 00:29:06,751
+STRANGER_1: purge purge inspect conduit sealed recalibrate measure purge sealed sealed spindle
+
+458
+00:29:06,920 --> 00:29:10,630
+STRANGER_2: tray circuit compare verify conduit dormant log valve staged seal timer
+
+459
+00:29:10,800 --> 00:29:13,076
+STRANGER_3: roster spare parcel confirm log
+
+460
+00:29:13,240 --> 00:29:17,393
+STRANGER_1: nominal record anchor idle trim compare idle lateral verify record anchor
+
+461
+00:29:18,720 --> 00:29:21,076
+STRANGER_2: signal index anchor crate trim
+
+462
+00:29:21,280 --> 00:29:23,476
+STRANGER_3: lateral dormant crate anchor measure docket paired docket purge panel sample
+
+463
+00:29:24,480 --> 00:29:26,631
+STRANGER_1: partial sealed align trim recalibrate
+
+464
+00:29:28,600 --> 00:29:29,875
+STRANGER_2: valve seal
+
+465
+00:29:30,080 --> 00:29:31,275
+STRANGER_3: trim sealed inspect nominal lateral lateral
+
+466
+00:29:31,440 --> 00:29:35,434
+STRANGER_1: parcel roster mark staged recalibrate docket nominal
+
+467
+00:29:35,640 --> 00:29:37,438
+STRANGER_2: beacon parcel
+
+468
+00:29:37,640 --> 00:29:39,438
+STRANGER_3: latch primary
+
+469
+00:29:39,600 --> 00:29:42,638
+STRANGER_1: spindle detach primary docket latch align beacon
+
+470
+00:29:42,840 --> 00:29:45,071
+STRANGER_2: detach
+
+471
+00:29:47,520 --> 00:29:48,556
+STRANGER_3: detach
+
+472
+00:29:48,760 --> 00:29:52,800
+STRANGER_1: index inspect inspect docket idle sealed index measure spare paired
+
+473
+00:29:53,280 --> 00:29:55,351
+STRANGER_2: compare paired staged relay docket mark
+
+474
+00:29:55,560 --> 00:29:58,120
+STRANGER_3: rotary signal primary timer crate mount staged lateral
+
+475
+00:29:59,000 --> 00:30:01,390
+STRANGER_1: spindle latch docket circuit primary
+
+476
+00:30:02,840 --> 00:30:04,832
+STRANGER_2: spare measure idle detach
+
+477
+00:30:05,000 --> 00:30:06,878
+STRANGER_3: latch inline
+
+478
+00:30:07,320 --> 00:30:10,438
+STRANGER_1: spare beacon spare sealed idle reroute conduit record
+
+479
+00:30:10,600 --> 00:30:13,115
+STRANGER_2: measure idle recalibrate log latch beacon
+
+480
+00:30:13,280 --> 00:30:15,715
+STRANGER_3: rotary mount confirm roster seal relay staged
+
+481
+00:30:15,880 --> 00:30:19,191
+STRANGER_1: anchor parcel parcel conduit latch
+
+482
+00:30:20,520 --> 00:30:23,115
+STRANGER_2: anchor sample nominal anchor
+
+483
+00:30:23,400 --> 00:30:24,595
+STRANGER_3
+
+484
+00:30:25,400 --> 00:30:26,914
+STRANGER_1: index seal
+
+485
+00:30:27,080 --> 00:30:28,958
+STRANGER_2: inline dormant relay docket mount
+
+486
+00:30:29,160 --> 00:30:31,391
+STRANGER_3: mark align primary mount
+
+487
+00:30:31,600 --> 00:30:33,080
+STRANGER_1: lateral beacon circuit rotary mark measure record
+
+488
+00:30:33,960 --> 00:30:36,350
+STRANGER_2: nominal inspect parcel
+
+489
+00:30:36,760 --> 00:30:38,831
+STRANGER_3: tray tray rotary confirm record detach ledger
+
+490
+00:30:39,040 --> 00:30:43,956
+STRANGER_1: hatch paired nominal reroute docket
+
+491
+00:30:44,560 --> 00:30:47,394
+STRANGER_2: docket gauge verify circuit lateral mark beacon
+
+492
+00:30:47,600 --> 00:30:50,274
+STRANGER_3: beacon record primary verify docket marker log trim
+
+493
+00:30:50,640 --> 00:30:52,040
+STRANGER_1
+
+494
+00:30:52,280 --> 00:30:55,717
+STRANGER_2: recalibrate reroute reroute tray sealed docket circuit marker secondary index purge
+
+495
+00:30:55,920 --> 00:30:58,389
+STRANGER_3: timer latch tray inline primary align latch idle
+
+496
+00:30:59,160 --> 00:31:01,356
+STRANGER_1: compare detach gauge primary inspect
+
+497
+00:31:02,920 --> 00:31:05,071
+STRANGER_2: spare relay seal mark lateral nominal docket
+
+498
+00:31:05,240 --> 00:31:08,950
+STRANGER_3: sealed anchor partial align align lateral sealed secondary ledger
+
+499
+00:31:09,200 --> 00:31:11,317
+STRANGER_1: signal staged recalibrate
+
+500
+00:31:11,520 --> 00:31:14,797
+STRANGER_2: panel sealed timer conduit
+
+501
+00:31:15,120 --> 00:31:21,196
+STRANGER_3: secondary purge marker recalibrate paired dormant partial partial verify lateral lateral
+
+502
+00:31:21,440 --> 00:31:24,512
+STRANGER_1: signal mount sample compare spar beacon reroute
+
+503
+00:31:24,880 --> 00:31:27,349
+STRANGER_2: reroute secondary verify
+
+504
+00:31:27,720 --> 00:31:29,837
+STRANGER_3: gauge align docket
+
+505
+00:31:31,240 --> 00:31:34,039
+STRANGER_1: roster index panel tray primary
+
+506
+00:31:34,240 --> 00:31:36,152
+STRANGER_2: rotary
+
+507
+00:31:37,640 --> 00:31:40,439
+STRANGER_3: rotary align latch paired log relay secondary record
+
+508
+00:31:40,600 --> 00:31:43,672
+STRANGER_1: mount beacon compare parcel align reroute verify purge
+
+509
+00:31:46,680 --> 00:31:48,797
+STRANGER_2: measure inline marker purge crate
+
+510
+00:31:50,440 --> 00:31:52,557
+STRANGER_3: beacon
+
+511
+00:31:52,800 --> 00:31:53,870
+STRANGER_1: compare sealed sealed
+
+512
+00:31:54,040 --> 00:31:55,679
+STRANGER_2: beacon docket docket
+
+513
+00:31:55,880 --> 00:31:57,758
+STRANGER_3: partial recalibrate spindle dormant
+
+514
+00:31:57,960 --> 00:32:01,271
+STRANGER_1: nominal align panel paired signal log
+
+515
+00:32:02,440 --> 00:32:04,193
+STRANGER_2: rotary docket lateral panel beacon parcel purge spindle
+
+516
+00:32:04,480 --> 00:32:07,234
+STRANGER_3: docket sealed beacon mount
+
+517
+00:32:10,280 --> 00:32:12,192
+STRANGER_1: nominal sample nominal docket anchor tray
+
+518
+00:32:12,360 --> 00:32:14,352
+STRANGER_2: record sealed lateral seal sealed secondary
+
+519
+00:32:14,520 --> 00:32:15,840
+STRANGER_3: spare
+
+520
+00:32:16,880 --> 00:32:17,870
+STRANGER_1
+
+521
+00:32:18,080 --> 00:32:20,993
+STRANGER_2: paired spare mount recalibrate anchor primary parcel staged spindle mark inspect
+
+522
+00:32:21,160 --> 00:32:23,470
+STRANGER_3: sealed secondary paired gauge
+
+523
+00:32:24,960 --> 00:32:27,759
+STRANGER_1: confirm crate recalibrate sealed compare conduit timer docket
+
+524
+00:32:27,960 --> 00:32:29,280
+STRANGER_2: measure spindle
+
+525
+00:32:34,520 --> 00:32:38,036
+STRANGER_3: sample align purge beacon
+
+526
+00:32:38,200 --> 00:32:39,316
+STRANGER_1: sealed
+
+527
+00:32:39,480 --> 00:32:41,472
+STRANGER_2: crate tray inline anchor anchor hatch lateral anchor relay
+
+528
+00:32:41,640 --> 00:32:44,633
+STRANGER_3: marker mark lateral rotary inline primary purge partial staged confirm
+
+529
+00:32:44,800 --> 00:32:46,120
+STRANGER_1: panel dormant circuit anchor
+
+530
+00:32:46,280 --> 00:32:49,432
+STRANGER_2: compare index compare recalibrate docket latch docket purge relay
+
+531
+00:32:49,600 --> 00:32:53,037
+STRANGER_3: rotary marker sealed lateral mark seal latch reroute staged relay compare circuit
+
+532
+00:32:53,240 --> 00:32:55,880
+STRANGER_1: latch latch gauge lateral timer compare index log paired hatch sealed
+
+533
+00:32:57,800 --> 00:33:00,759
+STRANGER_2: inline primary primary rotary anchor inline nominal circuit staged sealed gauge staged
+
+534
+00:33:00,920 --> 00:33:03,674
+STRANGER_3: staged partial detach relay spindle timer circuit lateral
+
+535
+00:33:03,840 --> 00:33:06,116
+STRANGER_1: beacon hatch confirm hatch parcel sealed
+
+536
+00:33:06,280 --> 00:33:09,557
+STRANGER_2: lateral sealed timer anchor confirm spindle dormant verify index secondary
+
+537
+00:33:09,720 --> 00:33:11,791
+STRANGER_3: valve spare paired verify verify recalibrate
+
+538
+00:33:11,960 --> 00:33:14,236
+STRANGER_1: dormant detach verify trim beacon panel docket nominal staged
+
+539
+00:33:17,760 --> 00:33:21,151
+STRANGER_2: lateral relay trim docket sealed
+
+540
+00:33:21,360 --> 00:33:22,680
+STRANGER_3: roster verify
+
+541
+00:33:24,960 --> 00:33:27,077
+STRANGER_1: timer recalibrate circuit relay measure docket
+
+542
+00:33:29,160 --> 00:33:31,391
+STRANGER_2: latch panel docket dormant secondary
+
+543
+00:33:33,960 --> 00:33:35,872
+STRANGER_3: trim trim beacon docket valve
+
+544
+00:33:36,040 --> 00:33:39,238
+STRANGER_1: sample inline sealed trim partial partial trim marker circuit anchor
+
+545
+00:33:39,400 --> 00:33:41,437
+STRANGER_2: relay lateral anchor recalibrate beacon panel
+
+546
+00:33:42,280 --> 00:33:44,351
+STRANGER_3: reroute inline trim reroute rotary nominal
+
+547
+00:33:44,520 --> 00:33:46,398
+STRANGER_1: dormant mount inline inspect anchor confirm seal
+
+548
+00:33:46,560 --> 00:33:48,677
+STRANGER_2: tray compare
+
+549
+00:33:51,440 --> 00:33:53,079
+STRANGER_3: beacon nominal secondary lateral purge hatch
+
+550
+00:33:53,240 --> 00:33:54,356
+STRANGER_1: anchor
+
+551
+00:33:54,520 --> 00:33:56,159
+STRANGER_2: seal
+
+552
+00:33:56,320 --> 00:33:58,357
+STRANGER_3: nominal docket paired partial latch anchor
+
+553
+00:33:58,800 --> 00:34:02,680
+STRANGER_1: latch spare detach sealed nominal measure mount staged primary sample seal timer mark
+
+554
+00:34:02,840 --> 00:34:05,071
+STRANGER_2: sample docket beacon primary
+
+555
+00:34:05,240 --> 00:34:07,516
+STRANGER_3: roster index relay relay sealed beacon nominal ledger hatch
+
+556
+00:34:07,680 --> 00:34:09,956
+STRANGER_1: docket
+
+557
+00:34:10,480 --> 00:34:13,951
+STRANGER_2: compare conduit paired detach compare detach reroute compare sample nominal seal lateral spare
+
+558
+00:34:14,120 --> 00:34:17,557
+STRANGER_3: inline idle sealed index verify measure anchor paired beacon beacon
+
+559
+00:34:17,720 --> 00:34:19,598
+STRANGER_1: anchor secondary crate docket index idle sealed
+
+560
+00:34:21,880 --> 00:34:25,112
+STRANGER_2: crate log seal mark index partial dormant
+
+561
+00:34:25,320 --> 00:34:27,391
+STRANGER_3: staged
+
+562
+00:34:28,280 --> 00:34:32,559
+STRANGER_1: sealed staged nominal gauge panel spare recalibrate dormant verify measure mount inline anchor
+
+563
+00:34:32,720 --> 00:34:34,200
+STRANGER_2: rotary ledger relay tray trim verify
+
+564
+00:34:34,360 --> 00:34:36,397
+STRANGER_3: hatch compare spar idle compare log relay beacon
+
+565
+00:34:36,560 --> 00:34:40,520
+STRANGER_1: timer secondary spare purge partial
+
+566
+00:34:40,720 --> 00:34:42,518
+STRANGER_2: panel anchor beacon recalibrate anchor circuit timer
+
+567
+00:34:48,720 --> 00:34:50,200
+STRANGER_3: seal spare tray inline parcel seal
+
+568
+00:34:50,400 --> 00:34:51,993
+STRANGER_1: sealed staged beacon
+
+569
+00:34:52,160 --> 00:34:54,720
+STRANGER_2: conduit paired relay compare trim detach sample recalibrate
+
+570
+00:34:54,880 --> 00:34:57,554
+STRANGER_3: inspect trim paired crate verify relay verify hatch docket
+
+571
+00:34:57,720 --> 00:35:01,714
+STRANGER_1: circuit nominal compare staged gauge anchor gauge latch record measure spindle paired inspect spar align paired
+
+572
+00:35:01,880 --> 00:35:04,952
+STRANGER_2: spindle marker latch sealed inline dormant trim recalibrate docket
+
+573
+00:35:05,160 --> 00:35:08,597
+STRANGER_3: docket detach timer partial sealed gauge mark sample detach
+
+574
+00:35:08,760 --> 00:35:10,797
+STRANGER_1: log secondary timer rotary align
+
+575
+00:35:11,040 --> 00:35:13,509
+STRANGER_2: mount hatch marker sample index relay
+
+576
+00:35:17,560 --> 00:35:19,358
+STRANGER_3: log spindle
+
+577
+00:35:21,240 --> 00:35:22,754
+STRANGER_1: sample
+
+578
+00:35:22,920 --> 00:35:25,640
+STRANGER_2: docket sealed spindle anchor dormant docket
+
+579
+00:35:39,280 --> 00:35:41,351
+STRANGER_3: detach confirm idle conduit spar
+
+580
+00:35:41,520 --> 00:35:44,752
+STRANGER_1: mark spindle relay spindle latch
+
+581
+00:35:44,920 --> 00:35:47,640
+STRANGER_2: marker detach relay record spindle timer
+
+582
+00:35:48,240 --> 00:35:52,280
+STRANGER_3: docket marker anchor spindle staged valve
+
+583
+00:35:53,160 --> 00:35:56,119
+STRANGER_1: compare hatch latch anchor panel primary spindle
+
+584
+00:35:56,280 --> 00:35:57,714
+STRANGER_2: spar latch partial
+
+585
+00:35:57,920 --> 00:36:01,709
+STRANGER_3: reroute partial staged trim lateral
+
+586
+00:36:02,760 --> 00:36:06,310
+STRANGER_1: rotary purge mount spar
+
+587
+00:36:07,160 --> 00:36:09,595
+STRANGER_2: purge rotary hatch log gauge compare inline
+
+588
+00:36:10,640 --> 00:36:14,395
+STRANGER_3: inspect conduit lateral marker spare
+
+589
+00:36:14,680 --> 00:36:17,718
+STRANGER_1: mount log paired relay sealed
+
+590
+00:36:17,920 --> 00:36:22,597
+STRANGER_2: relay tray
+
+591
+00:36:24,840 --> 00:36:27,674
+STRANGER_3: purge spindle docket rotary sealed valve idle nominal seal
+
+592
+00:36:27,840 --> 00:36:29,274
+STRANGER_1
+
+593
+00:36:29,440 --> 00:36:33,320
+STRANGER_2: circuit
+
+594
+00:36:36,600 --> 00:36:38,512
+STRANGER_3: idle latch spare
+
+595
+00:36:40,240 --> 00:36:44,075
+STRANGER_1: parcel inline tray lateral
+
+596
+00:36:51,720 --> 00:36:52,915
+STRANGER_2
+
+597
+00:36:56,640 --> 00:36:59,075
+STRANGER_3: recalibrate anchor seal rotary
+
+598
+00:37:03,000 --> 00:37:04,320
+STRANGER_1: verify
+
+599
+00:37:04,480 --> 00:37:08,554
+STRANGER_2: sealed primary sealed valve lateral partial conduit crate paired hatch
+
+600
+00:37:08,720 --> 00:37:12,760
+STRANGER_3: sample measure inspect beacon sample measure crate beacon dormant mount
+
+601
+00:37:16,240 --> 00:37:17,720
+STRANGER_1
+
+602
+00:37:21,080 --> 00:37:22,434
+STRANGER_2
+
+603
+00:37:24,840 --> 00:37:29,392
+STRANGER_3: rotary mark tray staged detach inspect detach anchor
+
+604
+00:37:34,000 --> 00:37:36,276
+STRANGER_1: spindle primary
+
+605
+00:37:36,880 --> 00:37:39,520
+STRANGER_2: timer roster recalibrate circuit align gauge measure secondary seal
+
+606
+00:37:39,680 --> 00:37:42,752
+STRANGER_3: idle parcel latch primary
+
+607
+00:37:42,920 --> 00:37:45,355
+STRANGER_1: mount anchor primary signal trim circuit paired parcel
+
+608
+00:37:45,520 --> 00:37:50,311
+STRANGER_2: timer detach latch index log secondary anchor measure sealed align timer
+
+609
+00:38:16,000 --> 00:38:17,798
+STRANGER_3
+
+610
+00:38:21,440 --> 00:38:23,159
+STRANGER_1
+
+611
+00:39:07,640 --> 00:39:09,836
+STRANGER_2: hatch docket spar
+
+612
+00:39:12,000 --> 00:39:13,593
+STRANGER_3: inline measure
+
+613
+00:39:19,000 --> 00:39:20,753
+STRANGER_1
+
+614
+00:39:21,760 --> 00:39:23,319
+STRANGER_2
+
+615
+00:39:23,480 --> 00:39:26,314
+STRANGER_3: lateral partial align secondary latch sealed
+
+616
+00:39:27,600 --> 00:39:31,355
+STRANGER_1: paired mount sealed confirm crate align reroute marker
+
+617
+00:39:31,520 --> 00:39:33,034
+STRANGER_2: secondary
+
+618
+00:39:33,240 --> 00:39:35,436
+STRANGER_3: partial panel log sealed
+
+619
+00:39:35,640 --> 00:39:37,518
+STRANGER_1: idle index paired inline recalibrate docket
+
+620
+00:39:37,680 --> 00:39:39,751
+STRANGER_2: panel seal roster nominal inspect dormant
+
+621
+00:39:39,920 --> 00:39:42,879
+STRANGER_3: latch sample latch spindle align
+
+622
+00:39:43,040 --> 00:39:45,236
+STRANGER_1: inline confirm idle compare recalibrate dormant marker
+
+623
+00:39:45,440 --> 00:39:48,911
+STRANGER_2: latch recalibrate spare partial sealed confirm crate detach verify panel partial reroute verify
+
+624
+00:39:49,840 --> 00:39:50,990
+STRANGER_3: gauge align
+
+625
+00:39:51,200 --> 00:39:52,793
+STRANGER_1: dormant marker paired beacon partial marker
+
+626
+00:39:52,960 --> 00:39:55,953
+STRANGER_2: anchor mount latch nominal anchor docket idle recalibrate rotary roster index
+
+627
+00:39:56,160 --> 00:39:58,720
+STRANGER_3: compare anchor anchor primary rotary confirm spindle anchor relay
+
+628
+00:40:00,200 --> 00:40:01,236
+STRANGER_1: beacon relay
+
+629
+00:40:01,400 --> 00:40:03,039
+STRANGER_2: timer paired seal log
+
+630
+00:40:03,200 --> 00:40:05,476
+STRANGER_3: docket mount sealed secondary
+
+631
+00:40:05,640 --> 00:40:07,438
+STRANGER_1: rotary beacon anchor docket purge
+
+632
+00:40:07,600 --> 00:40:09,831
+STRANGER_2: relay sealed verify
+
+633
+00:40:10,520 --> 00:40:12,432
+STRANGER_3: anchor crate verify purge
+
+634
+00:40:13,120 --> 00:40:15,794
+STRANGER_1: idle verify idle conduit confirm sealed spare trim secondary secondary
+
+635
+00:40:15,960 --> 00:40:17,917
+STRANGER_2: tray anchor spindle circuit measure circuit
+
+636
+00:40:18,080 --> 00:40:19,753
+STRANGER_3: lateral
+
+637
+00:40:19,920 --> 00:40:21,513
+STRANGER_1: idle sealed latch conduit
+
+638
+00:40:21,680 --> 00:40:23,239
+STRANGER_2: recalibrate signal dormant latch
+
+639
+00:40:24,840 --> 00:40:27,878
+STRANGER_3: docket rotary marker conduit mark paired marker
+
+640
+00:40:28,040 --> 00:40:31,750
+STRANGER_1: parcel staged
+
+641
+00:40:31,920 --> 00:40:33,912
+STRANGER_2: docket secondary spar tray mark
+
+642
+00:40:34,160 --> 00:40:36,356
+STRANGER_3: rotary paired detach beacon reroute roster
+
+643
+00:40:40,680 --> 00:40:42,558
+STRANGER_1: paired staged latch measure
+
+644
+00:40:43,560 --> 00:40:47,713
+STRANGER_2: anchor rotary sample align rotary
+
+645
+00:40:48,720 --> 00:40:50,200
+STRANGER_3: sealed inspect signal sealed
+
+646
+00:40:50,360 --> 00:40:52,113
+STRANGER_1: anchor sample spindle index docket conduit rotary
+
+647
+00:40:52,280 --> 00:40:54,431
+STRANGER_2: ledger spare inspect circuit inline
+
+648
+00:40:54,600 --> 00:40:57,195
+STRANGER_3: conduit paired beacon measure mark
+
+649
+00:40:57,360 --> 00:41:02,640
+STRANGER_1: docket valve log docket valve anchor panel align paired ledger partial staged
+
+650
+00:41:05,040 --> 00:41:07,555
+STRANGER_2: relay staged anchor docket
+
+651
+00:41:08,440 --> 00:41:11,160
+STRANGER_3: docket idle relay spare gauge paired
+
+652
+00:41:12,760 --> 00:41:15,878
+STRANGER_1: inspect signal relay parcel anchor spare
+
+653
+00:41:16,040 --> 00:41:19,716
+STRANGER_2: recalibrate staged circuit detach paired log
+
+654
+00:41:19,880 --> 00:41:22,395
+STRANGER_3: anchor idle dormant rotary docket spindle
+
+655
+00:41:24,440 --> 00:41:28,878
+STRANGER_1: secondary crate inline detach lateral paired inline beacon anchor compare sealed
+
+656
+00:41:29,160 --> 00:41:32,995
+STRANGER_2: timer compare inline staged
+
+657
+00:41:34,040 --> 00:41:38,637
+STRANGER_3: nominal align parcel paired parcel confirm circuit circuit log purge
+
+658
+00:41:39,800 --> 00:41:41,871
+STRANGER_1: purge nominal
+
+659
+00:41:43,160 --> 00:41:45,959
+STRANGER_2: docket docket circuit
+
+660
+00:41:47,120 --> 00:41:50,158
+STRANGER_3: tray dormant beacon align tray sealed mount
+
+661
+00:41:51,000 --> 00:41:53,071
+STRANGER_1: sample ledger paired
+
+662
+00:41:53,280 --> 00:41:55,954
+STRANGER_2: relay crate tray
+
+663
+00:42:05,160 --> 00:42:07,629
+STRANGER_3: conduit trim log latch inline rotary
+
+664
+00:42:07,800 --> 00:42:11,840
+STRANGER_1: verify spare trim index ledger spare spar panel inline
+
+665
+00:42:12,000 --> 00:42:14,640
+STRANGER_2: inline docket spar sample valve secondary
+
+666
+00:42:54,280 --> 00:42:55,634
+STRANGER_3
+
+667
+00:42:55,840 --> 00:42:58,435
+STRANGER_1: recalibrate confirm
+
+668
+00:43:26,600 --> 00:43:28,432
+STRANGER_2: spar nominal
+
+669
+00:43:33,080 --> 00:43:34,480
+STRANGER_3: seal trim docket
+
+670
+00:43:34,640 --> 00:43:35,790
+STRANGER_1: relay gauge reroute
+
+671
+00:43:35,960 --> 00:43:38,077
+STRANGER_2: sealed valve sample mount
+
+672
+00:43:38,240 --> 00:43:41,153
+STRANGER_3: hatch marker compare anchor
+
+673
+00:43:41,360 --> 00:43:43,397
+STRANGER_1: rotary
+
+674
+00:43:53,840 --> 00:43:56,309
+STRANGER_2: ledger primary sealed measure partial
+
+675
+00:43:56,480 --> 00:43:58,312
+STRANGER_3: reroute reroute paired trim
+
+676
+00:44:13,800 --> 00:44:16,440
+STRANGER_1: nominal verify verify
+
+677
+00:44:16,640 --> 00:44:18,632
+STRANGER_2: inline
+
+678
+00:44:18,840 --> 00:44:20,593
+STRANGER_3: staged sample
+
+679
+00:44:20,840 --> 00:44:23,480
+STRANGER_1: detach paired log log sealed inline reroute purge confirm beacon
+
+680
+00:44:26,520 --> 00:44:28,432
+STRANGER_2: log
+
+681
+00:44:29,160 --> 00:44:31,914
+STRANGER_3: valve verify relay staged partial
+
+682
+00:44:33,560 --> 00:44:36,632
+STRANGER_1: staged primary sample mount
+
+683
+00:44:37,080 --> 00:44:39,276
+STRANGER_2: anchor purge log
+
+684
+00:44:39,480 --> 00:44:41,631
+STRANGER_3: paired anchor log
+
+685
+00:44:42,720 --> 00:44:46,316
+STRANGER_1: parcel marker inspect nominal
+
+686
+00:44:46,520 --> 00:44:49,399
+STRANGER_2: lateral sealed dormant detach spare measure crate nominal staged idle
+
+687
+00:44:49,560 --> 00:44:51,233
+STRANGER_3: timer sample align partial docket spare conduit
+
+688
+00:44:56,160 --> 00:44:58,880
+STRANGER_1: paired conduit relay spindle tray
+
+689
+00:45:00,000 --> 00:45:02,037
+STRANGER_2: trim staged anchor
+
+690
+00:45:02,200 --> 00:45:03,759
+STRANGER_3: anchor gauge
+
+691
+00:45:05,080 --> 00:45:06,309
+STRANGER_1: verify
+
+692
+00:45:06,520 --> 00:45:08,000
+STRANGER_2: relay
+
+693
+00:45:09,360 --> 00:45:11,511
+STRANGER_3: log log verify measure mount timer
+
+694
+00:45:11,680 --> 00:45:13,353
+STRANGER_1: purge
+
+695
+00:45:14,080 --> 00:45:16,436
+STRANGER_2: align recalibrate docket spindle ledger
+
+696
+00:45:16,720 --> 00:45:20,350
+STRANGER_3: panel tray lateral latch inline compare ledger mark
+
+697
+00:45:20,520 --> 00:45:22,830
+STRANGER_1: mount primary inline
+
+698
+00:45:24,400 --> 00:45:27,313
+STRANGER_2: record primary mark anchor docket signal
+
+699
+00:45:28,480 --> 00:45:32,110
+STRANGER_3: secondary align latch spindle beacon sealed sample measure
+
+700
+00:45:36,640 --> 00:45:38,359
+STRANGER_1: index docket
+
+701
+00:45:41,480 --> 00:45:42,675
+STRANGER_2
+
+702
+00:45:45,000 --> 00:45:47,037
+STRANGER_3: measure anchor reroute
+
+703
+00:45:51,840 --> 00:45:55,072
+STRANGER_1: record recalibrate tray rotary nominal purge spar panel rotary relay
+
+704
+00:45:56,200 --> 00:46:00,399
+STRANGER_2: mark circuit lateral paired anchor
+
+705
+00:46:00,560 --> 00:46:02,631
+STRANGER_3: record secondary crate detach
+
+706
+00:46:04,760 --> 00:46:07,275
+STRANGER_1: trim staged ledger nominal
+
+707
+00:46:10,120 --> 00:46:12,077
+STRANGER_2: measure mark
+
+708
+00:46:13,640 --> 00:46:16,280
+STRANGER_3: paired partial primary record
+
+709
+00:46:18,160 --> 00:46:20,834
+STRANGER_1: lateral confirm record log
+
+710
+00:46:25,200 --> 00:46:26,839
+STRANGER_2: align ledger
+
+711
+00:46:29,720 --> 00:46:32,838
+STRANGER_3: docket signal valve anchor recalibrate
+
+712
+00:46:35,520 --> 00:46:37,796
+STRANGER_1: compare inspect recalibrate
+
+713
+00:46:38,440 --> 00:46:40,591
+STRANGER_2: compare
+
+714
+00:46:45,080 --> 00:46:47,595
+STRANGER_3: paired relay tray sample relay
