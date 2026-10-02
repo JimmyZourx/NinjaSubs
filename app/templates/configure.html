@@ -1327,7 +1327,7 @@
                 fallback();
                 return;
             }
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.0));
             renderer.setSize(window.innerWidth, window.innerHeight, false);
 
             var scene = new THREE.Scene();
@@ -1394,24 +1394,10 @@
             function resize() {
                 renderer.setSize(window.innerWidth, window.innerHeight, false);
                 uniforms.u_res.value.set(canvas.width, canvas.height);
+                renderer.render(scene, camera);
             }
             window.addEventListener('resize', resize);
             resize();
-
-            var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            var start = performance.now();
-            function frame(now) {
-                uniforms.u_time.value = (now - start) / 1000;
-                renderer.render(scene, camera);
-            }
-            if (reduceMotion) {
-                frame(start);
-            } else {
-                (function loop(now) {
-                    frame(now);
-                    requestAnimationFrame(loop);
-                })(start);
-            }
         });
     </script>
 
@@ -1927,7 +1913,9 @@
 
         let copyFeedbackTimer;
         function copyManifestLink() {
-            const text = document.getElementById("manifestPreview").textContent.trim();
+            const el = document.getElementById("manifestPreview");
+            if (!el || !el.textContent) return;
+            const text = el.textContent.trim();
             const showCopied = () => {
                 const label = document.getElementById("btnCopyText");
                 if (!label) return;
@@ -1937,9 +1925,26 @@
                     label.textContent = "Copy Link";
                 }, 2000);
             };
-            navigator.clipboard.writeText(text).then(showCopied).catch(() => {
-                prompt("Copy this URL:", text);
-            });
+            const fallback = () => {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand("copy");
+                    showCopied();
+                } catch (err) {
+                    prompt("Copy this URL:", text);
+                }
+                document.body.removeChild(textArea);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(showCopied).catch(fallback);
+            } else {
+                fallback();
+            }
         }
 
         let subdlDebounceTimer;
