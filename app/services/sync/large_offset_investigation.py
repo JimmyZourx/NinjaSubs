@@ -371,6 +371,9 @@ INV_REASON_LANDMARKS_UNMEASURABLE = "silence_landmarks_unmeasurable"
 INV_REASON_COVERAGE = "temporal_coverage_below_floor"
 INV_REASON_DENSITY = "density_profile_below_floor"
 INV_REASON_ELIGIBLE = "same_episode_established"
+# Valid reference_trust values accepted by the large-offset investigation.
+# Unexpected values are treated as INSUFFICIENT_EVIDENCE.
+VALID_TRUST_STATES: set[str] = {"high", "medium", "rejected", "unknown"}
 
 # Post-alass reason codes.
 ALASS_REASON_EMPTY = "alass_output_empty"
@@ -746,7 +749,9 @@ def investigate_large_offset(
         investigation.reason_codes.append(INV_REASON_METADATA_CONTRADICTION)
         return investigation
 
-    if reference_trust in {"rejected", "unknown"} and reference_failure is None:
+    if reference_trust not in VALID_TRUST_STATES or (
+        reference_trust in {"rejected", "unknown"} and reference_failure is None
+    ):
         investigation.decision = LargeOffsetDecision.INSUFFICIENT_EVIDENCE
         investigation.same_episode = LargeOffsetSameEpisode.INSUFFICIENT_EVIDENCE
         investigation.reason_codes.append(INV_REASON_LOW_TRUST)
