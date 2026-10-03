@@ -722,7 +722,19 @@ class SubtitleSyncService:
         split_penalty: float | None = None,
     ) -> str | None:
         """Non-blocking wrapper around :meth:`sync` for use in async routes."""
-        async with self._semaphore:
+        # Observe gate acquisition latency and current semaphore state.
+        start_wait = time.monotonic()
+        value_before = self._semaphore._value
+        await self._semaphore.acquire()
+        wait_ms = (time.monotonic() - start_wait) * 1000
+        acquired_immediately = wait_ms < 1.0
+        logger.info(
+            "ALASS_GATE acquired value_before=%d wait_ms=%.2f acquired_immediately=%s",
+            value_before,
+            wait_ms,
+            acquired_immediately,
+        )
+        try:
             worker = asyncio.create_task(asyncio.to_thread(
                 self.sync, target_srt, reference_srt, decision_kind,
                 is_series, source_confirmed, relaxed, reference_partial, split_penalty,
@@ -736,3 +748,5 @@ class SubtitleSyncService:
                     await worker
                 finally:
                     raise
+        finally:
+            self._semaphore.release()
