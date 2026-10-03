@@ -185,6 +185,8 @@ _NOISY_BRACKET_SITES = re.compile(
 # Trailing hashes / hex signatures: e.g. _86f1f22e8f1fd5bd, _fd3cebb32c50021a
 _HEX_HASHES = re.compile(r"_[a-f0-9]{8,}\b", re.IGNORECASE)
 _TRAILING_HASH = re.compile(r"(?:_|\.)[a-f0-9]{8,}(?=[._\s]|$)", re.IGNORECASE)
+# Trailing non-hex generated suffixes: e.g. _hash123, .id456
+_TRAILING_GEN_ID = re.compile(r"(?:_|\.)[A-Za-z]{2,}\d{3,}$", re.IGNORECASE)
 
 # Unrelated metadata brackets: e.g. [4k], (4k), [1080p], (1080p)
 _METADATA_BRACKETS = re.compile(
@@ -256,11 +258,13 @@ def sanitize_release_name(raw_name: str) -> str:
     # 2. Strip trailing Subdl/provider hash IDs and hex signatures (e.g. _86f1f22e8f1fd5bd)
     name = _HEX_HASHES.sub("", name)
     name = _TRAILING_HASH.sub("", name)
+    name = _TRAILING_GEN_ID.sub("", name)
 
     # Secondary extension strip if chained (e.g. .srt_86f1f22e8f1fd5bd)
     name = re.sub(r"\.(srt|vtt|sub|mkv|mp4|avi|ts|webm)$", "", name, flags=re.IGNORECASE)
     name = _HEX_HASHES.sub("", name)
     name = _TRAILING_HASH.sub("", name)
+    name = _TRAILING_GEN_ID.sub("", name)
 
     # 3. Strip domain names, URL brackets, and noisy site tags
     name = _DOMAIN_BRACKETS.sub("", name)
@@ -284,6 +288,7 @@ def sanitize_release_name(raw_name: str) -> str:
     name = re.sub(r"\.\.+", ".", name)
 
     # 7. Clean up any trailing/leading dots, underscores, dashes, or spaces
+    name = re.sub(r" {2,}", " ", name)
     name = name.strip("._ -")
 
     return name
