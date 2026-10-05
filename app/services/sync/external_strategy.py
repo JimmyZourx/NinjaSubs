@@ -24,7 +24,7 @@ import time
 from collections.abc import Callable
 from typing import TYPE_CHECKING
 
-from app.services.subtitle_matcher import extract_metadata
+from app.services.subtitle_matcher import calculate_compatibility, extract_metadata
 from app.services.sync.cache import ReferenceDiskCache
 from app.services.sync.decode import (
     decode_payload,
@@ -218,6 +218,28 @@ def reference_tier(target_name: str | None, release) -> int:
     return TIER_FALLBACK
 
 
+def _compatibility_score(target_name: str | None, release) -> int:
+    """Return compatibility score for tie-breaking within a tier.
+    Uses existing subtitle_matcher.calculate_compatibility. Returns raw score
+    (higher is better). Returns 0 if unavailable or not accepted.
+    """
+    if not target_name:
+        return 0
+    cand_name = _release_name(release)
+    if not cand_name:
+        return 0
+    try:
+        res = calculate_compatibility(
+            target_name,
+            cand_name,
+            is_hash_match=getattr(release, "is_hash_match", False)
+            or getattr(release, "matched_by_hash", False),
+        )
+        return int(res.score) if res.accepted else 0
+    except Exception:
+        return 0
+
+
 def _is_scene_named(cand_name: str) -> int:
     clean = cand_name.rsplit("/", 1)[-1].strip()
     return 1 if ("." in clean and " " not in clean) else 0
@@ -263,6 +285,10 @@ def _select_candidates_ranked(releases, query: ReferenceQuery) -> list:
     Eligible candidates (matching season/episode) are sorted by score
     descending; ties keep provider order. A byte-exact MovieHash match always
     wins.
+    The existing subtitle compatibility score is used as an additional
+    tie-breaker within SOURCE_EDITION and FALLBACK tiers (after tier,
+    provider health, and exact episode) to prioritize candidates that
+    better match the target video's release metadata.
     """
     pool = list(releases or [])
     if not pool:
@@ -305,34 +331,44 @@ def _select_candidates_ranked(releases, query: ReferenceQuery) -> list:
         str(lang).lower()
         for lang in (query.languages if query and query.languages else ("ara", "ar"))
     )
-    tiered.sort(
-        key=lambda item: (
-            item[0],
-            1 if _is_rel_provider_broken(item[1]) else 0,
-            0 if _is_exact_episode(item[1], query) else 1,
-            0 if str(getattr(item[1], "lang", "")).lower().startswith("en") else 1,
-            0 if str(getattr(item[1], "lang", "")).lower() in target_langs else 1,
-            1 if getattr(item[1], "hearing_impaired", False) else 0,
-            0 if _is_scene_named(_release_name(item[1])) else 1,
-            -_PROVIDER_TIE_PRIORITY.get(
-                str(getattr(item[1], "provider", "") or "").lower(), 0
-            ),
-            _release_name(item[1]),
+    def _sort_key(item):
+        tier = item[0]
+        rel = item[1]
+        # Base ordering: tier, provider health, exact episode
+        base = (
+            tier,
+            1 if _is_rel_provider_broken(rel) else 0,
+            0 if _is_exact_episode(rel, query) else 1,
         )
-    )
+        # Add compatibility score for SOURCE_EDITION (2) and FALLBACK (3) tiers
+        if tier >= 2:  # TIER_SOURCE_EDITION or TIER_FALLBACK
+            base = base + (-_compatibility_score(query.target_filename, rel),)
+        # Remaining tie-breakers: English, target language, HI, scene naming, provider priority, release name
+        base = base + (
+            0 if str(getattr(rel, "lang", "")).lower().startswith("en") else 1,
+            0 if str(getattr(rel, "lang", "")).lower() in target_langs else 1,
+            1 if getattr(rel, "hearing_impaired", False) else 0,
+            0 if _is_scene_named(_release_name(rel)) else 1,
+            -_PROVIDER_TIE_PRIORITY.get(
+                str(getattr(rel, "provider", "") or "").lower(), 0
+            ),
+            _release_name(rel),
+        )
+        return base
+    tiered.sort(key=_sort_key)
     for tier, rel in tiered[:5]:
+        compat_val = _compatibility_score(query.target_filename, rel) if tier >= 2 else "n/a"
         logger.info(
-            "[reference] candidate tier=%d (%s) lang=%s hash=%s provider=%s %r",
+            "[reference] candidate tier=%d (%s) compat=%s lang=%s hash=%s provider=%s %r",
             tier,
             tier_label(tier),
+            compat_val,
             getattr(rel, "lang", "?"),
             bool(getattr(rel, "is_hash_match", False)),
             getattr(rel, "provider", "?"),
             _release_name(rel),
         )
     return [rel for _, rel in tiered]
-
-
 def _select_reference(releases, query: ReferenceQuery):
     """Pick the single best reference by deterministic tier then tie-breakers."""
     ranked = _select_candidates_ranked(releases, query)
