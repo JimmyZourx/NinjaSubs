@@ -21,6 +21,7 @@ the contract is asserted just as hard as the delivery half.
 
 from __future__ import annotations
 
+import hashlib
 import pathlib
 
 from app.services.sync import large_offset_investigation as loi
@@ -622,3 +623,330 @@ def test_identity_signals_show_margin_but_are_not_what_refuses_the_negatives():
         "the measured margin has disappeared; re-evaluate whether the gap floor "
         f"can now be tightened (pos={pos_gap} neg={neg_gap})"
     )
+
+
+# --------------------------------------------------------------------------- #
+# New evidence cases (negative large offset, recap/inserted segment)
+# --------------------------------------------------------------------------- #
+
+
+def _measure_evidence(inv: loi.LargeOffsetInvestigation) -> dict:
+    """Extract all evidence signals from an investigation for reporting."""
+    ev = inv.evidence
+    return {
+        "decision": inv.decision.value,
+        "same_episode": inv.same_episode.value,
+        "eligible_for_alass": inv.eligible_for_alass,
+        "reference_cue_count": inv.reference_cue_count,
+        "reference_healthy": inv.reference_healthy,
+        "anchor_count": ev.anchor_count,
+        "regions_sampled": ev.regions_sampled,
+        "offset_consistency_score": ev.offset_consistency_score,
+        "gap_distribution_similarity": ev.gap_distribution_similarity,
+        "silence_landmark_agreement": ev.silence_landmark_agreement,
+        "silence_landmark_count_target": ev.silence_landmark_count_target,
+        "silence_landmark_count_reference": ev.silence_landmark_count_reference,
+        "temporal_coverage": ev.temporal_coverage,
+        "density_profile_similarity": ev.density_profile_similarity,
+        "estimated_offset_ms": ev.estimated_offset_ms,
+        "offset_dispersion_ms": ev.offset_dispersion_ms,
+        "drift_ms_per_minute": ev.drift_ms_per_minute,
+        "reason_codes": list(inv.reason_codes),
+    }
+
+
+def test_negative_large_offset_evidence():
+    """Negative large offset: target earlier than reference by ~96s.
+
+    This is the mirror of the Dexter case: target on the reference timeline
+    (first dialogue ~10.7s), reference on the target timeline (first dialogue ~107.5s).
+    The offset is negative (~-96s) but magnitude is the same.
+
+    The gate should treat magnitude symmetrically and grant a trial.
+    """
+    target = _read("negative_large_offset_target.srt")
+    reference = _read("negative_large_offset_reference.srt")
+
+    inv = investigate_large_offset(
+        target, reference, identity_supported=True, reference_trust="high"
+    )
+
+    evidence = _measure_evidence(inv)
+
+    # Report all signals for evidence tracking
+    print("\n=== NEGATIVE LARGE OFFSET EVIDENCE ===")
+    for k, v in evidence.items():
+        print(f"  {k}: {v}")
+
+    # This should be eligible for alass (same magnitude, just negative)
+    assert inv.eligible_for_alass, f"negative large offset should be eligible: {inv.decision.value} {inv.reason_codes}"
+    assert inv.same_episode.value == "same_episode"
+    assert inv.decision == loi.LargeOffsetDecision.ELIGIBLE_FOR_ALASS
+
+    # Offset should be negative with same magnitude (~96s)
+    assert evidence["estimated_offset_ms"] is not None
+    assert evidence["estimated_offset_ms"] < -90_000, f"expected ~-96s offset, got {evidence['estimated_offset_ms']}ms"
+    assert evidence["estimated_offset_ms"] > -100_000
+
+    # MAD is higher than positive case (395ms vs ~0) due to cue count mismatch
+    # (target=562 cues, reference=560 cues) but still well within the 800ms ceiling
+    assert evidence["offset_dispersion_ms"] is not None
+    assert evidence["offset_dispersion_ms"] < loi.LARGE_OFFSET_MAX_MOVEMENT_MAD_MS, (
+        f"MAD {evidence['offset_dispersion_ms']}ms should be within ceiling "
+        f"{loi.LARGE_OFFSET_MAX_MOVEMENT_MAD_MS}ms"
+    )
+
+    # Structural similarity should be high (same content)
+    assert evidence["density_profile_similarity"] is not None
+    assert evidence["density_profile_similarity"] > 0.8, f"structural similarity should be high, got {evidence['density_profile_similarity']}"
+
+    # Gap similarity should be high (same gap distribution)
+    assert evidence["gap_distribution_similarity"] is not None
+    assert evidence["gap_distribution_similarity"] > 0.95, f"gap similarity should be near 1, got {evidence['gap_distribution_similarity']}"
+
+
+def _analyzer():
+    from app.services.sync.alignment import AlignmentAnalyzer
+    return AlignmentAnalyzer()
+
+
+def test_negative_large_offset_rejected_by_verifier():
+    """Negative large offset: target earlier than reference.
+
+    The investigation correctly measures the offset and grants ELIGIBLE_FOR_ALASS,
+    but ALASS cannot shift subtitles LATER (it only shifts EARLIER toward 0).
+    The ALASS output with swapped target/reference arguments would serve the
+    reference subtitle's content, violating provenance and cache identity.
+
+    Current behavior: the verifier measures MAD >> ceiling and refuses;
+    decide_large_offset_serving returns ORIGINAL. The original candidate bytes
+    are served, preserving provenance and cache identity.
+
+    Swapping target/reference before ALASS would produce the reference's
+    content, not the candidate's -- this is intentionally NOT supported.
+    """
+    from app.services.subtitle_matcher import parse_srt_cues
+
+    target = _read("negative_large_offset_target.srt")
+    reference = _read("negative_large_offset_reference.srt")
+    output = _read("alass_out/out_negative_large_offset_target.srt")
+
+    inv = investigate_large_offset(
+        target, reference, identity_supported=True, reference_trust="high"
+    )
+    assert inv.eligible_for_alass
+    assert inv.same_episode.value == "same_episode"
+    assert inv.decision == loi.LargeOffsetDecision.ELIGIBLE_FOR_ALASS
+
+    val = validate_alass_output(target, output, reference)
+    assert val.ok
+
+    evaluation = _analyzer().analyze(
+        parse_srt_cues(target),
+        parse_srt_cues(output),
+        parse_srt_cues(reference),
+        alass_applied=True,
+        alass_successful=True,
+        max_plausible_offset_ms=loi.LARGE_OFFSET_MAX_MS,
+    )
+
+    state = decide_large_offset_serving(inv, val, evaluation)
+    assert state is loi.LargeOffsetServingState.ORIGINAL
+    assert loi.SERVE_REASON_MOVEMENT_NOT_CONSTANT in inv.serving_reason_codes
+
+    # The verifier measured MAD far above the ceiling because ALASS
+    # shifted the wrong direction (EARLIER instead of LATER)
+    assert evaluation.mad_offset_ms is not None
+    assert evaluation.mad_offset_ms > loi.LARGE_OFFSET_MAX_MOVEMENT_MAD_MS
+
+    # Provenance check: the served bytes must be the original candidate,
+    # not the reference. This is asserted by the serving state being ORIGINAL.
+    # If swapping were allowed, the reference subtitle's content would be served
+    # under the candidate's identity, breaking cache keys and metadata.
+    # That path is explicitly NOT taken here.
+    # Swapping target/reference could make the opposite alignment direction possible,
+    # but it would substitute trusted-reference content under the selected candidate
+    # identity, violating provenance; therefore target/reference swapping is
+    # intentionally unsupported.
+    assert target != reference, "target and reference must be different fixtures"
+    # The served bytes when state is ORIGINAL are the original target bytes.
+    # Explicitly confirm we would not serve the reference.
+    # The ALASS output exists but is not served; it differs from the original.
+    assert output != target, "alass output must differ from original target"
+    # Ensure the reference is not identical to the target, proving provenance is distinct.
+    assert reference != target
+
+
+def test_negative_large_offset_provenance_at_serving_boundary():
+    """Negative large offset: provenance is preserved at the serving boundary.
+
+    This test exercises the actual orchestrator code path that converts
+    `serving_state == ORIGINAL` into returned subtitle bytes. It proves that
+    the final served content equals the original selected candidate (target),
+    not the trusted reference and not the ALASS output.
+
+    Swapping target/reference could make the opposite alignment direction
+    possible, but it would substitute trusted-reference content under the
+    selected candidate identity, violating provenance; therefore target/reference
+    swapping is intentionally unsupported.
+    """
+    import asyncio
+
+    from app.services.sync.orchestrator import SyncOrchestrator
+    from app.services.sync.query import ResolvedReference
+
+    target_text = _read("negative_large_offset_target.srt")
+    reference_text = _read("negative_large_offset_reference.srt")
+    alass_output_text = _read("alass_out/out_negative_large_offset_target.srt")
+    target = target_text.encode("utf-8")
+
+    class _Reference:
+        async def resolve_with_provenance(self, query, *args, **kwargs):  # noqa: ANN001
+            return ResolvedReference(
+                reference_text,
+                kind="hash",
+                bluray_match=True,
+                candidate="x.srt",
+                reference_trust="high",
+                reference_consensus=1.0,
+                reference_independent_sources=1,
+            )
+
+    class _StubSyncService:
+        async def sync_async(self, target_text_arg, reference, **kwargs):  # noqa: ANN001
+            return alass_output_text
+
+    meta = {
+        "provider": "subdl",
+        "release_name": "Dexter.S08E04.NegativeOffsetTest.srt",
+        "language": "ar",
+        "lang": "ar",
+        "imdb_id": "tt0773262",
+        "season": 8,
+        "episode": 4,
+        "video_fingerprint": "a1b2c3d4" * 8,
+        "target_filename": "Dexter.s8e04.NegativeOffsetTest.1080p.BluRay.mkv",
+        "video_size": 5_414_925_805,
+    }
+
+    strategy = _Reference()
+    orchestrator = SyncOrchestrator(
+        external_strategy=strategy, sync_service=_StubSyncService()
+    )
+
+    served = asyncio.run(
+        orchestrator.evaluate_and_sync(
+            target, meta, "tt0773262:8:4", auto_sync=True
+        )
+    )
+
+    # The orchestrator must serve the original candidate bytes (target)
+    assert served == target, (
+        f"served bytes differ from original candidate: "
+        f"served_sha256={hashlib.sha256(served).hexdigest()[:16]} "
+        f"target_sha256={hashlib.sha256(target).hexdigest()[:16]}"
+    )
+    # And must NOT serve the reference
+    assert served != reference_text.encode("utf-8"), "served bytes must not equal reference"
+    # And must NOT serve the alass output
+    assert served != alass_output_text.encode("utf-8"), "served bytes must not equal alass output"
+
+    # Verify the investigation ran and produced ORIGINAL
+    evaluation = orchestrator._last_evaluation
+    assert evaluation is not None
+    # Find the large_offset decision log
+    # (We can't easily access the investigation from outside, but the served
+    # bytes being the target proves the serving path took the ORIGINAL branch)
+    assert orchestrator._metrics["candidates_verified"] >= 1
+
+
+def test_recap_insert_evidence():
+    """Recap/inserted-segment variant: first 2min of reference shifted by +2min.
+
+    This creates a different-cut scenario where the opening recap appears at a
+    different offset than the main body. The timeline jumps back at the boundary.
+
+    Current behavior: measure and report all signals. Do not force rejection
+    unless evidence actually supports it.
+    """
+    target = _read("dexter_s08e04_target.srt")
+    reference = _read("negative_recap_insert.srt")
+
+    inv = investigate_large_offset(
+        target, reference, identity_supported=True, reference_trust="high"
+    )
+
+    evidence = _measure_evidence(inv)
+
+    # Report all signals for evidence tracking
+    print("\n=== RECAP INSERT EVIDENCE ===")
+    for k, v in evidence.items():
+        print(f"  {k}: {v}")
+
+    # Record current behavior - the investigation may or may not find same_episode
+    # depending on how the identity signals score
+    print(f"  -> same_episode: {inv.same_episode.value}")
+    print(f"  -> decision: {inv.decision.value}")
+    print(f"  -> eligible_for_alass: {inv.eligible_for_alass}")
+
+    # The recap creates a structural discontinuity at ~2min boundary
+    # Gap similarity should be lower than positive case
+    if evidence["gap_distribution_similarity"] is not None:
+        print(f"  -> gap similarity: {evidence['gap_distribution_similarity']}")
+
+    # Landmark agreement should be affected by the jump
+    if evidence["silence_landmark_agreement"] is not None:
+        print(f"  -> landmark agreement: {evidence['silence_landmark_agreement']}")
+
+    # Temporal coverage should be reduced
+    if evidence["temporal_coverage"] is not None:
+        print(f"  -> temporal coverage: {evidence['temporal_coverage']}")
+
+    # This test documents current behavior; it does not assert a specific outcome
+    # because the design explicitly accepts different_cut as a known false accept
+    # when MAD=0 and structural similarity passes the floor.
+    # If this case behaves like different_cut, that is the current measured behavior.
+
+
+def test_recap_insert_behaves_like_different_cut():
+    """Recap/insert behaves like negative_different_cut: currently a known false accept.
+
+    The investigation reaches ELIGIBLE_FOR_ALASS, ALASS runs, and the analyzer
+    measures the correction as constant (MAD=0.0) but classifies it as PIECEWISE
+    due to change points from the recap discontinuity. The existing design
+    intentionally serves this case (same as different_cut) rather than guessing
+    at the structural signal. The corrected subtitle IS delivered.
+
+    This test documents current behavior. If the design changes to fail closed
+    on PIECEWISE, this test must be updated accordingly.
+    """
+    from app.services.subtitle_matcher import parse_srt_cues
+
+    target_text = _read("dexter_s08e04_target.srt")
+    reference_text = _read("negative_recap_insert.srt")
+    alass_output_text = _read("alass_out/out_negative_recap_insert.srt")
+
+    inv = investigate_large_offset(
+        target_text, reference_text, identity_supported=True, reference_trust="high"
+    )
+    assert inv.eligible_for_alass
+    assert inv.decision == loi.LargeOffsetDecision.ELIGIBLE_FOR_ALASS
+
+    val = validate_alass_output(target_text, alass_output_text, reference_text)
+    assert val.ok
+
+    evaluation = _analyzer().analyze(
+        parse_srt_cues(target_text),
+        parse_srt_cues(alass_output_text),
+        parse_srt_cues(reference_text),
+        alass_applied=True,
+        alass_successful=True,
+        max_plausible_offset_ms=loi.LARGE_OFFSET_MAX_MS,
+    )
+    assert evaluation.cut_verdict == "piecewise"
+    assert evaluation.mad_offset_ms == 0.0
+
+    state = decide_large_offset_serving(inv, val, evaluation)
+    # Current design: PIECEWISE with constant shift is SERVED (known false accept)
+    assert state is loi.LargeOffsetServingState.ALASS_CORRECTED_LARGE_OFFSET
+    assert loi.SERVE_REASON_CORRECTED in inv.serving_reason_codes

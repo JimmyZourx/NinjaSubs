@@ -285,9 +285,10 @@ def test_preflight_tool_exists_and_is_importable():
     path = _require(REPO / "tools" / "check_witness_mount.py")
     assert path.is_file()
     import subprocess
+    import sys
 
     proc = subprocess.run(
-        ["python", str(path), "--help"], capture_output=True, text=True, check=False
+        [sys.executable, str(path), "--help"], capture_output=True, text=True, check=False
     )
     assert proc.returncode == 0
     assert "WITNESS_FIXTURE_DIR" in proc.stdout

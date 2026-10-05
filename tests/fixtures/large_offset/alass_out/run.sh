@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 cd /tmp/lo_mad
-for ref in dexter_s08e04_reference valid_constant_offset negative_wrong_episode negative_different_cut negative_drifting; do
+for ref in dexter_s08e04_reference valid_constant_offset negative_wrong_episode negative_different_cut negative_drifting negative_large_offset_reference negative_large_offset_target negative_recap_insert; do
   out="out_${ref}.srt"
   rm -f "$out"
   set +e
